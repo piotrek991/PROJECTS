@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add coffeshop</title>
+</head>
+<body>
+ <h1>Fill the form</h1>
+  <form action = "{{ url_for('add') }}", method = "POST">
+    <label>Name of cafe</label>
+    <input name = "name"></br></br>
+     <label>Map url for Caffe</label>
+    <input name = "map_url"></br></br>
+     <label>Img url for caffe</label>
+    <input name = "img_url"></br></br>
+     <label>Location of caffe</label>
+    <input name = "loc"></br></br>
+     <label> Does caffe has sockets</label>
+    <select name = "sockets">
+        <option>True</option>
+        <option>False</option>
+    </select></br></br>
+     <label> Does caffe has toilets</label>
+    <select name = "toilet">
+        <option>True</option>
+        <option>False</option>
+    </select></br></br>
+     <label> Does caffe has wifi</label>
+    <select name = "wifi">
+        <option>True</option>
+        <option>False</option>
+    </select></br></br>
+     <label>Do you can take calls in caffe</label>
+    <select name = "calls">
+        <option>True</option>
+        <option>False</option>
+    </select></br></br>
+     <label>Number of seats</label>
+    <input name = "seats"></br></br>
+     <label>Coffe price</label>
+    <input name = "coffee_price"></br></br>
+      <input type="submit" value="Add">
+  </form>
+</body>
+</html>
