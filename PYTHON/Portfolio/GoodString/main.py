@@ -15,7 +15,7 @@ while not string_good:
         string_list = [*s]
         string_list[string_list.index(letters_max[0])] = ""
         s = "".join(string_list)
-        print(s)
+
         action = True
         count += 1
     if not action:
