@@ -17,5 +17,8 @@ class Solution(object):
         return final_result
 
 check = Solution()
-nums = [0,4,0]
+nums = [3,4,2]
+#prodcts=[1,3,12]
+#right = 2
+
 print(check.productExceptSelf(nums))
