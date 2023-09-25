@@ -35,11 +35,22 @@ class Solution(object):
                 current_m = max(current_m,space_m)
         return current_m
 
+    def getSum(self, a: int, b: int) -> int:
+
+        # 32 bit mask in hexadecimal
+        mask = 0xffffffff
+
+        # works both as while loop and single value check
+        while (b & mask) > 0:
+            carry = (a & b) << 1
+
+            a = (a ^ b)
+            b = carry
+            print(bin(a,b)
+
+        # handles overflow
+        return (a & mask) if b > 0 else a
 
 check = Solution()
-data = [i for i in range(0,10000)]
-data_2 = [i for i in range(10000,0,-1)]
-data_f = data + data_2
-data_c = [1,8,6,2,5,4,8,3,7]
 #print(data_f)
-print(check.maxArea(data_f))
+print(check.getSum(2,3))
