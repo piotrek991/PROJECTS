@@ -36,14 +36,20 @@ class Solution(object):
         ans = coinChangeInner(amount, {})
         return -1 if ans == math.inf else ans
 
+    def coinChange_opt2(self, coins, amount) -> int:
+        dp = [math.inf] * (amount + 1)
+        dp[0] = 0
 
+        for coin in coins:
 
+            for i in range(coin, amount + 1):
+                if i - coin >= 0:
+                    dp[i] = min(dp[i], dp[i - coin] + 1)
+            print(dp)
+
+        return -1 if dp[-1] == math.inf else dp[-1]
 
 check = Solution()
 data  = [1,2,5]
 num = 11
-print(check.coinChange_opt(data,num))
-
-
-
-
+print(check.coinChange_opt2(data,num))
