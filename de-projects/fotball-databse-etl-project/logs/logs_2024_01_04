@@ -1,0 +1,12 @@
+time ? 13:27:58|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 0
+time ? 13:34:37|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 15
+time ? 13:39:06|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 25
+time ? 13:44:28|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 35
+time ? 13:50:27|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 56
+time ? 13:53:53|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 77
+time ? 13:54:11|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 77
+time ? 13:54:49|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 77
+time ? 13:56:33|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 86
+time ? 13:56:58|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 86
+time ? 13:57:19|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 86
+time ? 13:57:51|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 91

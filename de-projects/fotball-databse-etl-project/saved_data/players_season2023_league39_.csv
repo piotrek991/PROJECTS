@@ -1,0 +1,956 @@
+player_id,full_name,firstname,lastname,age,team_id,league_id
+54,Diego Costa,Diego,da Silva Costa,35,39,39
+178,Lucas Moura,Lucas,Rodrigues Moura da Silva,31,47,39
+297,A. Oxlade-Chamberlain,Alexander Mark David,Oxlade-Chamberlain,30,40,39
+888,P. Jones,Phil Anthony,Jones,31,33,39
+900,J. Lingard,Jesse Ellis,Lingard,31,65,39
+2473,M. Lanzini,Manuel,Lanzini,30,48,39
+2677,João Moutinho,João Filipe,Iria Santos Moutinho,37,39,39
+18753,Adama Traoré,Adama,Traoré Diarra,28,"39, 36",39
+18762,T. Davies,Thomas,Davies,26,"45, 62",39
+18849,J. McArthur,James,McFarlane McArthur,36,52,39
+18852,L. Milivojević,Luka,Milivojević,32,52,39
+18854,A. Townsend,Andros Darryl,Townsend,33,"45, 1359",39
+18858,A. Begović,Asmir,Begović,36,45,39
+18878,J. Stanislas,Felix Junior,Stanislas,34,35,39
+18891,C. Clark,Ciaran,Clark,34,62,39
+19174,J. Steer,Jed John,Steer,31,66,39
+19299,J. Colback,Jack Raymond,Colback,34,65,39
+19842,L. Taylor,Lyle James Alfred,Taylor,33,65,39
+130419,M. Longstaff,Matthew Ben,Longstaff,23,34,39
+181822,E. Wady,Ethan James,Wady,21,49,39
+84,Wesley Moraes,Wesley,Moraes Ferreira da Silva,27,66,39
+285,K. Hoever,Ki-Jana Delano,Hoever,21,39,39
+378,Alex Telles,Alex,Nicolao Telles,31,33,39
+882,David de Gea,David,de Gea Quintana,33,33,39
+1914,M. Sanson,Morgan Stéphane,Sanson,29,66,39
+18747,R. Giles,Ryan John,Giles,24,"39, 1359",39
+27778,B. Bolla,Bendegúz Bence,Bolla,24,39,39
+83029,J. Bowler,Joshua Luke,Bowler,24,65,39
+138934,A. Pressley,Aaron Alex,Pressley,22,55,39
+140947,I. Kaboré,Issa,Kaboré,23,"50, 1359",39
+153434,W. Fish,William Thomas,Fish,20,33,39
+162189,M. Bidstrup,Mads,Bidstrup,22,55,39
+197448,Yan Couto,Yan,Bueno Couto,21,50,39
+278075,C. Cîrjan,Cătălin Ionuț,Cîrjan,21,42,39
+278088,C. Rushworth,Carl Andrew,Rushworth,22,51,39
+278128,J. Wilson-Esbrand,Joshua Darius,Kamani Wilson-Esbrand,21,50,39
+284062,K. Edwards,Khayon,Edwards,20,42,39
+284446,F. Potts,Freddie,Potts,20,48,39
+284466,C. Patino,Charlie Michael,Patino,20,42,39
+291022,J. Keeley,Joshua,Keeley,20,47,39
+2276,J. Cumming,James Andrew,Cumming,24,49,39
+18751,Ivan Cavaleiro,Ivan Ricardo,Neves Abreu Cavaleiro,30,36,39
+64167,G. Słonina,Gabriel Paweł,Słonina,19,49,39
+138777,F. Anjorin,Faustino Adebola Rasheed,Anjorin,22,49,39
+152980,R. Savage,Remi Eugene,Savage,22,34,39
+278086,I. Odutayo,Idris Adewale,Olarewaju Odutayo,21,36,39
+284248,M. Frauendorf,Melkamu Benjamin Daniel,Frauendorf,19,40,39
+284291,J. Turner-Cooke,Jay,Turner-Cooke,20,34,39
+284305,J. Miley,Jamie,Miley,19,34,39
+284471,S. Parkes,Stefan Charles Earl,Parkes,19,36,39
+284536,J. Knightbridge,Jacob Christopher,Knightbridge,19,48,39
+284559,A. Borto,Alexander Paul,Borto,20,36,39
+288055,Ângelo,Ângelo Gabriel,Borges Damaceno,19,49,39
+291363,G. Earthy,George,Earthy,19,48,39
+298129,M. Boateng,Malachi,Boateng,21,52,39
+327728,D. McCoy-Splatt,Delano,McCoy-Splatt,19,36,39
+359386,M. Godo,Becket Fabrice-Martial,Godo,20,36,39
+363974,Z. Marsh,Zachariah Daniel Robert,Marsh,18,52,39
+384981,S. Amissah,Samuel,Amissah,16,36,39
+404021,F. Marjoram,Finley,Marjoram,17,52,39
+2952,M. Dräger,Mohamed,Dräger,27,65,39
+25416,W. Weghorst,Wout,Weghorst,31,44,39
+144725,K. Simon-Swyer,Kamarai,Simon-Swyer,21,48,39
+162075,P. Maghoma,Edmond-Paris,Maghoma,22,55,39
+162590,T. Morton,Tyler Scott,Morton,22,"40, 7196",39
+274550,H. Vale,Harvey James,Vale,20,49,39
+278079,A. Ramsey,Aaron James,Ramsey,21,"66, 44",39
+282130,L. Pye,Logan,Pye,20,33,39
+282136,N. Emeran,Noam,Fritz Emeran,21,33,39
+284241,Mateo Mejía,José Mateo,Mejía Piedrahita,20,33,39
+284382,D. Mee,Dermot William,Mee,21,33,39
+284400,T. Collyer,Tobias Christopher,Collyer,19,33,39
+284540,Mauro Bandeira,Mauro,Gomes Bandeira,19,42,39
+288107,C. McNeill,Charlie Martin,McNeill,20,33,39
+303016,M. Oyedele,Maximillian,Oyedele,19,33,39
+329358,A. Bott,Aaron Charlie,Bott,19,65,39
+329362,J. Powell,Joshua Alan,Powell,18,65,39
+330636,S. Aljofree,Sonny,Aljofree,19,33,39
+349987,G. Kuol,Garang,Mawien Kuol,19,34,39
+378981,Elyh Harrison,Elyh Samuel,Harrison,17,33,39
+279,L. Mbe Soh,Loïc Junior,Mbe Soh,22,65,39
+907,R. Lukaku,Romelu Menama,Lukaku Bolingoli,30,49,39
+18972,A. Knockaert,Anthony Patrick,Knockaert,32,36,39
+19866,J. Lowe,Jamal Akua,Lowe,29,35,39
+69257,J. Furlong,Walter James,Byrne Furlong,21,51,39
+134428,B. Chrisene,Benjamin Joshua,Chrisene,19,66,39
+138842,M. Azeez,Miguel,Azeez,21,42,39
+144732,T. Doyle,Thomas Glyn,Doyle,23,"50, 39",39
+144733,B. Knight,Benjamin Leo,Knight,21,50,39
+153261,N. Young-Coombes,Nathan,Young-Coombes,20,55,39
+284186,S. McAllister,Sean Paul,McAllister,21,45,39
+284212,D. Sassi,Daniel,Sassi,20,44,39
+284523,S. Swinkels,Sil,Laurentius Swinkels,19,66,39
+288279,Luizão,Luiz Gustavo,Oliveira da Silva,21,48,39
+301295,K. Rodney,Kaden Kai,Rodney,19,52,39
+331009,C. Sayers,Charlie,Sayers,19,47,39
+382167,J. Wadham,Jack,Wadham,20,35,39
+382170,M. Kinsey-Wellings,Maxwell,Kinsey-Wellings,18,35,39
+382930,F. Okoh,Ferdinand,Okoh,19,35,39
+390769,Michael Dacosta,Michael,Dacosta Gonzales,18,35,39
+1853,Bruno Jordão,Bruno André,Cavaco Jordão,25,39,39
+18899,I. Hayden,Isaac Scott,Hayden,28,34,39
+18996,H. Arter,Harry Nicholas,Arter,34,65,39
+19592,L. Freeman,Luke Anthony,Freeman,31,1359,39
+106086,K. Balmer,Kofi,Balmer,24,52,39
+138821,M. Lewis,Marcel David,Lewis,23,44,39
+138843,J. Hillson,James Andrew,Hillson,22,42,39
+162687,V. Jaroš,Vítězslav,Jaroš,23,40,39
+192351,T. Fornah,Tyrese Momodu,Fornah,24,65,39
+204031,C. Brennan,Ciaran,Brennan,24,62,39
+277716,A. Hackford,Antwoine,Hackford,19,62,39
+284187,S. Mills,Stanley,Mills,21,45,39
+284361,R. Vítek,Radek,Vítek,21,33,39
+284457,L. Bogarde,Lamare Trenton,Chansey Bogarde,20,66,39
+308843,T. Patterson,Travis,Patterson,19,66,39
+312260,K. Young,Kadan,Young,18,66,39
+325967,O. Hammond,Oliver Jack,Hammond,22,65,39
+335813,A. Francis-Clarke,Aidan,Francis-Clarke,18,1359,39
+347066,E. Pollock,Euan,Pollock,21,35,39
+365988,A. Harris,Aidan,Harris,17,34,39
+207,I. Perišić,Ivan,Perišić,35,47,39
+17772,C. Goode,Charles James,Goode,29,55,39
+17879,Carlos Gomes,Carlos,Mendes Gomes,26,1359,39
+19115,B. Peacock-Farrell,Bailey,Peacock-Farrell,28,44,39
+19345,M. Bech,Mads,Bech Sørensen,25,55,39
+45815,S. Tedić,Slobodan,Tedić,24,50,39
+50892,D. Pereira,Dion Enrico,Pereira Greives,25,1359,39
+138793,H. White,Harvey David,White,23,47,39
+138937,F. Marschall,Filip,Marschall,21,66,39
+153066,Fábio Carvalho,Fábio Leandro,Freitas Gouveia de Carvalho,22,40,39
+162493,M. Craig,Matthew George,Craig,21,47,39
+162904,R. Williams,Rhys,Williams,23,40,39
+180308,M. Peart-Harris,Myles,Spencer Peart-Harris,22,55,39
+231062,A. Okonkwo,Arthur Chukwuezugo,Okonkwo,23,42,39
+282254,O. Offiah,Odeluga Joshua,Offiah,22,51,39
+284323,C. Savage,Charlie William Henry,Savage,21,33,39
+342191,A. Mazilu,Adrian,Mazilu,19,51,39
+392636,S. Sachdev,Sai Sachin Rony,Sachdev,19,62,39
+400340,L. Marsh,Louie,Marsh,20,62,39
+403065,J. Luker,Jayden,Luker,19,1359,39
+18820,C. Coventry,Conor James,Coventry,24,48,39
+19565,J. Weir,Jensen Guy,Weir,22,51,39
+20386,M. Macey,Matthew Ryan,Macey,30,1359,39
+68127,K. Watts,Kelland John William James,Watts,25,34,39
+87858,J. McAtee,John George,McAtee,25,1359,39
+152968,A. Muskwe,Admiral Dalindlela,Muskwe,26,1359,39
+154806,L. Watson,Louie Shaun,Watson,23,1359,39
+167656,M. Leonard,Marc Henry,Leonard,23,51,39
+169291,V. Sinisalo,Viljami Kari Veikko,Sinisalo,23,66,39
+179651,J. Taylor,Joseph William John,Taylor,22,1359,39
+191337,T. Crama,Tristan,Crama,23,55,39
+266203,J. Gordon,John-Kymani Linton,Michael Gordon,21,52,39
+278041,M. Cox,Matthew Aidan,Cox,21,55,39
+280672,E. Turns,Edward James,Turns,22,51,39
+282133,J. Hugill,Joseph Brennen,Hugill,21,33,39
+284366,L. Chambers,Luke,Chambers,20,40,39
+284475,L. Harris,Luke Bernard,Harris,19,36,39
+304319,A. Ola-Adebomi,Ademola,Oladipupo Ola-Adebomi,21,52,39
+308867,S. Grehan,Seán,Grehan,20,52,39
+342660,O. Arblaster,Oliver Luke,Arblaster,20,62,39
+283,T. Alexander-Arnold,Trent John,Alexander-Arnold,26,40,39
+855,João Cancelo,João Pedro,Cavaco Cancelo,30,50,39
+1096,D. Szoboszlai,Dominik,Szoboszlai,24,40,39
+2823,S. Lukić,Saša,Lukić,28,36,39
+2932,J. Pickford,Jordan Lee,Pickford,30,45,39
+19757,G. Rea,Glen Charles,Rea,30,1359,39
+25916,M. Niakhaté,Moussa,Niakhaté,28,65,39
+30407,C. Nørgaard,Christian,Thers Nørgaard,30,55,39
+44811,S. McKenna,Scott,Fraser McKenna,28,65,39
+135525,C. Ramsay,Calvin William,Ramsay,21,40,39
+147835,A. Omobamidele,Andrew Abiola,Omobamidele,22,65,39
+180866,Marcelo Pitaluga,Marcelo,de Araújo Pitaluga Filho,22,40,39
+280688,T. Corbeanu,Theodor Alexander,Corbeanu,22,39,39
+284239,O. Hesketh,Owen James Michael,Hesketh,22,39,39
+284439,L. Sousa,Lino Gonçalo,da Cruz Sousa,19,42,39
+284474,M. Olakigbe,Michael Oluwakorede,Olakigbe,20,55,39
+284554,O. Goodman,Owen Olamidayo,Goodman,21,52,39
+303010,D. Gore,Daniel,Gore,20,33,39
+311520,Marquinhos,Marcus Vinicius,Oliveira Alencar,21,42,39
+379626,C. Pettit,Casey,Pettit,22,1359,39
+631,P. Foden,Philip Walter,Foden,24,50,39
+1485,Bruno Fernandes,Bruno Miguel,Borges Fernandes,30,33,39
+1590,José Sá,José Pedro,Malheiro de Sá,31,39,39
+2784,R. Rúnarsson,Rúnar Alex,Rúnarsson,29,42,39
+2869,E. Álvarez,Edson Omar,Álvarez Velázquez,27,48,39
+18860,M. Travers,Mark,Travers,25,35,39
+18968,Y. Bissouma,Yves,Bissouma,28,47,39
+18970,P. Groß,Pascal,Groß,33,51,39
+19170,M. Rogers,Morgan Elliot,Rogers,22,66,39
+19366,O. Watkins,Oliver George Arthur,Watkins,29,66,39
+61431,J. Kiwior,Jakub Piotr,Kiwior,24,42,39
+116117,M. Caicedo,Moisés Isaac,Caicedo Corozo,23,"49, 51",39
+136723,N. Madueke,Chukwunonso Tristan,Madueke,22,49,39
+138806,B. Williams,Brandon Paul Brian,Williams,24,33,39
+144723,K. Hegyi,Krisztián,Hegyi,22,48,39
+154807,D. Chesters,Daniel Peter James,Chesters,22,48,39
+288699,M. Perrone,Máximo,Perrone,21,50,39
+296121,J. Hinchy,Jack Samuel Lawrence,Hinchy,21,51,39
+338856,N. Lemina,Pascal Noha,Lemina,19,39,39
+341641,Rodrigo Ribeiro,Rodrigo,Duarte Ribeiro,19,65,39
+303,R. Brewster,Rhian Joel,Brewster,24,62,39
+2028,I. Coulibaly,Ismaila Cheick,Coulibaly,24,62,39
+2273,Kepa,Kepa,Arrizabalaga Revuelta,30,49,39
+10169,Vinicius Souza,Vinicius,de Souza Costa,25,62,39
+19102,J. Fleck,John Alexander,Fleck,33,62,39
+19105,O. Norwood,Oliver James,Norwood,33,62,39
+19302,B. Osborn,Benjamin Jarrod,Osborn,30,62,39
+19337,O. McBurnie,Oliver Robert,McBurnie,28,62,39
+19485,B. Brereton,Benjamin Anthony,Brereton Díaz,25,62,39
+36929,G. Hamer,Gustavo Martin Emilio,Hamer,27,62,39
+137302,C. Archer,Cameron Desmond,Archer,23,"62, 66",39
+158697,J. McAtee,James John,McAtee,22,"62, 50",39
+199310,A. Ben Slimane,Anis,Ben Slimane,23,62,39
+296458,D. Jebbison,Daniel David,Jebbison,21,62,39
+312256,S. Peck,Sydie,Peck,20,62,39
+315237,W. Osula,William Idamudia,Daugaard Osula,21,62,39
+373615,R. Oné,Ryan,Oné,18,62,39
+379150,A. Brooks,Andre,Chance Brooks,21,62,39
+386307,E. Easton,Evan,Easton,19,62,39
+395209,J. Buyabu,Jili,Buyabu,21,62,39
+22,J. Bruun Larsen,Jacob,Bruun Larsen,26,44,39
+1736,W. Foderingham,Wesley Andrew,Foderingham,33,62,39
+1949,A. Ahmedhodžić,Anel,Ahmedhodžić,25,62,39
+14382,I. Grbić,Ivo,Grbić,28,62,39
+17407,F. Seriki,Oluwafemi Ibrahim,Seriki,22,62,39
+18331,R. Norrington-Davies,Rhys,Llewelyn Norrington-Davies,25,62,39
+19090,G. Baldock,George Henry Ivor,Baldock,31,62,39
+19091,C. Basham,Christopher Paul,Basham,36,62,39
+19093,J. Egan,John,Egan,32,62,39
+19201,J. Bogle,Jayden Ian,Bogle,24,62,39
+19294,J. Robinson,Jack,Robinson,31,62,39
+19779,A. Davies,Adam Rhys,Davies,32,62,39
+44809,M. Lowe,Max Josef,Lowe,27,62,39
+50737,A. Trusty,Auston Levi-Jesaiah,Trusty,26,"62, 42",39
+138828,Y. Larouci,Yasser,Larouci,23,62,39
+291476,D. Fofana,David Datro,Fofana,22,44,39
+328126,J. Amissah,Jordan,Yamoah Amissah,23,62,39
+336564,W. Odobert,Wilson Serge Eric,Odobert,20,44,39
+359603,L. Koleosho,Luca Warrick Daeovie,Koleosho,20,44,39
+361388,E. Agyei,Enock,Atta Agyei,19,44,39
+110,H. Massengo,Han-Noah,Massengo,23,44,39
+1411,H. Delcroix,Hannes,Delcroix,25,44,39
+1934,S. Berge,Sander Gard,Bolin Berge,26,"44, 62",39
+2790,J. Guðmunds­son,Jóhann Berg,Guðmunds­son,34,44,39
+8589,B. Manuel,Benson,Manuel Hedilazio,27,44,39
+8661,Vitinho,Victor Alexander,da Silva,25,44,39
+18922,J. Cork,Jack Frank,Porteous Cork,35,44,39
+18948,N. Redmond,Nathan Daniel Jerome,Redmond,30,44,39
+19169,J. Rodríguez,Jay Enrique,Rodríguez,35,44,39
+19268,J. Brownhill,Joshua,Brownhill,29,44,39
+19331,C. Roberts,Connor Richard John,Roberts,29,44,39
+19827,J. Cullen,Joshua Jon,Cullen,28,44,39
+25628,J. Beyer,Louis Jordan,Beyer,24,44,39
+37381,M. Trésor,Mike,Trésor Ndayishimiye,25,44,39
+47903,H. Ekdal,Hjalmar,Ekdal,26,44,39
+98936,L. Foster,Lyle Brent,Foster,24,44,39
+123469,Z. Amdouni,Mohamed Zeki,Amdouni,24,44,39
+129169,A. Zaroury,Anass,Zaroury,24,44,39
+181827,C. Egan-Riley,Conrad Jaden,Egan-Riley,21,44,39
+323449,A. Al Dakhil,Ameen,Al Dakhil,22,44,39
+83,A. Danjuma,Arnaut,Danjuma Adam Groeneveld,27,45,39
+172,D. Alli,Bamidele Jermaine,Alli,28,45,39
+616,A. Murić,Arijanet,Murić,26,44,39
+895,J. Garner,James David,Garner,23,45,39
+2549,L. Vigouroux,Lawrence Ian,Vigouroux,31,44,39
+2990,I. Gueye,Idrissa Gana,Gueye,35,45,39
+17597,D. O&apos;Shea,Dara Joseph,O'Shea,25,44,39
+18765,André Gomes,André Filipe,Tavares Gomes,31,45,39
+18766,D. Calvert-Lewin,Dominic Nathaniel,Calvert-Lewin,27,45,39
+18805,A. Doucouré,Abdoulaye,Doucouré,31,45,39
+18918,C. Taylor,Charles James,Taylor,31,44,39
+18929,D. McNeil,Dwight James Matthew,McNeil,25,45,39
+125743,Beto,Norberto Bercique,Gomes Betuncal,26,45,39
+153425,L. Dobbin,Lewis Norman,Dobbin,21,45,39
+162489,J. Trafford,James Harrington,Trafford,22,44,39
+162528,D. Franchi,Denis,Franchi,22,44,39
+167657,T. Onyango,Tyler Jaden,Napier Edward Onyango,21,45,39
+297641,J. Metcalfe,Jenson,Metcalfe,20,45,39
+298099,M. Hunt,Mackenzie James,Hunt,23,45,39
+330412,Youssef Chermiti,Youssef,Ramalho Chermiti,20,45,39
+894,A. Young,Ashley Simon,Young,39,45,39
+2165,V. Mykolenko,Vitalii,Mykolenko,25,45,39
+2934,M. Keane,Michael Vincent,Keane,31,45,39
+2936,J. Tarkowski,James Alan,Tarkowski,32,45,39
+17641,E. Adebayo,Elijah Anuoluwapo Oluwaferanmi,Ayomikulehin Adebayo,26,1359,39
+17661,J. Branthwaite,Jarrad Paul,Branthwaite,22,45,39
+18755,João Virgínia,João Manuel,Neves Virgínia,25,45,39
+18758,S. Coleman,Séamus,Coleman,36,45,39
+19073,B. Godfrey,Benjamin Matthew,Godfrey,26,45,39
+19083,C. Morris,Carlton John,Morris,29,1359,39
+19128,J. Harrison,Jack David,Harrison,28,45,39
+19365,C. Ogbene,Chiedozie Somkelechukwu,Ogbene,27,1359,39
+19802,J. Brown,Jacob Samuel,Brown,26,1359,39
+19808,C. Woodrow,Cauley,Woodrow,30,1359,39
+20069,B. Crellin,William Francis,Crellin,24,45,39
+20224,A. Lonergan,Andrew Michael,Lonergan,41,45,39
+138417,N. Patterson,Nathan Kenneth,Patterson,23,45,39
+146325,A. Pepple,Aribusitamunoipirim Emmanuel,Pepple,22,1359,39
+162714,A. Onana,Amadou Ba Zeund Georges,Mvom Onana,23,45,39
+284385,E. Campbell,Elijah,Xavier Campbell,20,45,39
+76,M. Nakamba,Marvelous,Nakamba,30,"1359, 66",39
+906,T. Chong,Tahith Jose Girigorio,Djorkaef Chong,25,1359,39
+1427,A. Sambi Lokonga,Albert-Mboyo,Sambi Lokonga,25,"1359, 42",39
+2287,R. Barkley,Ross,Barkley,31,1359,39
+15632,M. Andersen,Mads Juel,Andersen,27,1359,39
+19408,R. Burke,Reece Frederick,James Burke,28,1359,39
+19466,A. Bell,Amari'i Kyren,Bell,30,1359,39
+19756,D. Potts,Daniel,Potts,30,1359,39
+19759,L. Berry,Luke David,Berry,32,1359,39
+19767,P. Mpanzu,Pelly Ruddock,Mpanzu,30,1359,39
+19829,A. Doughty,Alfie Henry,Harman Doughty,25,1359,39
+20189,J. Clark,Jordan Charles,Clark,31,1359,39
+20203,T. Lockyer,Thomas Alun,Lockyer,30,1359,39
+20206,G. Osho,Gabriel Jeremiah,Adedayo Osho,26,1359,39
+33095,D. Hashioka,Daiki,Hashioka,25,1359,39
+138901,E. Thorpe,Elliot,Morgan Thorpe,24,1359,39
+153429,T. Mengi,Teden Mambuene,Mengi,22,"1359, 33",39
+379627,Z. Nelson,Zack,Nelson,19,1359,39
+406507,J. Johnson,Joseph Nathan,Johnson,18,1359,39
+441198,J. Burger,Jake John Philip,Burger,20,1359,39
+305,D. Origi,Divock,Okoth Origi,29,65,39
+2298,C. Hudson-Odoi,Callum James,Hudson-Odoi,24,"65, 49",39
+2991,C. Kouyaté,Cheikhou,Kouyaté,35,65,39
+6056,N. Domínguez,Nicolás Martín,Domínguez,26,65,39
+8471,T. Kaminski,Thomas,Kaminski,32,1359,39
+8598,T. Awoniyi,Taiwo Micheal,Awoniyi,27,65,39
+14206,B. Aguilera,Brandon,Aguilera Zamora,21,65,39
+18746,M. Gibbs-White,Morgan Anthony,Gibbs-White,24,65,39
+18931,C. Wood,Christopher Grant,Wood,33,65,39
+19061,T. Krul,Timothy Michael,Krul,36,1359,39
+19305,R. Yates,Ryan James,Yates,27,65,39
+19750,J. Shea,James William,Shea,33,1359,39
+22149,I. Sangaré,Ibrahim,Sangaré,27,65,39
+24882,O. Mangala,Orel Johnson,Mangala,26,65,39
+129712,A. Mighten,Alexander Cole,Mighten,22,65,39
+153430,A. Elanga,Anthony David,Junior Elanga,22,"65, 33",39
+275170,Danilo,Danilo,dos Santos de Oliveira,23,65,39
+327602,D. Osong,Detlef Esapa,Osong,20,65,39
+327604,J. Gardner,Joseph Charles,Gardner,19,65,39
+327609,J. McDonnell,Jamie Carson,McDonnell,20,65,39
+62,E. Horvath,Ethan Shea,Horvath,29,65,39
+163,S. Aurier,Sèrge Alain Stéphane,Aurier,32,65,39
+371,Felipe,Felipe Augusto,de Almeida Monteiro,35,65,39
+557,O. Vlachodimos,Odysseas,Vlachodimos,30,65,39
+1746,J. Worrall,Joseph Adrian,Worrall,27,65,39
+2468,G. Montiel,Gonzalo Ariel,Montiel,27,65,39
+2699,S. Ghoddos,Sayed Saman,Ghoddos,31,55,39
+2771,O. Aina,Temitayo Olufisayo Olaoluwa,Aina,28,65,39
+17365,H. Toffolo,Harry Stefano,Toffolo,29,65,39
+18739,W. Boly,Willy-Arnaud,Zobo Boly,33,65,39
+18836,W. Hennessey,Wayne Robert,Hennessey,37,65,39
+19364,N. Maupay,Neal,Maupay,28,"55, 45",39
+19974,I. Toney,Ivan Benjamin Elijah,Toney,28,55,39
+41577,Nuno Tavares,Nuno Albertino,Varela Tavares,24,"65, 42",39
+50816,R. Laryea,Richmond Mamah,Laryea,29,65,39
+50999,M. Turner,Matthew Charles,Turner,30,"65, 42",39
+106725,K. Lewis-Potter,Keane William,Lewis-Potter,23,55,39
+138780,N. Williams,Neco Shay,Williams,23,65,39
+192349,G. Shelvey,George William,Shelvey,23,65,39
+363695,Murillo,Murillo,Santiago Costa dos Santos,22,65,39
+1119,K. Ajer,Kristoffer,Vassbakk Köpp Ajer,26,55,39
+2731,M. Jørgensen,Mathias,Jattah-Njie Jørgensen,34,55,39
+15745,M. Roerslev,Mads,Roerslev Rasmussen,25,55,39
+15799,F. Onyeka,Ogochukwu Frank,Onyeka,26,55,39
+15908,M. Damsgaard,Mikkel,Krogh Damsgaard,24,55,39
+18917,B. Mee,Benjamin Thomas,Mee,35,55,39
+19362,J. Dasilva,Pelenda Joshua Tunga,Dasilva,26,55,39
+19495,N. Collins,Nathan Michael,Collins,23,55,39
+20110,S. Baptiste,Shandon Harkeem,Baptiste,26,55,39
+20589,B. Mbeumo,Bryan Tetsadong Marceau,Mbeumo,25,55,39
+20649,Y. Wissa,Yoane,Wissa Bileko,28,55,39
+25073,V. Janelt,Vitaly,Janelt,26,55,39
+47438,M. Jensen,Mathias,Jensen,28,55,39
+153422,E. Brierley,Ethan Craig,Brierley,21,55,39
+178077,K. Schade,Kevin,Schade,23,55,39
+263538,Y. Yarmoliuk,Yehor,Yarmoliuk,20,55,39
+281975,V. Adedokun,Valintino,Adedokun,21,55,39
+356237,Kim Ji-Soo,Ji-Soo,Kim,20,55,39
+408221,B. Fredrick,Benjamin Chiemela,Fredrick,19,55,39
+430734,Y. Konak,Yunus Emre,Konak,18,55,39
+739,Sergio Reguilón,Sergio,Reguilón Rodríguez,28,"55, 33, 47",39
+1135,O. Édouard,Odsonne,Édouard,26,52,39
+1835,T. Strakosha,Thomas,Strakosha,29,55,39
+3339,C. Doucouré,Cheick Oumar,Doucouré,24,52,39
+3428,J. Ayew,Jordan Pierre,Ayew,33,52,39
+18806,W. Hughes,William James,Hughes,29,52,39
+18853,J. Riedewald,Jaïro Jocquim,Riedewald,28,52,39
+19340,E. Balcombe,Ellery Ronald,Balcombe,25,55,39
+19346,R. Henry,Rico Antonio,Henry,27,55,39
+19789,E. Pinnock,Ethan Rupert,Pinnock,31,55,39
+25927,J. Mateta,Jean-Philippe,Mateta,27,52,39
+44871,A. Hickey,Aaron,Buchanan Hickey,22,55,39
+61742,H. Valdimarsson,Hákon,Rafn Valdimarsson,23,55,39
+152418,N. Ahamada,Naouirou Mohamed,Ahamada,22,52,39
+284449,J. Rak-Sakyi,Jesurun,Rak-Sakyi,22,52,39
+284551,J. Wells-Morrison,Jack Campbell,Wells-Morrison,20,52,39
+293162,J. Raymond,Jadan,Raymond,21,52,39
+304320,D. Ozoh,David Ikechukwu,Ozoh,19,52,39
+311157,Matheus França,Matheus,França de Oliveira,20,52,39
+349288,V. Angelini,Vincent,Angelini,21,55,39
+104,Carlos Vinícius,Carlos Vinícius,Alves Morais,29,36,39
+1440,R. Holding,Robert Samuel,Holding,29,"52, 42",39
+1455,A. Iwobi,Alexander Chuka,Iwobi,28,"36, 45",39
+2490,J. Lerma,Jefferson Andrés,Lerma Solís,30,52,39
+2729,J. Andersen,Joachim Christian,Andersen,28,52,39
+13736,D. Muñoz,Daniel,Muñoz Mejía,28,52,39
+18843,J. Schlupp,Jeffrey,Schlupp,32,52,39
+18844,J. Tomkins,James Oliver Charles,Tomkins,35,52,39
+18847,J. Ward,Joel Edward Philip,Ward,35,52,39
+18862,N. Clyne,Nathaniel Edwin,Clyne,33,52,39
+19088,D. Henderson,Dean Bradley,Henderson,27,"52, 33",39
+19143,S. Johnstone,Samuel Luke,Johnstone,31,52,39
+19586,E. Eze,Eberechi Oluchi,Eze,26,52,39
+19617,M. Olise,Michael Akpovie,Olise,23,52,39
+19684,R. Matthews,Remi Luke,Matthews,30,52,39
+67971,M. Guéhi,Addji Keaninkin Marc-Israel,Guéhi,24,52,39
+126949,C. Richards,Christopher Jeffrey,Richards,24,52,39
+127605,N. Ferguson,Nathan Kirk-Patrick,Ferguson,24,52,39
+182201,T. Mitchell,Tyrick Kwon,Mitchell,25,52,39
+284549,J. Whitworth,Joseph Charles,Whitworth,20,52,39
+105,F. Ballo-Touré,Fodé,Ballo-Touré,27,36,39
+899,Andreas Pereira,Andreas Hugo,Hoelgebaum Pereira,28,36,39
+2294,Willian,Willian,Borges da Silva,36,36,39
+2887,R. Jiménez,Raúl Alonso,Jiménez Rodríguez,33,"36, 39",39
+2920,T. Castagne,Timothy,Castagne,29,36,39
+18814,I. Diop,Issa Laye Lucas Jean,Diop,27,36,39
+19004,B. De Cordova-Reid,Bobby Armani,De Cordova-Reid,31,36,39
+19023,T. Ream,Timothy Michael,Ream,37,36,39
+19025,T. Cairney,Thomas,Cairney,33,36,39
+19145,T. Adarabioyo,Abdul-Nasir Oluwatosin,Oluwadoyinsolami Adarabioyo,27,36,39
+19221,H. Wilson,Harry,Wilson,27,36,39
+19480,H. Reed,Harrison James,Reed,29,36,39
+19549,A. Robinson,Antonee,Robinson,27,36,39
+41104,João Palhinha,João Maria,Lobo Alves Palhares Costa Palh,29,36,39
+129707,T. Francois,Tyrese Jay,Francois,24,36,39
+195106,Rodrigo Muniz,Rodrigo,Muniz Carvalho,23,36,39
+284470,M. Dibley-Dias,Matthew Max,Dibley-Dias,21,36,39
+297635,D. Tanton,Devan,Austin Tanton Pedraza,20,36,39
+327738,L. De Fougerolles,Luc,Rollet De Fougerolles,19,36,39
+335116,K. Šekularac,Kristian,Šekularac,21,36,39
+657,K. Tete,Kenny Joelle,Tete,29,36,39
+792,J. Kluivert,Justin Dean,Kluivert,25,35,39
+1125,R. Christie,Ryan,Christie,29,35,39
+1150,T. Adams,Tyler Shaan,Adams,25,35,39
+1438,B. Leno,Bernd,Leno,32,36,39
+2734,P. Billing,Philip,Anyanwu Billing,28,35,39
+18883,D. Solanke,Dominic Ayodele,Solanke-Mitchell,27,35,39
+19245,M. Tavernier,Marcus Joseph,Tavernier,25,35,39
+19281,A. Semenyo,Antoine Serlom,Semenyo,24,35,39
+19312,S. Benda,Steven-Andreas,Benda,26,36,39
+19657,M. Rodák,Marek,Rodák,28,36,39
+19804,K. Moore,Kieffer Roberto Francisco,Moore,32,35,39
+37161,L. Sinisterra,Luis Fernando,Sinisterra Lucumí,25,35,39
+84082,R. Faivre,Romain,Faivre,26,35,39
+130416,G. Kilkenny,Gavin,Kilkenny,24,35,39
+152967,C. Bassey,Calvin Chinedu,Bassey,25,36,39
+284797,Dango Ouattara,Dango Aboubacar Faissal,Ouattara,22,35,39
+304853,A. Scott,Alex Jay,Scott,21,35,39
+334725,D. Sadi,Dominic,Wadi Sadi,21,35,39
+382160,D. Adu-Adjei,Daniel William Kwabena,Adu-Adjei,19,35,39
+1165,Matheus Cunha,Matheus Santos,Carneiro da Cunha,25,39,39
+6610,M. Senesi,Marcos Nicolás,Senesi Barón,27,35,39
+18815,R. Fredericks,Ryan,Marlowe Fredericks,32,35,39
+18866,C. Mepham,Christopher James,Mepham,27,35,39
+18869,A. Smith,Adam James,Smith,33,35,39
+18872,L. Cook,Lewis John,Cook,27,35,39
+19070,M. Aarons,Maximillian James,Aarons,24,35,39
+19229,D. Randolph,Darren Edward Andrew,Randolph,37,35,39
+19263,L. Kelly,Lloyd Casius,Kelly,26,35,39
+24888,Hwang Hee-Chan,Hee-Chan,Hwang,28,39,39
+30765,A. Radu,Ionuț Andrei,Radu,27,35,39
+161671,I. Zabarnyi,Illia,Zabarnyi,22,35,39
+206254,M. Kerkez,Miloš,Kerkez,21,35,39
+284259,T. Barnett,Ty,Kimoni Barnett,19,39,39
+290962,B. Greenwood,Ben,Greenwood,21,35,39
+303019,N. Fraser,Nathan John Mark,Fraser,19,39,39
+328118,M. Whittingham,Matthew,Whittingham,20,39,39
+382166,C. Plain,Cameron Christopher,Plain,23,35,39
+385726,E. González,Enso David,González Medina,19,39,39
+436879,E. Ballard-Matthews,Emilio,Ballard-Matthews,17,39,39
+130,Nélson Semedo,Nélson,Cabral Semedo,31,39,39
+1864,Pedro Neto,Pedro,Lomba Neto,24,39,39
+2056,Pablo Sarabia,Pablo,Sarabia García,32,39,39
+18742,M. Doherty,Matthew James,Doherty,32,39,39
+18744,M. Kilman,Maximilian William,Kilman,27,39,39
+18947,M. Lemina,Mario René Junior,Lemina,31,39,39
+19147,C. Dawson,Craig,Dawson,34,39,39
+19341,D. Bentley,Daniel Ian,Bentley,31,39,39
+20665,J. Bellegarde,Jean-Ricner,Bellegarde,26,39,39
+21138,R. Aït-Nouri,Rayan,Aït-Nouri,23,39,39
+41606,Toti Gomes,Tote António,Gomes,25,39,39
+82855,T. King,Thomas Lloyd,King,29,39,39
+135334,S. Bueno,Santiago Ignacio,Bueno Sciutto,26,39,39
+157912,B. Traoré,Boubacar,Traoré,23,39,39
+171035,T. Chirewa,Tawanda Blessing,Chirewa,21,39,39
+195103,João Gomes,João Victor,Gomes da Silva,23,39,39
+204033,J. Hodge,Joseph Shaun,Hodge,22,39,39
+280687,Hugo Bueno,Hugo,Bueno López,22,39,39
+284357,A. Keto-Diyawa,Aaron,Keto-Diyawa,21,39,39
+284359,J. Hubner,Justin Quincy,Hubner,21,39,39
+269,C. Nkunku,Christopher Alan,Nkunku,27,49,39
+645,R. Sterling,Raheem Shaquille,Sterling,30,49,39
+5996,E. Fernández,Enzo Jeremías,Fernández,23,49,39
+22166,M. Sarr,Malang Mamadou William Georges,Sarr,25,49,39
+63577,M. Mudryk,Mykhailo,Mudryk,23,49,39
+67972,C. Gallagher,Conor John,Gallagher,24,49,39
+138822,A. Broja,Armando,Broja,23,"36, 49",39
+138935,C. Chukwuemeka,Carney Chibueze,Chukwuemeka,21,49,39
+152982,C. Palmer,Cole Jermaine,Palmer,22,"49, 50",39
+270507,C. Casadei,Cesare,Casadei,21,49,39
+270508,L. Ugochukwu,Lesley Chimuanya,Ugochukwu,20,49,39
+282125,R. Lavia,Roméo,Lavia,20,49,39
+283058,N. Jackson,Nicolas,Jackson,23,49,39
+284260,D. Williams,Dylan,Riley Williams,21,49,39
+286773,L. Castledine,Leo Alexander Francis,Castledine,19,49,39
+286774,R. Stutter,Ronnie Edward,Stutter,19,49,39
+305834,Andrey Santos,Andrey,Nascimento dos Santos,20,"65, 49",39
+330986,M. Golding,Michael Heinz,Golding,18,49,39
+411808,D. Richards,Dujuan Odile,Richards,19,49,39
+415001,Deivid Washington,Deivid Washington,de Souza Eugênio,19,49,39
+259,Thiago Silva,Thiago,Emiliano da Silva,40,49,39
+2933,B. Chilwell,Benjamin James,Chilwell,28,49,39
+18959,Robert Sánchez,Robert,Lynch Sánchez,27,"49, 51",39
+19012,M. Bettinelli,Marcus,Bettinelli,32,49,39
+19545,R. James,Reece Lewis,James,25,49,39
+19720,T. Chalobah,Trevoh Thomas,Chalobah,25,49,39
+21998,A. Disasi,Axel Wilson Arthur,Disasi Mhakinis Belho,26,49,39
+22094,W. Fofana,Wesley Tidjan,Fofana,24,49,39
+47380,Marc Cucurella,Marc,Cucurella Saseta,26,49,39
+118307,Đ. Petrović,Đorđe,Petrović,25,49,39
+152953,L. Colwill,Levi Lemar,Samuels Colwill,21,49,39
+152955,L. Bergström,Lucas Carl Edvard,Bergström,22,49,39
+161907,M. Gusto,Malo Arthur,Gusto,21,49,39
+181796,J. Brooking,Joshua Royston,Brooking,22,49,39
+284406,A. Gilchrist,Alfie,Gilchrist,21,49,39
+287868,M. Merrick,Max,Merrick,19,49,39
+298061,T. Curd,Teddy Noah,Curd,18,49,39
+305735,J. Duffus,Joshua James,Leslie Duffus,20,51,39
+328093,I. Samuels-Smith,Ishé Barrington,Samuels-Smith,18,49,39
+340135,M. O’Mahony,Mark,O’Mahony,19,51,39
+14,M. Dahoud,Mahmoud,Dahoud,28,51,39
+295,A. Lallana,Adam David,Lallana,36,51,39
+296,J. Milner,James Philip,Milner,38,51,39
+1469,D. Welbeck,Daniel Nii,Tackie Mensah Welbeck,34,51,39
+10329,João Pedro,João Pedro,Junqueira de Jesus,23,51,39
+18973,S. March,Solomon Benjamin,March,30,51,39
+40911,J. Moder,Jakub Piotr,Moder,25,51,39
+70747,J. Enciso,Julio César,Enciso Espínola,20,51,39
+106835,K. Mitoma,Kaoru,Mitoma,27,51,39
+129643,E. Ferguson,Evan Joe,Ferguson,20,51,39
+130423,B. Gilmour,Billy Clifford,Gilmour,23,51,39
+135775,Ansu Fati,Anssumane,Fati Vieira,22,51,39
+206404,S. Chouchane,Samy Olivier,Chouchane,21,51,39
+301771,S. Adingra,Simon,Adingra,22,51,39
+305730,J. Hinshelwood,Jack Luca,Hinshelwood,19,51,39
+311334,F. Buonanotte,Facundo Valentín,Buonanotte,20,51,39
+319572,V. Barco,Valentín,Barco,20,51,39
+328095,L. Barrington,Luca,Barrington,20,51,39
+336599,B. Baker-Boaitey,Benicio,Baker-Boaitey,20,51,39
+356041,C. Baleba,Carlos Noom,Quomah Baleba,20,51,39
+537,J. Veltman,Joël Ivo,Veltman,32,51,39
+723,Joelinton,Joelinton Cássio,Apolinário de Lira,28,34,39
+2864,A. Isak,Alexander,Isak,25,34,39
+7600,Igor Julio,Igor Julio,dos Santos de Paulo,26,51,39
+18960,J. Steele,Jason Sean,Steele,34,51,39
+18963,L. Dunk,Lewis Carl,Dunk,33,51,39
+19265,A. Webster,Adam Harry,Webster,29,51,39
+38695,J. van Hecke,Jan Paul,van Hecke,24,51,39
+46731,P. Estupiñán,Pervis Josué,Estupiñán Tenorio,26,51,39
+129058,B. Verbruggen,Bart,Verbruggen,22,51,39
+138787,A. Gordon,Anthony Michael,Gordon,23,34,39
+138815,T. Lamptey,Tariq Kwame,Nii-Lante Lamptey,24,51,39
+167663,T. McGill,Thomas Peter,Wayne McGill,24,51,39
+200233,L. Kavanagh,Leigh Robert,Kavanagh,21,51,39
+273758,I. Samuels,Imari-Narain,Che Hines-Samuels,21,51,39
+284278,M. Ndiweni,Michael Nqobile,Ndiweni,21,34,39
+284531,B. Jackson,Benjamin,Harvey Jackson,21,51,39
+293164,A. Diallo,Amadou,Diallo,21,34,39
+313925,C. Ferguson,Cameron,Ferguson,21,34,39
+328104,B. Parkinson,Ben,Parkinson,19,34,39
+1463,J. Willock,Joseph George,Willock,25,34,39
+2507,M. Almirón,Miguel Ángel,Almirón Rejala,30,34,39
+2855,E. Krafth,Emil Henry Kristoffer,Krafth,30,34,39
+2939,C. Wilson,Callum Eddie Graham,Wilson,32,34,39
+10135,Bruno Guimarães,Bruno,Guimarães Rodriguez Moura,27,34,39
+18778,H. Barnes,Harvey Lewis,Barnes,27,34,39
+18901,S. Longstaff,Sean David,Longstaff,27,34,39
+18903,M. Ritchie,Matthew Thomas,Ritchie,35,34,39
+18961,D. Burn,Daniel Johnson,Burn,32,34,39
+19163,J. Murphy,Jacob Kai,Murphy,29,34,39
+31146,S. Tonali,Sandro,Tonali,24,34,39
+138906,J. White,Joe Peter,White,22,34,39
+138908,E. Anderson,Elliot,Anderson,22,34,39
+158694,T. Livramento,Valentino Francisco,Livramento,22,34,39
+284373,L. De Bolle,Lucas,De Bolle,22,34,39
+284375,J. Huntley,James Alan,Huntley,20,34,39
+284492,L. Hall,Lewis Kieran,Hall,20,"34, 49",39
+318056,A. Murphy,Alex,Murphy,20,34,39
+328105,L. Miley,Lewis,Miley,18,34,39
+384585,T. Hernes,Travis Enrique,Hernes,19,34,39
+169,K. Trippier,Kieran John,Trippier,34,34,39
+903,S. McTominay,Scott Francis,McTominay,28,33,39
+908,A. Martial,Anthony Jordan,Martial,29,33,39
+909,M. Rashford,Marcus,Rashford,27,33,39
+1972,L. Karius,Loris Sven,Karius,31,34,39
+2806,F. Schär,Fabian Lukas,Schär,33,34,39
+9971,Antony,Antony Matheus,dos Santos,24,33,39
+18886,M. Dúbravka,Martin,Dúbravka,35,34,39
+18892,P. Dummett,Paul,Dummett,33,34,39
+18894,J. Lascelles,Jamaal,Lascelles,31,34,39
+18911,N. Pope,Nicholas David,Pope,32,34,39
+18941,M. Targett,Matthew Robert,Targett,29,34,39
+38734,S. Botman,Sven Adriaan,Botman,24,34,39
+44912,M. Gillespie,Mark Joseph,Gillespie,32,34,39
+157997,A. Diallo,Amad,Diallo Traoré,22,33,39
+163054,S. Shoretire,Shola Maxwell,Shoretire,20,33,39
+284242,O. Forson,Omari Nathan,Forson,20,33,39
+284324,A. Garnacho,Alejandro,Garnacho Ferreyra,20,33,39
+288006,R. Højlund,Rasmus,Winther Højlund,21,33,39
+402524,A. Harrison,Adam,Harrison,18,34,39
+74,S. Amrabat,Sofyan,Amrabat,28,33,39
+174,C. Eriksen,Christian,Dannemann Eriksen,32,33,39
+526,A. Onana,André,Onana Onana,28,33,39
+742,R. Varane,Raphaël Xavier,Varane,31,33,39
+747,Casemiro,Carlos Henrique,Casimiro,32,33,39
+886,Diogo Dalot,José Diogo,Dalot Teixeira,25,33,39
+889,V. Lindelöf,Victor Jörgen,Nilsson Lindelöf,30,33,39
+891,L. Shaw,Luke Paul Hoare,Shaw,29,33,39
+2467,Lisandro Martínez,Lisandro,Martínez,26,33,39
+2931,T. Heaton,Thomas David,Heaton,38,33,39
+2935,H. Maguire,Jacob Harry,Maguire,31,33,39
+18772,J. Evans,Jonathan Grant,Evans,36,33,39
+18846,A. Wan-Bissaka,Aaron,Wan-Bissaka,27,33,39
+19220,M. Mount,Mason Tony,Mount,25,33,39
+37145,T. Malacia,Tyrell Johannes Chicco,Malacia,25,33,39
+70078,F. Pellistri,Facundo,Pellistri Rebollo,23,33,39
+284322,K. Mainoo,Kobbie Boateng,Mainoo,19,33,39
+284363,R. Bennett,Rhys Joseph,Wright Bennett,21,33,39
+284409,D. Mubama,Divin Saku,Mubama,20,48,39
+288112,W. Kambwala,Willy,Kambwala Ndengushi,20,33,39
+665,M. Cornet,Gnaly Albert Maxwel,Cornet,28,48,39
+1243,T. Souček,Tomáš,Souček,29,48,39
+1445,K. Mavropanos,Konstantinos,Mavropanos,27,48,39
+1646,Lucas Paquetá,Lucas,Tolentino Coelho de Lima,27,48,39
+1697,Pablo Fornals,Pablo,Fornals Malla,28,48,39
+2284,Emerson,Emerson,Palmieri dos Santos,30,48,39
+2938,J. Ward-Prowse,James Michael Edward,Ward-Prowse,30,48,39
+15911,M. Kudus,Mohammed,Kudus,24,48,39
+18817,A. Ogbonna,Angelo,Obinze Ogbonna,36,48,39
+18819,M. Antonio,Michail Gregory,Antonio,34,48,39
+18955,D. Ings,Daniel William John,Ings,32,48,39
+19130,K. Phillips,Kalvin Mark,Phillips,29,"48, 50",39
+19361,S. Benrahma,Mohamed Saïd,Benrahma,29,48,39
+19428,J. Bowen,Jarrod,Bowen,28,48,39
+21694,N. Aguerd,Nayef,Aguerd,28,48,39
+50132,A. Bayındır,Altay,Bayındır,26,33,39
+284060,L. Laing,Levi Alexander,Laing,21,48,39
+288116,K. Casey,Kaelan,Casey,20,48,39
+288118,L. Orford,Lewis,Orford,18,48,39
+327730,O. Scarles,Oliver,Scarles,19,48,39
+253,A. Areola,Alphonse Francis,Areola,31,48,39
+277,M. Diaby,Moussa,Diaby,25,66,39
+671,B. Traoré,Bertrand Isidore,Traoré,29,66,39
+786,N. Zaniolo,Nicolò,Zaniolo,25,66,39
+983,L. Bailey,Leon Patrick,Bailey Butler,27,66,39
+1231,V. Coufal,Vladimír,Coufal,32,48,39
+1904,B. Kamara,Boubacar Bernard,Kamara,25,66,39
+2726,K. Zouma,Kurt Happy,Zouma,30,48,39
+2926,Y. Tielemans,Youri Marion A.,Tielemans,27,66,39
+2997,Ł. Fabiański,Łukasz Marek,Fabiański,39,48,39
+13489,J. Durán,Jhon Jader,Durán Palacio,21,66,39
+18813,A. Cresswell,Aaron William,Cresswell,35,48,39
+18823,B. Johnson,Benjamin Anthony,Johnson,24,48,39
+19071,E. Buendía,Emiliano,Buendía Stati,28,66,39
+19191,J. McGinn,John,McGinn,30,66,39
+19192,J. Ramsey,Jacob Matthew,Ramsey,23,66,39
+144709,J. Anang,Joseph,Tetteh Anang,24,48,39
+284500,T. Iroegbunam,Timothy Emeka,Iroegbunam,21,66,39
+284556,T. O&apos;Reilly,Tommi Dylan,O'Reilly,21,66,39
+329347,O. Kellyman,Omari Jamian,Kellyman,19,66,39
+133,C. Lenglet,Clément Nicolas Laurent,Lenglet,29,66,39
+766,R. Olsen,Robin Patrick,Olsen,34,66,39
+2724,L. Digne,Lucas,Digne,31,66,39
+19016,C. Chambers,Calum,Chambers,29,66,39
+19177,K. Hause,Kortney Paul Duncan,Hause,29,66,39
+19179,T. Mings,Tyrone Deon,Mings,31,66,39
+19298,M. Cash,Matthew Stuart,Cash,27,66,39
+19354,E. Konsa,Ezri,Konsa Ngoyo,27,66,39
+19599,E. Martínez,Damián Emiliano,Martínez Romero,32,66,39
+21090,Diego Carlos,Diego Carlos,Santos Silva,31,66,39
+46815,Pau Torres,Pau,Francisco Torres,27,66,39
+47522,Douglas Luiz,Douglas Luiz,Soares de Paulo,26,66,39
+47547,Álex Moreno,Alexandre,Moreno Lopera,31,66,39
+162552,D. Scarlett,Dane Pharrell,Scarlett,20,47,39
+284390,J. Wright,James,Wright,20,66,39
+293163,J. Donley,Jamie,Donley,19,47,39
+294638,F. Munroe,Finley,Munroe,19,66,39
+298128,K. Kesler-Hayden,Kaine,Kesler-Hayden,22,66,39
+312118,J. Feeney,Joshua,Feeney,19,66,39
+398004,S. Proctor,Sam,Proctor,18,66,39
+180,O. Skipp,Oliver William,Skipp,24,47,39
+186,Son Heung-Min,Heung-Min,Son,32,47,39
+697,M. Solomon,Manor,Solomon,25,47,39
+863,R. Bentancur,Rodrigo,Bentancur Colmán,27,47,39
+1166,T. Werner,Timo,Werner,28,47,39
+1578,G. Lo Celso,Giovani,Lo Celso,28,47,39
+2061,Bryan Gil,Bryan,Gil Salvatierra,23,47,39
+2413,Richarlison,Richarlison,de Andrade,27,47,39
+2735,P. Højbjerg,Pierre-Emile Kordt,Højbjerg,29,47,39
+18784,J. Maddison,James Daniel,Maddison,28,47,39
+19032,R. Sessegnon,Kouassi Ryan,Sessegnon,24,47,39
+30435,D. Kulusevski,Dejan,Kulusevski,24,47,39
+47519,Pedro Porro,Pedro Antonio,Porro Sauceda,25,47,39
+129711,B. Johnson,Brennan Price,Johnson,23,"47, 65",39
+152849,M. van de Ven,Micky,van de Ven,23,47,39
+204039,D. Udogie,Iyenoma Destiny,Udogie,22,47,39
+237129,P. Sarr,Pape Matar,Sarr,22,47,39
+284415,Yago Santiago,Yago,de Santiago Alonso,21,47,39
+311344,A. Véliz,Alejo,Véliz,21,47,39
+311817,A. Dorrington,Alfie Terry Charlie,Dorrington,19,47,39
+161,A. Whiteman,Alfie Malik,Whiteman,26,47,39
+164,B. Davies,Benjamin Thomas,Davies,31,47,39
+643,Gabriel Jesus,Gabriel Fernando,de Jesus,27,42,39
+727,R. Nelson,Reiss Luke,Nelson,25,42,39
+1460,B. Saka,Bukayo Ayoyinka Temidayo,Saka,23,42,39
+1468,E. Nketiah,Edward,Keddar Nketiah,25,42,39
+1566,Emerson Royal,Emerson Aparecido,Leite de Souza Júnior,25,47,39
+1946,L. Trossard,Leandro,Trossard,30,42,39
+2937,D. Rice,Declan,Rice,25,"42, 48",39
+18932,F. Forster,Fraser Gerard,Forster,36,47,39
+30776,C. Romero,Cristian Gabriel,Romero,26,47,39
+31354,G. Vicario,Guglielmo,Vicario,28,47,39
+127769,Gabriel Martinelli,Gabriel Teodoro,Martinelli Silva,23,42,39
+156428,B. Austin,Brandon Anthony,Austin,25,47,39
+162498,R. Drăgușin,Radu,Matei Drăgușin,22,47,39
+284571,C. Sagoe Jr,Charles Kwame,Sagoe Junior,20,42,39
+309501,A. Cozier-Duberry,Amario Oswald Gerardo,Cozier-Duberry,19,42,39
+309507,B. Ibrahim,Bradley,Ibrahim,20,42,39
+313236,E. Nwaneri,Ethan Chidiebere,Nwaneri,17,42,39
+313245,M. Lewis-Skelly,Myles Anthony,Lewis-Skelly,18,42,39
+49,T. Partey,Thomas,Teye Partey,31,42,39
+190,Cédric Soares,Cédric Ricardo,Alves Soares,33,42,39
+641,O. Zinchenko,Oleksandr,Zinchenko,28,42,39
+978,K. Havertz,Kai Lukas,Havertz,25,42,39
+1161,E. Smith Rowe,Emile,Smith Rowe,24,42,39
+1422,J. Doku,Jérémy Baffour,Doku,22,50,39
+1452,Mohamed Elneny,Mohamed Naser,Elsayed Elneny,32,42,39
+2289,Jorginho,Jorge Luiz,Frello Filho,33,42,39
+2597,T. Tomiyasu,Takehiro,Tomiyasu,26,42,39
+6009,J. Álvarez,Julián,Álvarez,24,50,39
+19959,B. White,Benjamin William,White,27,42,39
+20355,A. Ramsdale,Aaron Christopher,Ramsdale,26,42,39
+22090,W. Saliba,William Alain André Gabriel,Saliba,23,42,39
+22224,Gabriel Magalhães,Gabriel,dos Santos Magalhães,27,42,39
+37127,M. Ødegaard,Martin,Ødegaard,26,42,39
+41725,Fábio Vieira,Fábio Daniel,Ferreira Vieira,24,42,39
+169295,K. Hein,Karl Jakob,Hein,22,42,39
+284502,J. Sweet,James,Lannin-Sweet,21,42,39
+309505,R. Walters,Reuell Joshua,Walters,20,42,39
+382355,J. Wright,Jacob,Wright,19,50,39
+5,M. Akanji,Manuel Obafemi,Akanji,29,50,39
+23,Sergio Gómez,Sergio,Gómez Martín,24,50,39
+44,Rodri,Rodrigo,Hernández Cascante,28,50,39
+567,Rúben Dias,Rúben,dos Santos Gato Alves Dias,27,50,39
+626,J. Stones,John,Stones,30,50,39
+629,K. De Bruyne,Kevin,De Bruyne,33,50,39
+636,Bernardo Silva,Bernardo,Mota Veiga de Carvalho e Silva,30,50,39
+1100,E. Haaland,Erling,Braut Haaland,24,50,39
+2291,M. Kovačić,Mateo,Kovačić,30,50,39
+18861,N. Aké,Nathan Benjamin,Aké,29,50,39
+19187,J. Grealish,Jack Peter,Grealish,29,50,39
+19465,David Raya,David,Raya Martin,29,"42, 55",39
+41621,Matheus Nunes,Matheus Luiz,Nunes,26,"50, 39",39
+129033,J. Gvardiol,Joško,Gvardiol,22,50,39
+278133,O. Bobb,Oscar,Bobb,21,50,39
+284230,R. Lewis,Rico Henry Mark,Lewis,20,50,39
+284231,M. Hamilton,Micah Philippe Jude,Hamilton,21,50,39
+293168,M. Alleyne,Max,Alleyne,19,50,39
+328097,Mahamadou Susoho,Mahamadou,Susoho Sissoho,19,50,39
+361675,T. Grant,True,Grant,19,50,39
+247,C. Gakpo,Cody Mathès,Gakpo,25,40,39
+293,C. Jones,Curtis Julian,Jones,23,40,39
+306,Mohamed Salah,Mohamed,Salah Hamed Mahrous Ghaly,32,40,39
+542,R. Gravenberch,Ryan Jiro,Gravenberch,22,40,39
+617,Ederson,Ederson,Santana de Moraes,31,50,39
+627,K. Walker,Kyle Andrew,Walker,34,50,39
+2489,L. Díaz,Luis Fernando,Díaz Marulanda,27,40,39
+2678,Diogo Jota,Diogo José,Teixeira da Silva,28,40,39
+19035,H. Elliott,Harvey Daniel James,Elliott,21,40,39
+19197,S. Carson,Scott Paul,Carson,39,50,39
+25004,S. Ortega,Stefan,Ortega Moreno,32,50,39
+51617,D. Núñez,Darwin Gabriel,Núñez Ribeiro,25,40,39
+152976,T. Hill,Thomas Daniel,Hill,22,40,39
+286764,K. Gordon,Kaide,Gordon,20,40,39
+287109,J. McConnell,James,McConnell,20,40,39
+310187,Stefan Bajčetić,Stefan,Bajčetić Maquieira,20,40,39
+328107,L. Koumas,Lewis Terence,Koumas,19,40,39
+334729,B. Clark,Bobby Lamont,Clark,19,40,39
+343576,B. Doak,Ben,Gannon Doak,19,40,39
+397997,T. Nyoni,Treymaurice,Nyoni,17,40,39
+280,Alisson Becker,Alisson Ramsés,Becker,32,40,39
+281,C. Kelleher,Caoimhín Odhrán,Kelleher,26,40,39
+284,J. Gomez,Joseph Dave,Gomez,27,40,39
+286,J. Matip,Job Joël André,Matip,33,40,39
+289,A. Robertson,Andrew Henry,Robertson,30,40,39
+290,V. van Dijk,Virgil,van Dijk,33,40,39
+507,Thiago Alcântara,Thiago,Alcântara do Nascimento,33,40,39
+925,Gonçalo Guedes,Gonçalo Manuel,Ganchinho Guedes,28,39,39
+1145,I. Konaté,Ibrahima,Konaté,25,40,39
+1600,K. Tsimikas,Konstantinos,Tsimikas,28,40,39
+6716,A. Mac Allister,Alexis,Mac Allister,26,40,39
+8500,W. Endo,Wataru,Endo,31,40,39
+18812,Adrián,Adrián,San Miguel del Castillo,37,40,39
+18835,Guaita,Vicente,Guaita Panadero,37,52,39
+18896,Javier Manquillo,Javier,Manquillo Gaitán,30,34,39
+158698,J. Quansah,Jarell,Amorin Quansah,21,40,39
+180317,C. Bradley,Conor,Bradley,21,40,39
+180560,H. Mejbri,Hannibal,Mejbri,21,33,39
+287111,F. Mrozek,Fabian,Mrozek,21,40,39
+310186,C. Scanlon,Calum Alexander,Scanlon,19,40,39
+18,J. Sancho,Jadon Malik,Sancho,24,33,39
+95,B. Badiashile,Benoît Ntambue,Badiashile Mukinayi Baya,23,49,39
+175,E. Dier,Eric Jeremy Edgar,Dier,30,47,39
+184,H. Kane,Harry Edward,Kane,31,47,39
+547,D. van de Beek,Donny,van de Beek,27,33,39
+885,E. Bailly,Eric Bertrand,Bailly,30,33,39
+897,M. Greenwood,Mason Will John,Greenwood,23,33,39
+912,Neto,Norberto,Murara Neto,35,35,39
+946,K. Mbabu,Melingo Kevin,Mbabu,29,36,39
+1117,K. Tierney,Kieran,Tierney,27,42,39
+7722,S. Kalajdžić,Saša,Kalajdžić,27,39,39
+19352,Sergi Canós,Sergi,Canós Tenés,27,55,39
+26232,M. Flekken,Mark,Flekken,31,55,39
+26475,D. Undav,Deniz,Undav,28,51,39
+38746,J. Timber,Jurriën David Norman,Timber,23,42,39
+47499,E. Ünal,Enes,Ünal,27,35,39
+138804,M. Kovář,Matěj,Kovář,24,33,39
+138816,I. Maatsen,Ian Ethan,Maatsen,22,49,39
+195717,Y. Mosquera,Yerson,Mosquera Valdelamar,23,39,39
+216770,I. Hansen-Aarøen,Isak,Hansen-Aarøen,20,33,39
+261,T. Kehrer,Jan Thilo,Kehrer,28,48,39
+292,J. Henderson,Jordan Brian,Henderson,34,40,39
+842,N. Vlašić,Nikola,Vlašić,27,48,39
+1465,P. Aubameyang,Pierre-Emerick Emiliano Franço,Aubameyang,35,49,39
+2807,R. Freuler,Remo Marco,Freuler,32,65,39
+2922,L. Dendoncker,Leander,Dendoncker,29,66,39
+18592,I. Ndiaye,Iliman Cheikh,Baroy Ndiaye,24,62,39
+18885,K. Darlow,Karl,Darlow,34,34,39
+19043,T. Kongolo,Terence,Kongolo,30,36,39
+19185,K. Davis,Keinan Vincent Joseph,Davis,26,66,39
+19235,D. Spence,Diop Tehuti,Djed-Hotep Spence,24,47,39
+19321,J. Rodon,Joseph Peter,Rodon,27,47,39
+30544,G. Scamacca,Gianluca,Scamacca,25,48,39
+31057,H. Traorè,Hamed Junior,Traorè,24,35,39
+64304,K. Kozłowski,Kacper Szymon,Kozłowski,21,51,39
+138835,F. Balogun,Folarin Jerry,Balogun,23,42,39
+145476,R. Khadra,Reda Jousef,Khadra,23,51,39
+179400,M. Esteve,Maxime,Esteve,22,44,39
+270139,J. O&apos;Brien,Jake,O'Brien,23,52,39
+304161,B. Traoré,Bénie Adama,Traoré,22,62,39
+1605,Daniel Podence,Daniel,Castelo Podence,29,39,39
+2279,E. Ampadu,Ethan Kwame Colm Raymond,Ampadu,24,49,39
+18740,Jonny,Jonathan,Castro Otto,30,39,39
+18863,S. Cook,Steve Anthony,Cook,33,65,39
+18870,D. Brooks,David Robert,Brooks,27,35,39
+18873,R. Fraser,Ryan,Fraser,30,34,39
+18924,J. Hendrick,Jeffrey Patrick,Hendrick,32,34,39
+19150,M. Holgate,Mason Anthony,Holgate,28,"62, 45",39
+19482,J. Rothwell,Joseph Matthew,Rothwell,29,35,39
+19610,O. Richards,Omar,Tyrell Crawford Richards,26,65,39
+19733,F. Downes,Flynn,Downes,25,48,39
+84081,G. Biancone,Giulian,Biancone,24,65,39
+107087,S. Banks,Scott Brian,Banks,23,52,39
+144729,T. Harwood-Bellis,Taylor Jay,Harwood-Bellis,22,50,39
+191971,J. Stansfield,Jay,Stansfield,22,36,39
+202086,J. Sarmiento,Jeremy Leonel,Sarmiento Morante,22,51,39
+215874,T. Cannon,Thomas Christopher,Cannon,22,45,39
+278123,S. Revan,Sebastian,Revan,21,66,39
+284428,O. Hutchinson,Omari Elijah,Giraud-Hutchinson,21,49,39
+289618,A. Matos,Alex,Matos,20,49,39
+80,E. Dennis,Emmanuel Bonaventure,Dennis,27,65,39
+147,Philippe Coutinho,Philippe,Coutinho Correia,32,66,39
+18957,M. Obafemi,Michael,Oluwadurotimi Obafemi,24,44,39
+19173,M. Šarkić,Matija,Šarkić,27,39,39
+19964,S. Dembélé,Ben Siriki,Dembélé,28,35,39
+20503,L. O&apos;Brien,Lewis John,O'Brien,26,65,39
+44922,A. Campbell,Allan,Campbell,26,1359,39
+69403,S. Twine,Scott Edward,Twine,25,44,39
+69539,L. McNally,Luke,McNally,25,44,39
+127472,N. Phillips,Nathaniel Harry,Phillips,27,40,39
+137220,A. Moran,Andrew,Moran,21,51,39
+149550,J. Tanganga,Japhet Manzambi,Tanganga,25,47,39
+149564,L. Cundle,Luke James,Cundle,22,39,39
+152969,L. Thomas,Luke Jonathan,Thomas,23,62,39
+171058,H. Ashby,Harrison Charles,Ashby,23,34,39
+181797,B. Humphreys,Bashir,Humphreys,21,49,39
+265820,Y. Ayari,Yasin,Abbas Ayari,21,51,39
+273757,A. Devine,Alfie Sean,Devine,20,47,39
+288102,A. Wharton,Adam James,Wharton,20,52,39
+301281,A. Phillips,Ashley,Famiwuya Phillips,19,47,39
+2910,Hwang Ui-Jo,Ui-Jo,Hwang,32,65,39
+3240,J. Gbamin,Jean-Philippe,Gbamin,29,45,39
+9926,Gustavo Scarpa,Gustavo Henrique,Furtado Scarpa,30,65,39
+18884,S. Surridge,Samuel William,Surridge,26,65,39
+19076,J. Lewis,Jamal Piaras,Lewis,26,34,39
+19655,F. Onyedinma,Wilfred,Oluwafemi Onyedinma,28,1359,39
+19772,A. Connolly,Aaron Anthony,Connolly,24,51,39
+20093,J. Hill,James Clayton,Hill,22,35,39
+20319,N. Bishop,Nathan James,Bishop,25,33,39
+105789,D. Churlinov,Darko,Churlinov,24,44,39
+125618,M. Karbownik,Michał,Karbownik,23,51,39
+138931,J. Philogene,Jaden,Philogene-Bidace,22,66,39
+196855,J. Anthony,Jaidon Kya Denley,Anthony,25,35,39
+216809,C. Peupion,Cameron Paul Jacques,Peupion,22,51,39
+264437,B. Thomas,Bobby Craig,Thomas,23,44,39
+284059,L. Plange,Luke Elliot,Plange,22,52,39
+284262,H. Griffiths,Harvey,Lawson Griffiths,21,39,39
+288106,Marc Jurado,Marc,Jurado Gómez,20,33,39
+331563,M. Burstow,Mason Paul James,Burstow,21,49,39
+344707,C. Marshall,Callum,Marshall,20,48,39
+168,D. Sánchez,Davinson,Sánchez Mina,28,47,39
+299,Fabinho,Fábio Henrique,Tavares,31,40,39
+548,H. Ziyech,Hakim,Ziyech,31,49,39
+622,Aymeric Laporte,Aymeric Jean Louis Gérard Alph,Laporte,30,50,39
+635,R. Mahrez,Riyad Karim,Mahrez,33,50,39
+662,T. Ndombélé,Tanguy,Ndombélé Alvaro,28,47,39
+905,Fred,Frederico,Rodrigues de Paula Santos,31,33,39
+2109,S. Bastien,Samuel Christopher,Bastien Binda,28,44,39
+2825,A. Mitrović,Aleksandar,Mitrović,30,36,39
+3246,N. Pépé,Nicolas,Pépé,29,42,39
+3247,W. Zaha,Dazet Wilfried,Armel Zaha,32,52,39
+18781,D. Gray,Demarai Ramelle,Gray,28,45,39
+18904,J. Shelvey,Jonjo,Shelvey,32,65,39
+22173,A. Saint-Maximin,Allan Irénée,Saint-Maximin,27,34,39
+153420,G. Wickens,George Alexander,Wickens,23,36,39
+195962,Chiquinho,Francisco Jorge,Tavares Oliveira,24,39,39
+284300,Álvaro Fernández,Álvaro,Fernández Carreras,21,33,39
+303667,E. Beach,Edward James,Beach,21,49,39
+335056,Diego Moreira,Diego Manuel Jadon,da Silva Moreira,20,49,39
+382925,R. Trevitt,Ryan,Trevitt,21,55,39
+159,H. Lloris,Hugo Hadrien Dominique,Lloris,38,47,39
+17715,S. Alzate,Steven,Alzate,26,51,39
+19356,E. Marcondes,Emiliano,Marcondes Camargo Hansen,29,35,39
+48649,A. Zeqiri,Andi Avdi,Zeqiri,25,51,39
+50828,Z. Steffen,Zackary Thomas,Steffen,29,50,39
+69680,D. Costelloe,Dara James Morgan,Costelloe,22,44,39
+84088,J. Panzo,Jonathan William,Panzo,24,65,39
+129791,Fábio Silva,Fábio Daniel,Soares Silva,22,39,39
+148270,O. Zych,Oliwier,Zych,20,66,39
+158693,O. Beck,Owen Michael,Beck,22,40,39
+270357,K. Phillips,Killian,Phillips,22,52,39
+284297,O. Dodgson,Owen Joel,Dodgson,21,44,39
+284493,T. Adaramola,Omotayo Daniel,Adaramola,21,52,39
+328808,M. Ebiowei,Malcolm,Perewari Ebiowei,21,52,39
+394710,C. McKenna,Callan,McKenna,18,35,39

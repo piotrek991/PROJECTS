@@ -1,0 +1,2 @@
+time ? 20:57:32|endpoint ? https://v3.football.api-sports.io/teams|parameters ? {'season': 2023, 'league': 310}|finished ? True|errors_info ? {}|current_requests ? 3
+time ? 20:57:33|endpoint ? https://v3.football.api-sports.io/teams|parameters ? {'season': 2023, 'league': 186}|finished ? True|errors_info ? {}|current_requests ? 3

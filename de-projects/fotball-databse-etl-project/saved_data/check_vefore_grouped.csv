@@ -1,0 +1,185 @@
+team_id,player_id,p_firstname,p_lastname,p_age,p_nationality,season
+1483,14313,Marin,Pilj,28,Croatia,2023
+1483,14352,Michele,Šego,24,Croatia,2023
+1483,14370,Mario,Marina,35,Bosnia and Herzegovina,2023
+1483,14541,Marko,Stolnik,27,Croatia,2023
+1483,14778,Jurica,Poldrugač,27,Croatia,2023
+1483,14902,Martin,Pajić,25,Croatia,2023
+1483,25295,Jozo,Stanić,24,Croatia,2023
+1483,33387,Karlo,Bručić,32,Croatia,2023
+1483,52838,Andris Jesús,Herrera Salgado,27,Venezuela,2023
+1483,90736,Ante,Vukušić,33,Croatia,2023
+1483,128701,Tomislav,Gudelj,26,Croatia,2023
+1483,131435,Jakov,Karabatić,23,Croatia,2023
+1483,270566,Filip,Mekić,21,Croatia,2023
+1483,282230,Marino,Bulat,24,Croatia,2023
+1483,326627,Noa,Vugrinec,22,Croatia,2023
+1483,337626,Niko,Domjanić,21,Croatia,2023
+1483,411863,Borna,Lesjak,19,Croatia,2023
+1483,420398,Marko,Težak,19,Croatia,2023
+1483,420399,Damir,Posavec,19,Croatia,2023
+1483,440650,Tin,Levanić,19,Bosnia and Herzegovina,2023
+1483,3605,Jorgo,Pëllumbi,24,Albania,2023
+1483,14445,Ivan,Nekić,24,Croatia,2023
+1483,14457,Igor,Postonjski,29,Croatia,2023
+1483,14508,Antonio,Boršić,29,Croatia,2023
+1483,14536,Matija,Kolarić,28,Croatia,2023
+1483,14549,Leonard,Vuk,29,Croatia,2023
+1483,14610,Josip,Silić,25,Croatia,2023
+1483,30904,Fran,Brodić,27,Croatia,2023
+1483,37361,Oliver,Zelenika,31,Croatia,2023
+1483,79944,Luka,Jelenić,24,Croatia,2023
+1483,125702,David,Mistrafović,23,Switzerland,2023
+1483,130260,Rafael Reis,Pereira,23,Portugal,2023
+1483,134720,Karlo,Perić,23,Croatia,2023
+1483,215929,Luka,Škaričić,22,Croatia,2023
+1483,283707,Karlo,Lusavec,21,Croatia,2023
+1483,292869,Filip,Kirić,20,Croatia,2023
+1483,295976,Leon,Belcar,22,Croatia,2023
+1483,328631,Lovre,Banovec,23,Croatia,2023
+1483,358649,Vito,Težak,19,Croatia,2023
+1483,404442,Nick,Ocvirek,20,Croatia,2023
+1483,14346,Tonio,Teklić,25,Croatia,2023
+1483,14400,Domagoj,Drožđek,28,Croatia,2023
+1483,15483,Lamine,Ba,27,Mauritania,2023
+1483,29998,Marko,Vukčević,31,Montenegro,2023
+1483,134925,Andrea,Capone,22,Italy,2023
+1483,146044,Agon,Elezi,23,North Macedonia,2023
+1483,163483,Dimitar,Mitrovski,25,North Macedonia,2023
+2392,1612,Giorgos,Neofytidis,23,Greece,2023
+2392,7300,Okan,Aydın,29,Türkiye,2023
+2392,27852,Zsombor,Bévárdi,25,Hungary,2023
+2392,27964,Norbert,Kundrák,24,Hungary,2023
+2392,28353,Péter,Kovács Ákos,23,Hungary,2023
+2392,28376,Kevin,Varga,27,Hungary,2023
+2392,28378,Donát,Bárány,24,Hungary,2023
+2392,28381,Márk,Szécsi,30,Hungary,2023
+2392,46157,Marko,Milošević,33,Serbia,2023
+2392,48635,João Pedro,Abreu de Oliveira,28,Switzerland,2023
+2392,68213,Alexandros,Kyziridis,24,Greece,2023
+2392,82989,Sylvain Boris Nabil,Deslandes,26,France,2023
+2392,161896,Sámuel,Major,21,Hungary,2023
+2392,191184,Brandon José,Dominguès,24,France,2023
+2392,237052,Peter Ukeme,Olawale,21,Nigeria,2023
+2392,329546,Szabolcs Vince,Sipos,19,Hungary,2023
+2392,356279,Balázs,Rácz,20,Hungary,2023
+2392,362056,Erik,Kocs-Washburn,20,USA,2023
+2392,378264,Tamás,Farkas,21,Hungary,2023
+2392,405303,Balázs,Tordai,21,Hungary,2023
+2392,3605,Jorgo,Pëllumbi,24,Albania,2023
+2392,14481,Stefan,Lončar,28,Montenegro,2023
+2392,15373,Christian,Manrique Díaz,26,Spain,2023
+2392,26645,Balázs Attila,Megyeri,34,Hungary,2023
+2392,28358,János,Ferenczi,33,Hungary,2023
+2392,28366,Ádám,Bódi,34,Hungary,2023
+2392,28371,Erik,Kusnyír,24,Hungary,2023
+2392,28482,József,Varga,36,Hungary,2023
+2392,43357,Dušan,Lagator,30,Montenegro,2023
+2392,50600,Balázs,Dzsudzsák,38,Hungary,2023
+2392,61432,Alexander,Mojžiš,25,Slovakia,2023
+2392,67024,Meldin,Drešković,26,Montenegro,2023
+2392,172883,Oleksandr,Romanchuk,25,Ukraine,2023
+2392,237232,Hamzat Basit,Ojediran,21,Nigeria,2023
+2392,309996,Máté,Tuboly,20,Hungary,2023
+2392,339179,Nimród,Baranyai,21,Hungary,2023
+2392,367499,Botond,Vajda,20,Hungary,2023
+2392,419586,Csaba,Hornyák,18,Hungary,2023
+2392,428140,Márk István,Engedi,18,Hungary,2023
+2392,435843,David,Nwachukwu,20,Nigeria,2023
+2392,21106,Antonio,Mance,29,Croatia,2023
+2392,28314,Soma,Szuhodovszki,25,Hungary,2023
+2392,33891,Dorian,Babunski Hristovski,28,North Macedonia,2023
+2392,98140,Andrija,Majdevac,27,Serbia,2023
+2392,378263,Benedek Miklós,Erdélyi,19,Hungary,2023
+2392,436840,Flórián,Cibla,19,Hungary,2023
+2392,448269,Tamás,Batai,19,Hungary,2023
+577,3366,Abdou,M'Bark El Id,25,Mauritania,2023
+577,3720,Plarent,Fejzaj,27,Albania,2023
+577,74667,Altin,Bytyçi,22,Kosovo,2023
+577,88560,Theodoros,Mingos,26,Greece,2023
+577,88597,Alexandre,de Oliveira Macedo Júnior,28,Brazil,2023
+577,128188,Arbër,Mehmetllari,24,Albania,2023
+577,144066,Matheus,da Motta Donha Fernandes,27,Brazil,2023
+577,156439,Nicolai,Solodovnicov,24,Moldova,2023
+577,163432,Atdhe,Rashiti,25,Albania,2023
+577,195063,Mario,Beshiraj,25,Albania,2023
+577,334505,Abdou,M'bark el id,24,Mauritania,2023
+577,335196,Endri,Murati,23,Albania,2023
+577,347708,Isiyaku,Yusuf Nayara,22,Nigeria,2023
+577,393231,Daniel,Momoh,22,Nigeria,2023
+577,401059,Uran,Dogjani,19,Albania,2023
+577,406255,Shamsuddeen,Sani,21,Nigeria,2023
+577,426740,Blerim,Sahitaj,24,Kosovo,2023
+577,435254,Mustapha,Gbolahan,23,Nigeria,2023
+577,436466,Carlos Nazayro,Rivas Cedasmano,24,Peru,2023
+577,436467,Klevis,Hilaj,20,Albania,2023
+577,3832,Redon,Dragoshi,24,Albania,2023
+577,3875,Franci,Lala,25,Albania,2023
+577,3953,Geri,Selita,23,Albania,2023
+577,27028,Franko,Lamçe,26,Albania,2023
+577,27386,Stefan,Abara,25,Albania,2023
+577,31839,Vasilios,Zogos,25,Greece,2023
+577,39402,Sebastián Milton,La Torre Miranda,26,Peru,2023
+577,41828,Felipe Ryan,Alves Silva,27,Brazil,2023
+577,145742,Redi,Veriu,24,Albania,2023
+577,147807,Endri,Reçi,24,Albania,2023
+577,152724,Xhoi,Hajdëraj,24,Albania,2023
+577,169199,Kleandro,Lleshi,25,Albania,2023
+577,189040,Nikolin,Duka,24,Albania,2023
+577,204200,Angelo,Tafas,24,Albania,2023
+577,290149,Françesko,Hasaj,23,Albania,2023
+577,311563,Kristian,Rroku,21,Albania,2023
+577,334754,Eogen,Sula,21,Albania,2023
+577,364307,Marvin,Brozi,23,Albania,2023
+577,405938,Igli,Çulaj,22,Albania,2023
+577,438173,Alvin,Mehmetaj,20,Albania,2023
+577,3508,Fluturim,Domi,24,Albania,2023
+577,3692,Arbër,Basha,26,Albania,2023
+577,295287,Melos,Zenunaj,24,Kosovo,2023
+577,404516,Alen,Ndreu,20,Albania,2023
+577,405233,Erduan,Smajli,21,Switzerland,2023
+3326,3559,Lorenco,Vila,26,Albania,2023
+3326,3582,Erisildo,Smaçi,26,Albania,2023
+3326,3702,Ersil,Ymeri,29,Albania,2023
+3326,4174,Redon,Danaj,24,Albania,2023
+3326,30945,Luca,Crosta,25,Italy,2023
+3326,56682,Dávid,Ivan,28,Slovakia,2023
+3326,90368,Luis,Kaçorri,26,Albania,2023
+3326,125248,Ali,Samake,24,Mali,2023
+3326,147810,Xhoel,Plaku,23,Albania,2023
+3326,215855,Veton,Tusha,22,Kosovo,2023
+3326,278842,Ardit,Tahiri,22,Kosovo,2023
+3326,315352,Klevi,Qefalija,21,Albania,2023
+3326,338304,Leo,Ballhysa,20,Albania,2023
+3326,343568,Oresti,Kasmollari,18,Albania,2023
+3326,368531,Alisio,Preloshi,20,Albania,2023
+3326,384604,Sinan,Dani,20,Albania,2023
+3326,404516,Alen,Ndreu,19,Albania,2023
+3326,405512,Igli,Rrapi,19,Albania,2023
+3326,405517,Fabjan,Përndreca,17,Albania,2023
+3326,406275,Amarildo,Gjoni,25,Albania,2023
+3326,3561,Edmir,Sali,27,Albania,2023
+3326,3651,Rustem,Hoxha,33,Albania,2023
+3326,3704,Patrik,Bardhi,26,Albania,2023
+3326,3765,Ilir,Allmuça,28,Albania,2023
+3326,3903,Stivian,Janku,27,Albania,2023
+3326,15428,Lorran,de Oliveira Quintanilha,28,Brazil,2023
+3326,26804,Fatjon,Andoni,33,Albania,2023
+3326,41978,José Denisson,Silva dos Santos,27,Brazil,2023
+3326,74658,Indrit,Prodani,26,Albania,2023
+3326,109589,Bekim,Redjepi,28,North Macedonia,2023
+3326,137402,Jorgo,Meksi,29,Albania,2023
+3326,162303,Silvio,Vokrri,23,Albania,2023
+3326,162961,Mory,Bamba,22,Côte d'Ivoire,2023
+3326,182019,Alesio,Mija,23,Albania,2023
+3326,196342,Albion,Marku,24,Albania,2023
+3326,297693,Jocelin,Behiratche,24,Côte d'Ivoire,2023
+3326,408471,Karamba,Gassama,19,Gambia,2023
+3326,436866,Rajan,Guci,18,Albania,2023
+3326,436867,Bakary,Goudiaby,23,Senegal,2023
+3326,454730,Kilian,Çuni,25,Germany,2023
+3326,13183,Juan Camilo,Mesa Antúnez,26,Colombia,2023
+3326,278744,Baton,Zabërgja,23,Kosovo,2023
+3326,386260,Jordi,Jaku,18,Albania,2023
+3326,391965,Dejvi,Duro,18,Albania,2023
+3326,426282,Blend,Krasniqi,20,Kosovo,2023

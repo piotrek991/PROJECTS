@@ -1,0 +1,5 @@
+api tweeter  key Gf108Do8c6iYc4Y34u8k9IOss
+tweeter secret key kdYdW8CmrY4yo0NtMSFvo3eh1XGAnr6J0dA3Upu94r4EQ8wmW3
+acces bearer token AAAAAAAAAAAAAAAAAAAAAOXQqwEAAAAA7gV9gmI%2BkamcbGSmjoAp1VwM6XQ%3DcGOlkw066OCEGQt3NrsZWSOOaYcfidnhCvJS8fUuD1TGdK4mEG
+access token 1578081627888132099-8rZhGdzG2ezz9sONIJ55pYgHzb1XmK
+access secret token PIQB3F1Tv0skmKFoIDqszrVvZz9quWZgUUyxYEKElqXef

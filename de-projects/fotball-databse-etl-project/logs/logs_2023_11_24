@@ -1,0 +1,3 @@
+time ? 12:54:30|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39}|finished ? True|errors_info ? {}|current_requests ? 4
+time ? 12:54:40|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39}|finished ? True|errors_info ? {}|current_requests ? 4
+time ? 12:58:16|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39}|finished ? True|errors_info ? {}|current_requests ? 6

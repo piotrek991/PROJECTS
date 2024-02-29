@@ -1,0 +1,887 @@
+name,firstname,lastname,age,team_id,league_id
+Diego Costa,Diego,da Silva Costa,35,39,39
+Lucas Moura,Lucas,Rodrigues Moura da Silva,31,47,39
+A. Oxlade-Chamberlain,Alexander Mark David,Oxlade-Chamberlain,30,40,39
+P. Jones,Phil Anthony,Jones,31,33,39
+J. Lingard,Jesse Ellis,Lingard,31,65,39
+M. Lanzini,Manuel,Lanzini,30,48,39
+João Moutinho,João Filipe,Iria Santos Moutinho,37,39,39
+Adama Traoré,Adama,Traoré Diarra,27,"39, 36",39
+T. Davies,Thomas,Davies,25,"45, 62",39
+J. McArthur,James,McFarlane McArthur,36,52,39
+L. Milivojević,Luka,Milivojević,32,52,39
+A. Townsend,Andros Darryl,Townsend,32,"45, 1359",39
+A. Begović,Asmir,Begović,36,45,39
+J. Stanislas,Felix Junior,Stanislas,34,35,39
+C. Clark,Ciaran,Clark,34,62,39
+J. Steer,Jed John,Steer,31,66,39
+J. Colback,Jack Raymond,Colback,34,65,39
+L. Taylor,Lyle James Alfred,Taylor,33,65,39
+M. Longstaff,Matthew Ben,Longstaff,23,34,39
+E. Wady,Ethan James,Wady,21,49,39
+Wesley Moraes,Wesley,Moraes Ferreira da Silva,27,66,39
+K. Hoever,Ki-Jana Delano,Hoever,21,39,39
+Alex Telles,Alex,Nicolao Telles,31,33,39
+David de Gea,David,de Gea Quintana,33,33,39
+M. Sanson,Morgan Stéphane,Sanson,29,66,39
+R. Giles,Ryan John,Giles,23,"39, 1359",39
+R. Laryea,Richmond Mamah,Laryea,28,65,39
+J. Bowler,Joshua Luke,Bowler,24,65,39
+A. Pressley,Aaron Alex,Pressley,22,55,39
+I. Kaboré,Issa,Kaboré,22,"50, 1359",39
+W. Fish,William Thomas,Fish,20,33,39
+M. Bidstrup,Mads,Bidstrup,22,55,39
+Yan Couto,Yan,Bueno Couto,21,50,39
+I. Samuels,Imari-Narain,Che Hines-Samuels,20,51,39
+C. Cîrjan,Cătălin Ionuț,Cîrjan,21,42,39
+C. Rushworth,Carl Andrew,Rushworth,22,51,39
+J. Wilson-Esbrand,Joshua Darius,Kamani Wilson-Esbrand,21,50,39
+K. Edwards,Khayon,Edwards,20,42,39
+F. Potts,Freddie,Potts,20,48,39
+C. Patino,Charlie Michael,Patino,20,42,39
+Ivan Cavaleiro,Ivan Ricardo,Neves Abreu Cavaleiro,30,36,39
+B. Bolla,Bendegúz Bence,Bolla,24,39,39
+J. White,Joe Peter,White,21,34,39
+R. Savage,Remi Eugene,Savage,22,34,39
+D. Scarlett,Dane Pharrell,Scarlett,19,47,39
+I. Odutayo,Idris Adewale,Olarewaju Odutayo,21,36,39
+M. Frauendorf,Melkamu Benjamin Daniel,Frauendorf,19,40,39
+J. Turner-Cooke,Jay,Turner-Cooke,20,34,39
+J. Miley,Jamie,Miley,19,34,39
+S. Parkes,Stefan Charles Earl,Parkes,19,36,39
+A. Borto,Alexander Paul,Borto,20,36,39
+J. Keeley,Joshua,Keeley,20,47,39
+M. Boateng,Malachi,Boateng,21,52,39
+A. Murphy,Alex,Murphy,19,34,39
+D. McCoy-Splatt,Delano,McCoy-Splatt,19,36,39
+B. Baker-Boaitey,Benicio,Baker-Boaitey,19,51,39
+M. Godo,Becket Fabrice-Martial,Godo,20,36,39
+Z. Marsh,Zachariah Daniel Robert,Marsh,18,52,39
+S. Amissah,Samuel,Amissah,16,36,39
+F. Marjoram,Finley,Marjoram,17,52,39
+J. Cumming,James Andrew,Cumming,24,49,39
+G. Słonina,Gabriel Paweł,Słonina,19,49,39
+F. Anjorin,Faustino Adebola Rasheed,Anjorin,22,49,39
+T. Morton,Tyler Scott,Morton,21,"40, 7196",39
+C. Casadei,Cesare,Casadei,20,49,39
+L. Pye,Logan,Pye,20,33,39
+J. Hugill,Joseph,Brennen Hugill,20,33,39
+N. Emeran,Noam,Fritz Emeran,21,33,39
+L. Laing,Levi Alexander,Laing,20,48,39
+D. Mee,Dermot William,Mee,21,33,39
+T. Collyer,Tobias Christopher,Collyer,19,33,39
+J. Knightbridge,Jacob Christopher,Knightbridge,19,48,39
+Ângelo,Ângelo Gabriel,Borges Damaceno,19,49,39
+C. McNeill,Charlie Martin,McNeill,20,33,39
+W. Kambwala,Willy,Kambwala Ndengushi,19,33,39
+G. Earthy,George,Earthy,19,48,39
+M. Oyedele,Maximillian,Oyedele,19,33,39
+L. Koumas,Lewis,Koumas,18,40,39
+S. Aljofree,Sonny,Aljofree,19,33,39
+Elyh Harrison,Elyh Samuel,Harrison,17,33,39
+L. Mbe Soh,Loïc Junior,Mbe Soh,22,65,39
+R. Lukaku,Romelu Menama,Lukaku Bolingoli,30,49,39
+M. Dräger,Mohamed,Dräger,27,65,39
+A. Knockaert,Anthony Patrick,Knockaert,32,36,39
+J. Lowe,Jamal Akua,Lowe,29,35,39
+W. Weghorst,Wout,Weghorst,31,44,39
+K. Simon-Swyer,Kamarai,Simon-Swyer,21,48,39
+T. Doyle,Thomas Glyn,Doyle,22,"50, 39",39
+P. Maghoma,Edmond-Paris,Maghoma,22,55,39
+H. Vale,Harvey James,Vale,20,49,39
+A. Ramsey,Aaron James,Ramsey,20,"66, 44",39
+S. McAllister,Sean Paul,McAllister,21,45,39
+Mateo Mejía,José Mateo,Mejía Piedrahita,20,33,39
+T. Adaramola,Omotayo Daniel,Adaramola,20,52,39
+Mauro Bandeira,Mauro,Gomes Bandeira,19,42,39
+K. Rodney,Kaden Kai,Rodney,19,52,39
+D. Osong,Detlef Esapa,Osong,19,65,39
+A. Bott,Aaron Charlie,Bott,19,65,39
+J. Powell,Joshua Alan,Powell,18,65,39
+G. Kuol,Garang,Mawien Kuol,19,34,39
+Bruno Jordão,Bruno André,Cavaco Jordão,25,39,39
+L. Freeman,Luke Anthony,Freeman,31,1359,39
+J. Furlong,Walter James,Byrne Furlong,21,51,39
+B. Chrisene,Benjamin Joshua,Chrisene,19,66,39
+M. Azeez,Miguel,Azeez,21,42,39
+N. Young-Coombes,Nathan,Young-Coombes,20,55,39
+M. Craig,Matthew George,Craig,20,47,39
+I. Hansen-Aarøen,Isak,Hansen-Aarøen,19,33,39
+D. Sassi,Daniel,Sassi,20,44,39
+R. Bennett,Rhys Joseph,Wright Bennett,20,33,39
+J. Wright,James,Wright,19,66,39
+S. Swinkels,Sil,Laurentius Swinkels,19,66,39
+Luizão,Luiz Gustavo,Oliveira da Silva,21,48,39
+J. Hinchy,Jack Samuel Lawrence,Hinchy,20,51,39
+D. Sadi,Dominic,Sadi,20,35,39
+D. Adu-Adjei,Daniel,Adu-Adjei,18,35,39
+J. Wadham,Jack,Wadham,20,35,39
+M. Kinsey-Wellings,Maxwell,Kinsey-Wellings,18,35,39
+F. Okoh,Ferdinand,Okoh,19,35,39
+Michael Dacosta,Michael,Dacosta Gonzales,18,35,39
+Aymeric Laporte,Aymeric Jean Louis Gérard Alph,Laporte,29,50,39
+José Sá,José Pedro,Malheiro de Sá,30,39,39
+J. Gbamin,Jean-Philippe,Gbamin,28,45,39
+T. Awoniyi,Taiwo Micheal,Awoniyi,26,65,39
+I. Hayden,Isaac Scott,Hayden,28,34,39
+H. Arter,Harry Nicholas,Arter,34,65,39
+S. McKenna,Scott,Fraser McKenna,27,65,39
+N. Patterson,Nathan Kenneth,Patterson,22,45,39
+J. Hillson,James Andrew,Hillson,22,42,39
+B. Knight,Benjamin Leo,Knight,21,50,39
+G. Wickens,George Alexander,Wickens,22,36,39
+T. Fornah,Tyrese Momodu,Fornah,24,65,39
+A. Hackford,Antwoine,Hackford,19,62,39
+L. Sousa,Lino Gonçalo,da Cruz Sousa,18,42,39
+E. Nwaneri,Ethan Chidiebere,Nwaneri,16,42,39
+C. Sayers,Charlie,Sayers,19,47,39
+A. Francis-Clarke,Aidan,Francis-Clarke,18,1359,39
+E. Pollock,Euan,Pollock,21,35,39
+A. Harris,Aidan,Harris,17,34,39
+S. Sachdev,Sai Sachin Rony,Sachdev,19,62,39
+S. Amrabat,Sofyan,Amrabat,27,33,39
+N. Zaniolo,Nicolò,Zaniolo,24,66,39
+Bruno Fernandes,Bruno Miguel,Borges Fernandes,29,33,39
+K. Tsimikas,Konstantinos,Tsimikas,27,40,39
+Carlos Gomes,Carlos Mendes,Gomes,25,1359,39
+J. Weir,Jensen Guy,Weir,21,51,39
+M. Rodák,Marek,Rodák,27,36,39
+A. Radu,Ionuț Andrei,Radu,26,35,39
+M. Mudryk,Mykhailo,Mudryk,22,49,39
+C. Gallagher,Conor John,Gallagher,23,49,39
+K. Balmer,Kofi,Balmer,23,52,39
+A. Muskwe,Admiral Dalindlela,Muskwe,25,1359,39
+C. Palmer,Cole Jermaine,Palmer,21,"49, 50",39
+V. Sinisalo,Viljami Kari Veikko,Sinisalo,22,66,39
+A. Okonkwo,Arthur Chukwuezugo,Okonkwo,22,42,39
+A. Devine,Alfie Sean,Devine,19,47,39
+C. Savage,Charlie William Henry,Savage,20,33,39
+D. Gore,Daniel,Gore,19,33,39
+O. Arblaster,Oliver Luke,Arblaster,19,62,39
+R. Trevitt,Ryan,Trevitt,20,55,39
+Felipe,Felipe Augusto,de Almeida Monteiro,34,65,39
+B. Aguilera,Brandon,Aguilera Zamora,20,65,39
+C. Ogbene,Chiedozie Somkelechukwu,Ogbene,26,1359,39
+J. Cullen,Joshua Jon,Cullen,27,44,39
+D. Pereira,Dion Enrico,Pereira Greives,24,1359,39
+M. Guéhi,Addji Keaninkin Marc-Israel,Guéhi,23,52,39
+K. Watts,Kelland John William James,Watts,24,34,39
+J. McAtee,John George,McAtee,24,1359,39
+H. White,Harvey David,White,22,47,39
+K. Hegyi,Krisztián,Hegyi,21,48,39
+J. Trafford,James Harrington,Trafford,21,44,39
+A. Onana,Amadou Ba Zeund Georges,Mvom Onana,22,45,39
+J. Taylor,Joseph  William John,Taylor,21,1359,39
+C. Peupion,Cameron Paul Jacques,Peupion,21,51,39
+K. Phillips,Killian,Phillips,21,52,39
+L. Plange,Luke Elliot,Plange,21,52,39
+O. Dodgson,Owen Joel,Dodgson,20,44,39
+Andrey Santos,Andrey,Nascimento dos Santos,19,"65, 49",39
+O. Hammond,Oliver Jack,Hammond,21,65,39
+L. Marsh,Louie,Marsh,19,62,39
+P. Højbjerg,Pierre-Emile Kordt,Højbjerg,28,47,39
+G. Rea,Glen Charles,Rea,29,1359,39
+M. Macey,Matthew Ryan,Macey,29,1359,39
+O. Mangala,Orel Johnson,Mangala,25,65,39
+J. Enciso,Julio César,Enciso Espínola,19,51,39
+Y. Larouci,Yasser,Larouci,22,62,39
+T. Harwood-Bellis,Taylor Jay,Harwood-Bellis,21,50,39
+A. Pepple,Aribusitamunoipirim Emmanuel,Pepple,21,1359,39
+M. van de Ven,Micky,van de Ven,22,47,39
+L. Watson,Louie Shaun,Watson,22,1359,39
+M. Leonard,Marc Henry,Leonard,22,51,39
+T. Crama,Tristan,Crama,22,55,39
+J. Gordon,John-Kymani Linton,Michael Gordon,20,52,39
+M. Cox,Matthew Aidan,Cox,20,55,39
+E. Turns,Edward James,Turns,21,51,39
+S. Mills,Stanley,Mills,20,45,39
+H. Griffiths,Harvey,Lawson Griffiths,20,39,39
+O. Goodman,Owen Olamidayo,Goodman,20,52,39
+J. Donley,Jamie,Donley,18,47,39
+C. Pettit,Casey,Pettit,21,1359,39
+Carlos Vinícius,Carlos Vinícius,Alves Morais,28,36,39
+F. Ballo-Touré,Fodé,Ballo-Touré,26,36,39
+Andreas Pereira,Andreas Hugo,Hoelgebaum Pereira,27,36,39
+A. Iwobi,Alexander Chuka,Iwobi,27,"36, 45",39
+Willian,Willian,Borges da Silva,35,36,39
+S. Lukić,Saša,Lukić,27,36,39
+R. Jiménez,Raúl Alonso,Jiménez Rodríguez,32,"36, 39",39
+T. Castagne,Timothy,Castagne,28,36,39
+I. Diop,Issa Laye Lucas Jean,Diop,26,36,39
+B. De Cordova-Reid,Bobby Armani,De Cordova-Reid,30,36,39
+T. Cairney,Thomas,Cairney,32,36,39
+H. Wilson,Harry,Wilson,26,36,39
+D. Randolph,Darren Edward Andrew,Randolph,36,35,39
+A. Robinson,Antonee,Robinson,26,36,39
+João Palhinha,João Maria,Lobo Alves Palhares Costa Palh,28,36,39
+T. Francois,Tyrese Jay,Francois,23,36,39
+Rodrigo Muniz,Rodrigo,Muniz Carvalho,22,36,39
+M. Dibley-Dias,Matthew Max,Dibley-Dias,20,36,39
+L. Harris,Luke Bernard,Harris,18,36,39
+D. Tanton,Devan,Austin Tanton Pedraza,19,36,39
+D. Origi,Divock,Okoth Origi,28,65,39
+K. Tete,Kenny Joelle,Tete,28,36,39
+B. Leno,Bernd,Leno,31,36,39
+G. Montiel,Gonzalo Ariel,Montiel,26,65,39
+O. Aina,Temitayo Olufisayo Olaoluwa,Aina,27,65,39
+C. Kouyaté,Cheikhou,Kouyaté,34,65,39
+N. Domínguez,Nicolás Martín,Domínguez,25,65,39
+W. Boly,Willy-Arnaud,Zobo Boly,32,65,39
+M. Gibbs-White,Morgan Anthony,Gibbs-White,23,65,39
+C. Wood,Christopher Grant,Wood,32,65,39
+T. Ream,Timothy Michael,Ream,36,36,39
+T. Adarabioyo,Abdul-Nasir Oluwatosin,Oluwadoyinsolami Adarabioyo,26,36,39
+R. Yates,Ryan James,Yates,26,65,39
+S. Benda,Steven-Andreas,Benda,25,36,39
+I. Sangaré,Ibrahim,Sangaré,26,65,39
+A. Omobamidele,Andrew Abiola,Omobamidele,21,65,39
+C. Bassey,Calvin,Bassey,24,36,39
+A. Elanga,Anthony David,Junior Elanga,21,"65, 33",39
+Danilo,Danilo,dos Santos de Oliveira,22,65,39
+Murillo,Murillo,Santiago Costa dos Santos,21,65,39
+E. Horvath,Ethan Shea,Horvath,28,65,39
+A. Danjuma,Arnaut,Danjuma Adam Groeneveld,26,45,39
+S. Aurier,Sèrge Alain Stéphane,Aurier,31,65,39
+J. Garner,James David,Garner,22,45,39
+J. Worrall,Joseph Adrian,Worrall,26,65,39
+I. Gueye,Idrissa Gana,Gueye,34,45,39
+H. Toffolo,Harry Stefano,Toffolo,28,65,39
+André Gomes,André Filipe,Tavares Gomes,30,45,39
+A. Doucouré,Abdoulaye,Doucouré,30,45,39
+W. Hennessey,Wayne Robert,Hennessey,36,65,39
+D. McNeil,Dwight James Matthew,McNeil,24,45,39
+M. Niakhaté,Moussa,Niakhaté,27,65,39
+Nuno Tavares,Nuno Albertino,Varela Tavares,23,"65, 42",39
+M. Turner,Matthew Charles,Turner,29,"65, 42",39
+Beto,Norberto Bercique,Gomes Betuncal,25,45,39
+N. Williams,Neco Shay,Williams,22,65,39
+L. Dobbin,Lewis Norman,Dobbin,20,45,39
+T. Onyango,Tyler Jaden,Napier Edward Onyango,20,45,39
+G. Shelvey,George William,Shelvey,22,65,39
+M. Hunt,Mackenzie James,Hunt,22,45,39
+D. Alli,Bamidele Jermaine,Alli,27,45,39
+A. Young,Ashley Simon,Young,38,45,39
+O. Édouard,Odsonne,Édouard,25,52,39
+V. Mykolenko,Vitalii,Mykolenko,24,45,39
+J. Pickford,Jordan Lee,Pickford,29,45,39
+M. Keane,Michael Vincent,Keane,30,45,39
+J. Tarkowski,James Alan,Tarkowski,31,45,39
+J. Branthwaite,Jarrad Paul,Branthwaite,21,45,39
+João Virgínia,João Manuel,Neves Virgínia,24,45,39
+S. Coleman,Séamus,Coleman,35,45,39
+B. Godfrey,Benjamin Matthew,Godfrey,25,45,39
+J. Harrison,Jack David,Harrison,27,45,39
+B. Crellin,William Francis,Crellin,23,45,39
+A. Lonergan,Andrew Michael,Lonergan,40,45,39
+J. Mateta,Jean-Philippe,Mateta,26,52,39
+J. Raymond,Jadan,Raymond,20,52,39
+A. Ola-Adebomi,Ademola,Oladipupo Ola-Adebomi,20,52,39
+D. Ozoh,David Ikechukwu,Ozoh,18,52,39
+Matheus França,Matheus,França de Oliveira,19,52,39
+M. Ebiowei,Malcolm,Perewari Ebiowei,20,52,39
+Nélson Semedo,Nélson,Cabral Semedo,30,39,39
+Philippe Coutinho,Philippe,Coutinho Correia,31,66,39
+R. Mahrez,Riyad Karim,Mahrez,32,50,39
+O. Zinchenko,Oleksandr,Zinchenko,27,42,39
+Gonçalo Guedes,Gonçalo Manuel,Ganchinho Guedes,27,39,39
+R. Rúnarsson,Rúnar Alex,Rúnarsson,28,42,39
+Jonny,Jonathan,Castro Otto,29,39,39
+M. Kilman,Maximilian William,Kilman,26,39,39
+M. Lemina,Mario René Junior,Lemina,30,39,39
+R. Aït-Nouri,Rayan,Aït-Nouri,22,39,39
+M. Ødegaard,Martin,Ødegaard,25,42,39
+J. Timber,Jurriën David Norman,Timber,22,42,39
+Toti Gomes,Tote António,Gomes,24,39,39
+G. Biancone,Giulian,Biancone,23,65,39
+J. Panzo,Jonathan William,Panzo,23,65,39
+Gabriel Martinelli,Gabriel Teodoro,Martinelli Silva,22,42,39
+S. Bueno,Santiago Ignacio,Bueno Sciutto,25,39,39
+B. Traoré,Boubacar,Traoré,22,39,39
+Hugo Bueno,Hugo,Bueno López,21,39,39
+Marc Jurado,Marc,Jurado Gómez,19,33,39
+Matheus Cunha,Matheus Santos,Carneiro da Cunha,24,39,39
+R. Holding,Robert Samuel,Holding,28,"52, 42",39
+J. Lerma,Jefferson Andrés,Lerma Solís,29,52,39
+J. Andersen,Joachim Christian,Andersen,27,52,39
+S. Kalajdzic,Saša,Kalajdžić,26,39,39
+W. Hughes,William James,Hughes,28,52,39
+J. Schlupp,Jeffrey,Schlupp,31,52,39
+J. Ward,Joel Edward Philip,Ward,34,52,39
+N. Clyne,Nathaniel Edwin,Clyne,32,52,39
+D. Henderson,Dean Bradley,Henderson,26,"52, 33",39
+E. Eze,Eberechi Oluchi,Eze,25,52,39
+M. Olise,Michael Akpovie,Olise,22,52,39
+R. Matthews,Remi Luke,Matthews,29,52,39
+C. Richards,Christopher Jeffrey,Richards,23,52,39
+N. Ferguson,Nathan Kirk-Patrick,Ferguson,23,52,39
+J. Whitworth,Joseph Charles,Whitworth,19,52,39
+N. Fraser,Nathan John Mark,Fraser,18,39,39
+S. Grehan,Seán,Grehan,19,52,39
+E. González,Enso David,González Medina,18,39,39
+E. Ballard-Matthews,Emilio,Ballard-Matthews,16,39,39
+Nélson Semedo,Nélson,Cabral Semedo,30,39,39
+Pedro Neto,Pedro,Lomba Neto,23,39,39
+Pablo Sarabia,Pablo,Sarabia García,31,39,39
+Jonny,Jonathan,Castro Otto,29,39,39
+M. Doherty,Matthew James,Doherty,31,39,39
+M. Kilman,Maximilian William,Kilman,26,39,39
+M. Lemina,Mario René Junior,Lemina,30,39,39
+C. Dawson,Craig,Dawson,33,39,39
+D. Bentley,Daniel Ian,Bentley,30,39,39
+J. Bellegarde,Jean-Ricner,Bellegarde,25,39,39
+Toti Gomes,Tote António,Gomes,24,39,39
+T. King,Thomas Lloyd,King,28,39,39
+K. Lewis-Potter,Keane William,Lewis-Potter,22,55,39
+Fábio Silva,Fábio Daniel,Soares Silva,21,39,39
+S. Bueno,Santiago Ignacio,Bueno Sciutto,25,39,39
+B. Traoré,Boubacar,Traoré,22,39,39
+João Gomes,João Victor,Gomes da Silva,22,39,39
+J. Hodge,Joseph Shaun,Hodge,21,39,39
+Hugo Bueno,Hugo,Bueno López,21,39,39
+M. Olakigbe,Michael Oluwakorede,Olakigbe,19,55,39
+S. Ghoddos,Sayed Saman,Ghoddos,30,55,39
+M. Roerslev,Mads,Roerslev Rasmussen,24,55,39
+F. Onyeka,Ogochukwu Frank,Onyeka,25,55,39
+M. Damsgaard,Mikkel,Krogh Damsgaard,23,55,39
+J. Dasilva,Pelenda Joshua Tunga,Dasilva,25,55,39
+N. Maupay,Neal,Maupay,27,"55, 45",39
+N. Collins,Nathan Michael,Collins,22,55,39
+I. Toney,Ivan Benjamin Elijah,Toney,27,55,39
+S. Baptiste,Shandon Harkeem,Baptiste,25,55,39
+B. Mbeumo,Bryan Tetsadong Marceau,Mbeumo,24,55,39
+Y. Wissa,Yoane,Wissa,27,55,39
+V. Janelt,Vitaly,Janelt,25,55,39
+C. Nørgaard,Christian,Thers Nørgaard,29,55,39
+M. Jensen,Mathias,Jensen,27,55,39
+E. Brierley,Ethan Craig,Brierley,20,55,39
+K. Schade,Kevin,Schade,22,55,39
+M. Peart-Harris,Myles,Spencer Peart-Harris,21,55,39
+Y. Yarmolyuk,Yehor,Yarmolyuk,19,55,39
+V. Adedokun,Valintino,Adedokun,20,55,39
+Kim Ji-Soo,Ji-Soo,Kim,19,55,39
+C. Nkunku,Christopher Alan,Nkunku,26,49,39
+R. Sterling,Raheem Shaquille,Sterling,29,49,39
+K. Ajer,Kristoffer,Vassbakk Ajer,25,55,39
+T. Strakosha,Thomas,Strakosha,28,55,39
+M. Jørgensen,Mathias,Jattah-Njie Jørgensen,33,55,39
+C. Goode,Charles James,Goode,28,55,39
+B. Mee,Benjamin Thomas,Mee,34,55,39
+E. Balcombe,Ellery Ronald,Balcombe,24,55,39
+R. Henry,Rico Antonio,Henry,26,55,39
+E. Pinnock,Ethan Rupert,Pinnock,30,55,39
+M. Flekken,Mark,Flekken,30,55,39
+A. Hickey,Aaron,Buchanan Hickey,21,55,39
+N. Madueke,Chukwunonso Tristan,Madueke,21,49,39
+A. Broja,Armando,Broja,22,49,39
+R. Lavia,Roméo,Lavia,19,49,39
+N. Jackson,Nicolas,Jackson,22,49,39
+L. Castledine,Leo Alexander Francis,Castledine,18,49,39
+R. Stutter,Ronnie,Stutter,18,49,39
+A. Matos,Alex,Matos,19,49,39
+Deivid Washington,Deivid Washington,de Souza Eugênio,18,49,39
+B. Badiashile,Benoît Ntambue,Badiashile Mukinayi Baya,22,49,39
+B. Chilwell,Benjamin James,Chilwell,27,49,39
+E. Fernández,Enzo Jeremías,Fernández,22,49,39
+R. James,Reece Lewis,James,24,49,39
+T. Chalobah,Trevoh Thomas,Chalobah,24,49,39
+A. Disasi,Axel Wilson Arthur,Disasi Mhakinis Belho,25,49,39
+W. Fofana,Wesley Tidjan,Fofana,23,49,39
+M. Sarr,Malang Mamadou William Georges,Sarr,24,49,39
+Marc Cucurella,Marc,Cucurella Saseta,25,49,39
+M. Caicedo,Moisés Isaac,Caicedo Corozo,22,"49, 51",39
+Đ. Petrović,Đorđe,Petrović,24,49,39
+I. Maatsen,Ian Ethan,Maatsen,21,49,39
+C. Chukwuemeka,Carney Chibueze,Chukwuemeka,20,49,39
+L. Colwill,Levi Lemar,Samuels Colwill,20,49,39
+L. Bergström,Lucas Carl Edvard,Bergström,21,49,39
+M. Gusto,Malo,Gusto,20,49,39
+J. Brooking,Joshua Royston,Brooking,21,49,39
+L. Ugochukwu,Lesley Chimuanya,Ugochukwu,19,49,39
+A. Gilchrist,Alfie,Gilchrist,20,49,39
+C. Marshall,Callum,Marshall,19,48,39
+T. Kehrer,Jan Thilo,Kehrer,27,48,39
+M. Cornet,Gnaly Albert Maxwel,Cornet,27,48,39
+T. Souček,Tomáš,Souček,28,48,39
+Lucas Paquetá,Lucas,Tolentino Coelho de Lima,26,48,39
+Pablo Fornals,Pablo,Fornals Malla,27,48,39
+Emerson,Emerson,Palmieri dos Santos,29,48,39
+E. Álvarez,Edson Omar,Álvarez Velázquez,26,48,39
+J. Ward-Prowse,James Michael Edward,Ward-Prowse,29,48,39
+M. Kudus,Mohammed,Kudus,23,48,39
+A. Ogbonna,Angelo,Obinze Ogbonna,35,48,39
+M. Antonio,Michail Gregory,Antonio,33,48,39
+C. Coventry,Conor James,Coventry,23,48,39
+B. Johnson,Benjamin Anthony,Johnson,23,48,39
+D. Ings,Daniel William John,Ings,31,48,39
+Robert Sánchez,Robert,Lynch Sánchez,26,"49, 51",39
+M. Bettinelli,Marcus,Bettinelli,31,49,39
+J. Bowen,Jarrod,Bowen,27,48,39
+D. Chesters,Daniel Peter James,Chesters,21,48,39
+D. Mubama,Divin Saku,Mubama,19,48,39
+E. Beach,Edward James,Beach,20,49,39
+N. Vlašić,Nikola,Vlašić,26,48,39
+P. Aubameyang,Pierre-Emerick Emiliano Franço,Aubameyang,34,49,39
+Daniel Podence,Daniel,Castelo Podence,28,39,39
+E. Ampadu,Ethan Kwame Colm Raymond,Ampadu,23,49,39
+R. Freuler,Remo Marco,Freuler,31,65,39
+Gustavo Scarpa,Gustavo Henrique,Furtado Scarpa,29,65,39
+I. Ndiaye,Iliman Cheikh,Baroy Ndiaye,23,62,39
+R. Fraser,Ryan,Fraser,29,34,39
+M. Holgate,Mason Anthony,Holgate,27,45,39
+K. Davis,Keinan Vincent Joseph,Davis,25,66,39
+J. Rodon,Joseph Peter,Rodon,26,47,39
+O. Richards,Omar,Tyrell Crawford Richards,25,65,39
+F. Downes,Flynn,Downes,24,48,39
+N. Bishop,Nathan James,Bishop,24,33,39
+K. Kozłowski,Kacper Szymon,Kozłowski,20,51,39
+J. Anthony,Jaidon Kya Denley,Anthony,24,35,39
+J. O&apos;Brien,Jake,O'Brien,22,52,39
+Marquinhos,Marcus Vinícius,Oliveira Alencar,20,42,39
+M. Burstow,Mason Paul James,Burstow,20,49,39
+Diego Moreira,Diego Manuel Jadon,da Silva Moreira,19,49,39
+K. Trippier,Kieran John,Trippier,33,34,39
+L. Karius,Loris Sven,Karius,30,34,39
+M. Almirón,Miguel Ángel,Almirón Rejala,29,34,39
+F. Schär,Fabian Lukas,Schär,32,34,39
+E. Krafth,Emil Henry Kristoffer,Krafth,29,34,39
+H. Barnes,Harvey Lewis,Barnes,26,34,39
+P. Dummett,Paul,Dummett,32,34,39
+J. Lascelles,Jamaal,Lascelles,30,34,39
+Javier Manquillo,Javier,Manquillo Gaitán,29,34,39
+M. Ritchie,Matthew Thomas,Ritchie,34,34,39
+N. Pope,Nicholas David,Pope,31,34,39
+M. Targett,Matthew Robert,Targett,28,34,39
+D. Burn,Daniel Johnson,Burn,31,34,39
+J. Murphy,Jacob Kai,Murphy,28,34,39
+S. Tonali,Sandro,Tonali,23,34,39
+S. Botman,Sven Adriaan,Botman,23,34,39
+M. Gillespie,Mark Joseph,Gillespie,31,34,39
+T. Livramento,Valentino Francisco,Livramento,21,34,39
+L. Hall,Lewis Kieran,Hall,19,"34, 49",39
+A. Murphy,Alex,Murphy,19,34,39
+J. Sancho,Jadon Malik,Sancho,23,33,39
+C. Eriksen,Christian,Dannemann Eriksen,31,33,39
+D. van de Beek,Donny,van de Beek,26,33,39
+Casemiro,Carlos Henrique,Casimiro,31,33,39
+S. McTominay,Scott Francis,McTominay,27,33,39
+A. Martial,Anthony Jordan,Martial,28,33,39
+M. Rashford,Marcus,Rashford,26,33,39
+Bruno Fernandes,Bruno Miguel,Borges Fernandes,29,33,39
+Antony,Antony Matheus,dos Santos,23,33,39
+M. Dúbravka,Martin,Dúbravka,34,34,39
+M. Mount,Mason Tony,Mount,24,33,39
+F. Pellistri,Facundo,Pellistri Rebollo,22,33,39
+A. Diallo,Amad,Diallo Traoré,21,33,39
+S. Shoretire,Shola Maxwell,Shoretire,19,33,39
+H. Mejbri,Hannibal,Mejbri,20,33,39
+O. Forson,Omari Nathan,Forson,19,33,39
+K. Mainoo,Kobbie Boateng,Mainoo,18,33,39
+A. Garnacho,Alejandro,Garnacho Ferreyra,19,"33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33",39
+R. Højlund,Rasmus,Winther Højlund,20,33,39
+D. Gore,Daniel,Gore,19,33,39
+S. Amrabat,Sofyan,Amrabat,27,33,39
+M. Diaby,Moussa,Diaby,24,66,39
+A. Onana,André,Onana Onana,27,33,39
+Sergio Reguilón,Sergio,Reguilón Rodríguez,27,"33, 47",39
+R. Varane,Raphaël Xavier,Varane,30,33,39
+Diogo Dalot,José Diogo,Dalot Teixeira,24,33,39
+V. Lindelöf,Victor Jörgen,Nilsson Lindelöf,29,33,39
+L. Shaw,Luke Paul Hoare,Shaw,28,33,39
+Lisandro Martínez,Lisandro,Martínez,25,33,39
+T. Heaton,Thomas David,Heaton,37,33,39
+J. Durán,Jhon Jader,Durán Palacio,20,66,39
+J. Evans,Jonathan Grant,Evans,35,33,39
+A. Wan-Bissaka,Aaron,Wan-Bissaka,26,33,39
+O. Watkins,Oliver George Arthur,Watkins,28,66,39
+T. Malacia,Tyrell Johannes Chicco,Malacia,24,33,39
+A. Bayındır,Altay,Bayındır,25,33,39
+R. Vítek,Radek,Vítek,20,33,39
+T. Patterson,Travis,Patterson,18,66,39
+K. Young,Kadan,Young,17,66,39
+O. Kellyman,Omari Jamian,Kellyman,18,66,39
+M. Diaby,Moussa,Diaby,24,66,39
+A. Onana,André,Onana Onana,27,33,39
+B. Traoré,Bertrand Isidore,Traoré,28,66,39
+V. Lindelöf,Victor Jörgen,Nilsson Lindelöf,29,33,39
+L. Bailey,Leon Patrick,Bailey Butler,26,66,39
+B. Kamara,Boubacar Bernard,Kamara,24,66,39
+L. Dendoncker,Leander,Dendoncker,28,66,39
+Y. Tielemans,Youri Marion A.,Tielemans,26,66,39
+T. Heaton,Thomas David,Heaton,37,33,39
+H. Maguire,Jacob Harry,Maguire,30,33,39
+E. Buendía,Emiliano,Buendía Stati,27,66,39
+K. Hause,Kortney Paul Duncan,Hause,28,66,39
+J.  McGinn,John,McGinn,29,66,39
+J. Ramsey,Jacob Matthew,Ramsey,22,66,39
+Douglas Luiz,Douglas Luiz,Soares de Paulo,25,66,39
+A. Bayındır,Altay,Bayındır,25,33,39
+R. Vítek,Radek,Vítek,20,33,39
+T. Iroegbunam,Timothy Emeka,Iroegbunam,20,66,39
+T. Patterson,Travis,Patterson,18,66,39
+J. Feeney,Joshua,Feeney,18,66,39
+C. Lenglet,Clément Nicolas Laurent,Lenglet,28,66,39
+M. Solomon,Manor,Solomon,24,47,39
+R. Olsen,Robin Patrick,Olsen,33,66,39
+R. Bentancur,Rodrigo,Bentancur Colmán,26,47,39
+Bryan Gil,Bryan,Gil Salvatierra,22,47,39
+Richarlison,Richarlison,de Andrade,26,47,39
+L. Digne,Lucas,Digne,30,66,39
+C. Chambers,Calum,Chambers,28,66,39
+T. Mings,Tyrone Deon,Mings,30,66,39
+M. Cash,Matthew Stuart,Cash,26,66,39
+E. Konsa,Ezri,Konsa Ngoyo,26,66,39
+E. Martínez,Damián Emiliano,Martínez Romero,31,66,39
+Diego Carlos,Diego Carlos,Santos Silva,30,66,39
+D. Kulusevski,Dejan,Kulusevski,23,47,39
+Pau Torres,Pau,Francisco Torres,26,66,39
+Álex Moreno,Alexandre,Moreno Lopera,30,66,39
+B. Johnson,Brennan Price,Johnson,22,"47, 65",39
+F. Marschall,Filip,Marschall,20,66,39
+P. Sarr,Pape Matar,Sarr,21,47,39
+A. Véliz,Alejo,Véliz,20,47,39
+H. Lloris,Hugo Hadrien Dominique,Lloris,37,47,39
+A. Whiteman,Alfie Malik,Whiteman,25,47,39
+B. Davies,Benjamin Thomas,Davies,30,47,39
+E. Dier,Eric Jeremy Edgar,Dier,29,47,39
+O. Skipp,Oliver William,Skipp,23,47,39
+Son Heung-Min,Heung-Min,Son,31,47,39
+I. Perišić,Ivan,Perišić,34,47,39
+Gabriel Jesus,Gabriel Fernando,de Jesus,26,42,39
+Emerson Royal,Emerson Aparecido,Leite de Souza Júnior,24,47,39
+G. Lo Celso,Giovani,Lo Celso,27,47,39
+J. Maddison,James Daniel,Maddison,27,47,39
+F. Forster,Fraser Gerard,Forster,35,47,39
+Y. Bissouma,Yves,Bissouma,27,47,39
+R. Sessegnon,Kouassi Ryan,Sessegnon,23,47,39
+G. Vicario,Guglielmo,Vicario,27,47,39
+Pedro Porro,Pedro Antonio,Porro Sauceda,24,47,39
+B. Austin,Brandon Anthony,Austin,24,47,39
+D. Udogie,Iyenoma Destiny,Udogie,21,47,39
+A. Phillips,Ashley,Famiwuya Phillips,18,47,39
+B. Doak,Ben,Gannon Doak,18,40,39
+T. Partey,Thomas,Teye Partey,30,42,39
+Cédric Soares,Cédric Ricardo,Alves Soares,32,42,39
+K. Havertz,Kai Lukas,Havertz,24,42,39
+E. Smith Rowe,Emile,Smith Rowe,23,42,39
+Mohamed Elneny,Mohamed Naser,Elsayed Elneny,31,42,39
+Jorginho,Jorge Luiz,Frello Filho,32,42,39
+T. Tomiyasu,Takehiro,Tomiyasu,25,42,39
+D. Rice,Declan,Rice,24,"42, 48",39
+David Raya,David,Raya Martin,28,"42, 55",39
+B. White,Benjamin William,White,26,42,39
+A. Ramsdale,Aaron Christopher,Ramsdale,25,42,39
+W. Saliba,William Alain André Gabriel,Saliba,22,42,39
+Gabriel Magalhães,Gabriel,dos Santos Magalhães,26,42,39
+Fábio Vieira,Fábio Daniel,Ferreira Vieira,23,42,39
+J. Kiwior,Jakub Piotr,Kiwior,23,42,39
+K. Hein,Karl Jakob,Hein,21,42,39
+J. Lannin-Sweet,James,Lannin-Sweet,19,42,39
+K. Gordon,Kaide,Gordon,19,40,39
+R. Walters,Reuell Joshua,Walters,19,42,39
+B. Doak,Ben,Gannon Doak,18,40,39
+C. Gakpo,Cody Mathès,Gakpo,24,40,39
+T. Alexander-Arnold,Trent John,Alexander-Arnold,25,40,39
+C. Jones,Curtis Julian,Jones,22,40,39
+Mohamed Salah,Mohamed,Salah Hamed Mahrous Ghaly,31,40,39
+Thiago Alcântara,Thiago,Alcântara do Nascimento,32,40,39
+R. Gravenberch,Ryan Jiro,Gravenberch,21,40,39
+D. Szoboszlai,Dominik,Szoboszlai,23,40,39
+L. Díaz,Luis Fernando,Díaz Marulanda,26,40,39
+Diogo Jota,Diogo José,Teixeira da Silva,27,40,39
+A. Mac Allister,Alexis,Mac Allister,25,40,39
+W. Endo,Wataru,Endo,30,40,39
+H. Elliott,Harvey Daniel James,Elliott,20,40,39
+D. Núñez,Darwin Gabriel,Núñez Ribeiro,24,40,39
+J. Quansah,Jarell,Amorin Quansah,20,40,39
+C. Bradley,Conor,Bradley,20,40,39
+J. McConnell,James,McConnell,19,40,39
+C. Scanlon,Calum Alexander,Scanlon,18,40,39
+Stefan Bajčetić,Stefan,Bajčetić Maquieira,19,40,39
+B. Clark,Bobby Lamont,Clark,18,"40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40",39
+T. Nyoni,Treymaurice,Nyoni,16,40,39
+Sergio Gómez,Sergio,Gómez Martín,23,50,39
+Alisson Becker,Alisson Ramsés,Becker,31,40,39
+C. Kelleher,Caoimhín Odhrán,Kelleher,25,40,39
+J. Gomez,Joseph Dave,Gomez,26,40,39
+J. Matip,Job Joël André,Matip,32,40,39
+A. Robertson,Andrew Henry,Robertson,29,40,39
+V. van Dijk,Virgil,van Dijk,32,40,39
+P. Foden,Philip Walter,Foden,23,50,39
+E. Haaland,Erling,Braut Haaland,23,50,39
+I. Konaté,Ibrahima,Konaté,24,40,39
+J. Doku,Jérémy Baffour,Doku,21,50,39
+K. Tsimikas,Konstantinos,Tsimikas,27,40,39
+J. Álvarez,Julián,Álvarez,23,50,39
+Adrián,Adrián,San Miguel del Castillo,36,40,39
+Matheus Nunes,Matheus Luiz,Nunes,25,"50, 39",39
+V. Jaroš,Vítězslav,Jaroš,22,40,39
+Marcelo Pitaluga,Marcelo,de Araújo Pitaluga Filho,21,40,39
+M. Hamilton,Micah Philippe Jude,Hamilton,20,50,39
+L. Chambers,Luke,Chambers,19,40,39
+F. Mrozek,Fabian,Mrozek,20,40,39
+R. Brewster,Rhian Joel,Brewster,23,62,39
+A. Murić,Arijanet,Murić,25,44,39
+I. Coulibaly,Ismaila Cheick,Coulibaly,23,62,39
+L. Vigouroux,Lawrence Ian,Vigouroux,30,44,39
+Vinicius Souza,Vinicius,de Souza Costa,24,62,39
+F. Seriki,Oluwafemi Ibrahim,Seriki,21,62,39
+R. Norrington-Davies,Rhys,Llewelyn Norrington-Davies,24,62,39
+J. Fleck,John Alexander,Fleck,32,62,39
+O. Norwood,Oliver James,Norwood,32,62,39
+B. Osborn,Benjamin Jarrod,Osborn,29,62,39
+O. McBurnie,Oliver Robert,McBurnie,27,62,39
+G. Hamer,Gustavo Martin Emilio,Hamer,26,62,39
+C. Archer,Cameron Desmond,Archer,22,"62, 66",39
+J. McAtee,James John,McAtee,21,"62, 50",39
+A. Ben Slimane,Anis,Ben Slimane,22,62,39
+D. Jebbison,Daniel David,Jebbison,20,62,39
+B. Traoré,Bénie Adama,Traoré,21,62,39
+R. Oné,Ryan,Oné,17,62,39
+A. Brooks,Andre,Chance Brooks,20,62,39
+J. Buyabu,Jili,Buyabu,20,62,39
+A. Sambi Lokonga,Albert-Mboyo,Sambi Lokonga,24,"1359, 42",39
+W. Foderingham,Wesley Andrew,Foderingham,32,62,39
+A. Ahmedhodžić,Anel,Ahmedhodžić,24,62,39
+E. Adebayo,Elijah Anuoluwapo Oluwaferanmi,Ayomikulehin Adebayo,25,1359,39
+C. Morris,Carlton John,Morris,28,1359,39
+G. Baldock,George Henry Ivor,Baldock,30,62,39
+C. Basham,Christopher Paul,Basham,35,62,39
+J. Egan,John,Egan,31,62,39
+J. Bogle,Jayden Ian,Bogle,23,62,39
+J. Robinson,Jack,Robinson,30,62,39
+A. Davies,Adam Rhys,Davies,31,62,39
+J. Brown,Jacob Samuel,Brown,25,1359,39
+C. Woodrow,Cauley,Woodrow,29,1359,39
+M. Lowe,Max Josef,Lowe,26,62,39
+A. Trusty,Auston Levi-Jesaiah,Trusty,25,"62, 42",39
+L. Thomas,Luke Jonathan,Thomas,22,62,39
+J. Amissah,Jordan,Yamoah Amissah,22,62,39
+Z. Nelson,Zack,Nelson,18,1359,39
+J. Luker,Jayden,Luker,18,1359,39
+J. Burger,Jake  John Philip,Burger,19,1359,39
+M. Nakamba,Marvelous,Nakamba,29,"1359, 66",39
+J. Kluivert,Justin Dean,Kluivert,24,35,39
+T. Chong,Tahith Jose Girigorio,Djorkaef Chong,24,1359,39
+R. Barkley,Ross,Barkley,30,1359,39
+T. Kaminski,Thomas,Kaminski,31,1359,39
+M. Andersen,Mads Juel,Andersen,26,1359,39
+T. Krul,Timothy Michael,Krul,35,1359,39
+A. Semenyo,Antoine Serlom,Semenyo,23,35,39
+R. Burke,Reece Frederick,James Burke,27,1359,39
+A. Bell,Amari'i Kyren,Bell,29,1359,39
+J. Shea,James William,Shea,32,1359,39
+D. Potts,Daniel,Potts,29,1359,39
+L. Berry,Luke David,Berry,31,1359,39
+P. Mpanzu,Pelly Ruddock,Mpanzu,29,1359,39
+K. Moore,Kieffer Roberto Francisco,Moore,31,35,39
+J. Clark,Jordan Charles,Clark,30,1359,39
+T. Lockyer,Thomas Alun,Lockyer,29,1359,39
+G. Osho,Gabriel Jeremiah,Adedayo Osho,25,1359,39
+T. Mengi,Teden Mambuene,Mengi,21,"1359, 33",39
+J. Johnson,Joseph Nathan,Johnson,17,1359,39
+N. Vlašić,Nikola,Vlašić,26,48,39
+K. Mbabu,Melingo Kevin,Mbabu,28,36,39
+T. Adams,Tyler Shaan,Adams,24,35,39
+P. Billing,Philip,Anyanwu Billing,27,35,39
+R. Freuler,Remo Marco,Freuler,31,65,39
+I. Ndiaye,Iliman Cheikh,Baroy Ndiaye,23,62,39
+K. Davis,Keinan Vincent Joseph,Davis,25,66,39
+M. Tavernier,Marcus Joseph,Tavernier,24,35,39
+D. Undav,Deniz,Undav,27,51,39
+G. Scamacca,Gianluca,Scamacca,24,48,39
+H. Traorè,Hamed Junior,Traorè,23,35,39
+L. Sinisterra,Luis Fernando,Sinisterra Lucumí,24,35,39
+G. Kilkenny,Gavin,Kilkenny,23,35,39
+M. Kovář,Matěj,Kovář,23,33,39
+F. Balogun,Folarin Jerry,Balogun,22,42,39
+R. Khadra,Reda Jousef,Khadra,22,51,39
+J. Tanganga,Japhet Manzambi,Tanganga,24,47,39
+J. O&apos;Brien,Jake,O'Brien,22,52,39
+D. Ouattara,Dango Aboubacar Faissal,Ouattara,21,35,39
+Diego Moreira,Diego Manuel Jadon,da Silva Moreira,19,49,39
+P. Aubameyang,Pierre-Emerick Emiliano Franço,Aubameyang,34,49,39
+Daniel Podence,Daniel,Castelo Podence,28,39,39
+E. Ampadu,Ethan Kwame Colm Raymond,Ampadu,23,49,39
+Gustavo Scarpa,Gustavo Henrique,Furtado Scarpa,29,65,39
+S. Cook,Steve Anthony,Cook,32,65,39
+R. Fraser,Ryan,Fraser,29,34,39
+K. Darlow,Karl,Darlow,33,34,39
+J. Hendrick,Jeffrey Patrick,Hendrick,31,34,39
+M. Holgate,Mason Anthony,Holgate,27,45,39
+J. Rodon,Joseph Peter,Rodon,26,47,39
+O. Richards,Omar,Tyrell Crawford Richards,25,65,39
+F. Downes,Flynn,Downes,24,48,39
+N. Bishop,Nathan James,Bishop,24,33,39
+K. Kozłowski,Kacper Szymon,Kozłowski,20,51,39
+B. Williams,Brandon Paul Brian,Williams,23,33,39
+J. Anthony,Jaidon Kya Denley,Anthony,24,35,39
+T. Cannon,Thomas Christopher,Cannon,21,45,39
+O. Hutchinson,Omari Elijah,Giraud-Hutchinson,20,49,39
+Marquinhos,Marcus Vinícius,Oliveira Alencar,20,42,39
+M. Burstow,Mason Paul James,Burstow,20,49,39
+Hwang Ui-Jo,Ui-Jo,Hwang,31,65,39
+J. Lewis,Jamal Piaras,Lewis,25,34,39
+M. Šarkić,Matija,Šarkić,26,39,39
+F. Onyedinma,Wilfred,Oluwafemi Onyedinma,27,1359,39
+A. Connolly,Aaron Anthony,Connolly,23,51,39
+S. Dembélé,Ben Siriki,Dembélé,27,35,39
+J. Hill,James Clayton,Hill,21,35,39
+L. O&apos;Brien,Lewis John,O'Brien,25,65,39
+A. Campbell,Allan,Campbell,25,1359,39
+S. Twine,Scott Edward,Twine,24,44,39
+L. McNally,Luke,McNally,24,44,39
+A. Moran,Andrew,Moran,20,51,39
+J. Philogene,Jaden,Philogene-Bidace,21,66,39
+L. Cundle,Luke James,Cundle,21,39,39
+B. Humphreys,Bashir,Humphreys,20,49,39
+J. Stansfield,Jay,Stansfield,21,36,39
+J. Sarmiento,Jeremy Leonel,Sarmiento Morante,21,51,39
+B. Thomas,Bobby Craig,Thomas,22,44,39
+Y. Ayari,Yasin,Abbas Ayari,20,51,39
+S. Revan,Sebastian,Revan,20,66,39
+Thiago Silva,Thiago,Emiliano da Silva,39,49,39
+O. Vlachodimos,Odysseas,Vlachodimos,29,65,39
+Diogo Dalot,José Diogo,Dalot Teixeira,24,33,39
+L. Shaw,Luke Paul Hoare,Shaw,28,33,39
+K. Mavropanos,Konstantinos,Mavropanos,26,48,39
+C. Hudson-Odoi,Callum James,Hudson-Odoi,23,"65, 49",39
+E. Krafth,Emil Henry Kristoffer,Krafth,29,34,39
+Ł. Fabiański,Łukasz Marek,Fabiański,38,48,39
+J. Durán,Jhon Jader,Durán Palacio,20,66,39
+D. Calvert-Lewin,Dominic Nathaniel,Calvert-Lewin,26,45,39
+J. Evans,Jonathan Grant,Evans,35,33,39
+J. Tomkins,James Oliver Charles,Tomkins,34,52,39
+M. Travers,Mark,Travers,24,35,39
+P. Dummett,Paul,Dummett,32,34,39
+Javier Manquillo,Javier,Manquillo Gaitán,29,34,39
+D. Burn,Daniel Johnson,Burn,31,34,39
+S. Johnstone,Samuel Luke,Johnstone,30,52,39
+H. Reed,Harrison James,Reed,28,36,39
+S. Banks,Scott Brian,Banks,22,52,39
+M. Karbownik,Michał,Karbownik,22,51,39
+C. Gakpo,Cody Mathès,Gakpo,24,40,39
+J. Henderson,Jordan Brian,Henderson,33,40,39
+Fabinho,Fábio Henrique,Tavares,30,40,39
+A. Mitrović,Aleksandar,Mitrović,29,36,39
+D. O&apos;Shea,Dara Joseph,O'Shea,24,44,39
+D. Gray,Demarai Ramelle,Gray,27,45,39
+D. Solanke,Dominic Ayodele,Solanke-Mitchell,26,35,39
+T. Kongolo,Terence,Kongolo,29,36,39
+D. Spence,Diop Tehuti,Djed-Hotep Spence,23,47,39
+O. Watkins,Oliver George Arthur,Watkins,28,66,39
+A. Doughty,Alfie Henry,Harman Doughty,24,1359,39
+Hwang Hee-Chan,Hee-Chan,Hwang,27,39,39
+C. Romero,Cristian Gabriel,Romero,25,47,39
+M. Trésor,Mike,Trésor Ndayishimiye,24,44,39
+F. Pellistri,Facundo,Pellistri Rebollo,22,33,39
+T. Mitchell,Tyrick Kwon,Mitchell,24,52,39
+T. O&apos;Reilly,Tommi Dylan,O'Reilly,20,66,39
+K. Casey,Kaelan,Casey,19,48,39
+W. Osula,William Idamudia,Daugaard Osula,20,62,39
+L. De Fougerolles,Luc,Rollet De Fougerolles,18,36,39
+M. Greenwood,Mason Will John,Greenwood,22,33,39
+Gonçalo Guedes,Gonçalo Manuel,Ganchinho Guedes,27,39,39
+K. Tierney,Kieran,Tierney,26,42,39
+S. Alzate,Steven,Alzate,25,51,39
+Guaita,Vicente,Guaita Panadero,36,52,39
+Sergi Canós,Sergi,Canós Tenés,26,55,39
+A. Saint-Maximin,Allan Irénée,Saint-Maximin,26,34,39
+A. Zeqiri,Andi Avdi,Zeqiri,24,51,39
+D. Costelloe,Dara James Morgan,Costelloe,21,44,39
+N. Phillips,Nathaniel Harry,Phillips,26,40,39
+A. Mighten,Alexander Cole,Mighten,21,65,39
+M. Lewis,Marcel David,Lewis,22,44,39
+O. Zych,Oliwier,Zych,19,66,39
+Chiquinho,Francisco Jorge,Tavares Oliveira,23,39,39
+O. Offiah,Odeluga Joshua,Offiah,21,51,39
+Álvaro Carreras,Álvaro,Fernández Carreras,20,33,39
+M. Perrone,Máximo,Perrone,20,50,39
+O. Kellyman,Omari Jamian,Kellyman,18,66,39
+Youssef Chermiti,Youssef,Ramalho Chermiti,19,45,39
+B. Clark,Bobby Lamont,Clark,18,40,39
+E. Dennis,Emmanuel Bonaventure,Dennis,26,65,39
+D. Sánchez,Davinson,Sánchez Mina,27,47,39
+H. Kane,Harry Edward,Kane,30,47,39
+H. Ziyech,Hakim,Ziyech,30,49,39
+T. Ndombélé,Tanguy,Ndombélé Alvaro,27,47,39
+João Cancelo,João Pedro,Cavaco Cancelo,29,50,39
+E. Bailly,Eric Bertrand,Bailly,29,33,39
+Fred,Frederico,Rodrigues de Paula Santos,30,33,39
+J. Doku,Jérémy Baffour,Doku,21,50,39
+S. Bastien,Samuel Christopher,Bastien Binda,27,44,39
+Kepa,Kepa,Arrizabalaga Revuelta,29,49,39
+N. Pépé,Nicolas,Pépé,28,42,39
+W. Zaha,Dazet Wilfried,Armel Zaha,31,52,39
+J. Álvarez,Julián,Álvarez,23,50,39
+S. Surridge,Samuel William,Surridge,25,65,39
+J. Shelvey,Jonjo,Shelvey,31,65,39
+B. Peacock-Farrell,Bailey,Peacock-Farrell,27,44,39
+M. Bech,Mads,Bech Sørensen,24,55,39
+H. Ashby,Harrison Charles,Ashby,22,34,39
+Y. Mosquera,Yerson,Mosquera Valdelamar,22,39,39
+M. Akanji,Manuel Obafemi,Akanji,28,50,39
+Sergio Gómez,Sergio,Gómez Martín,23,50,39
+Rodri,Rodrigo,Hernández Cascante,27,50,39
+Rúben Dias,Rúben,dos Santos Gato Alves Dias,26,50,39
+Ederson,Ederson,Santana de Moraes,30,50,39
+K. De Bruyne,Kevin,De Bruyne,32,50,39
+Bernardo Silva,Bernardo,Mota Veiga de Carvalho e Silva,29,50,39
+R. Nelson,Reiss Luke,Nelson,24,42,39
+L. Trossard,Leandro,Trossard,29,42,39
+M. Kovačić,Mateo,Kovačić,29,50,39
+N. Aké,Nathan Benjamin,Aké,28,50,39
+K. Phillips,Kalvin Mark,Phillips,28,50,39
+J. Grealish,Jack Peter,Grealish,28,50,39
+S. Carson,Scott Paul,Carson,38,50,39
+S. Ortega,Stefan,Ortega Moreno,31,50,39
+Matheus Nunes,Matheus Luiz,Nunes,25,"50, 39",39
+Z. Steffen,Zackary Thomas,Steffen,28,50,39
+O. Bobb,Oscar,Bobb,20,50,39
+R. Lewis,Rico Henry Mark,Lewis,19,50,39
+M. Hamilton,Micah Philippe Jude,Hamilton,20,50,39
+T. Partey,Thomas,Teye Partey,30,42,39
+O. Zinchenko,Oleksandr,Zinchenko,27,42,39
+K. Havertz,Kai Lukas,Havertz,24,42,39
+E. Smith Rowe,Emile,Smith Rowe,23,42,39
+Mohamed Elneny,Mohamed Naser,Elsayed Elneny,31,42,39
+B. Saka,Bukayo Ayoyinka Temidayo,Saka,22,42,39
+E. Nketiah,Edward,Keddar Nketiah,24,42,39
+Jorginho,Jorge Luiz,Frello Filho,32,42,39
+T. Tomiyasu,Takehiro,Tomiyasu,25,42,39
+D. Rice,Declan,Rice,24,"42, 48",39
+M. Ødegaard,Martin,Ødegaard,25,42,39
+J. Timber,Jurriën David Norman,Timber,22,42,39
+Fábio Vieira,Fábio Daniel,Ferreira Vieira,23,42,39
+J. Kiwior,Jakub Piotr,Kiwior,23,42,39
+Gabriel Martinelli,Gabriel Teodoro,Martinelli Silva,22,42,39
+J. Lannin-Sweet,James,Lannin-Sweet,19,42,39
+C. Sagoe,Charles Kwame,Sagoe Junior,19,42,39
+A. Cozier-Duberry,Amario Oswald Gerardo,Cozier-Duberry,18,42,39
+R. Walters,Reuell Joshua,Walters,19,42,39
+B. Ibrahim,Bradley,Ibrahim,19,42,39
+Philippe Coutinho,Philippe,Coutinho Correia,31,66,39
+Cédric Soares,Cédric Ricardo,Alves Soares,32,42,39
+Mohamed Salah,Mohamed,Salah Hamed Mahrous Ghaly,31,40,39
+R. Mahrez,Riyad Karim,Mahrez,32,50,39
+E. Haaland,Erling,Braut Haaland,23,50,39
+R. Rúnarsson,Rúnar Alex,Rúnarsson,28,42,39
+S. Benrahma,Mohamed Saïd,Benrahma,28,48,39
+David Raya,David,Raya Martin,28,"42, 55",39
+B. White,Benjamin William,White,26,42,39
+A. Ramsdale,Aaron Christopher,Ramsdale,25,42,39
+R. Aït-Nouri,Rayan,Aït-Nouri,22,39,39
+N. Aguerd,Nayef,Aguerd,27,48,39
+W. Saliba,William Alain André Gabriel,Saliba,22,42,39
+Gabriel Magalhães,Gabriel,dos Santos Magalhães,26,42,39
+G. Biancone,Giulian,Biancone,23,65,39
+J. Panzo,Jonathan William,Panzo,23,65,39
+J. Gvardiol,Joško,Gvardiol,21,50,39
+K. Hein,Karl Jakob,Hein,21,42,39
+K. Young,Kadan,Young,17,66,39
+I. Samuels-Smith,Ishé Barrington,Samuels-Smith,17,49,39
+João Cancelo,João Pedro,Cavaco Cancelo,29,50,39
+K. Tierney,Kieran,Tierney,26,42,39
+Kepa,Kepa,Arrizabalaga Revuelta,29,49,39
+Sergi Canós,Sergi,Canós Tenés,26,55,39
+Chiquinho,Francisco Jorge,Tavares Oliveira,23,39,39
+M. Perrone,Máximo,Perrone,20,50,39

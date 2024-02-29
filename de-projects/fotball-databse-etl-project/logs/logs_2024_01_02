@@ -1,0 +1,47 @@
+time ? 12:30:10|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 0
+time ? 13:31:00|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 2
+time ? 13:31:26|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 2
+time ? 13:31:48|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 2
+time ? 13:32:18|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 3
+time ? 13:32:34|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 3
+time ? 13:33:07|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 3
+time ? 13:33:24|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 5
+time ? 13:43:25|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 9
+time ? 14:00:22|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 11
+time ? 14:01:47|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 13
+time ? 14:02:16|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 13
+time ? 14:02:36|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 13
+time ? 14:03:19|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 15
+time ? 14:03:29|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 15
+time ? 14:03:44|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 15
+time ? 14:04:37|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 25
+time ? 14:04:50|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 25
+time ? 14:05:40|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 29
+time ? 14:05:57|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 29
+time ? 14:06:34|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 29
+time ? 14:07:03|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 33
+time ? 14:07:46|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 33
+time ? 14:08:15|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 35
+time ? 14:08:27|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 35
+time ? 14:08:37|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 35
+time ? 14:09:49|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 45
+time ? 14:18:36|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 47
+time ? 14:34:47|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 49
+time ? 14:50:31|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 51
+time ? 14:50:57|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 51
+time ? 15:33:01|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 56
+time ? 15:33:34|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 56
+time ? 15:34:11|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 56
+time ? 15:45:06|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 62
+time ? 15:45:50|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 62
+time ? 15:48:43|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 66
+time ? 15:56:51|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 68
+time ? 15:57:30|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 68
+time ? 15:58:15|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 76
+time ? 16:06:42|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 95
+time ? 16:06:53|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 95
+time ? 16:07:04|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 95
+time ? 16:08:18|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? True|errors_info ? {}|current_requests ? 99
+time ? 16:19:04|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? False|errors_info ? {'requests': 'You have reached the request limit for the day, Go to https://dashboard.api-football.com to upgrade your plan.'}|current_requests ? 100
+time ? 16:23:10|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? False|errors_info ? {'requests': 'You have reached the request limit for the day, Go to https://dashboard.api-football.com to upgrade your plan.'}|current_requests ? 100
+time ? 16:25:46|endpoint ? https://v3.football.api-sports.io/players|parameters ? {'season': 2023, 'league': 39, 'page': None}|finished ? False|errors_info ? {'requests': 'You have reached the request limit for the day, Go to https://dashboard.api-football.com to upgrade your plan.'}|current_requests ? 100

@@ -1,0 +1,503 @@
+player_id,reference_team,reference_date,team_id,p_firstname,p_lastname,p_age,p_nationality,season,count
+134062,3322,2019-09-03,,,,,,2019.0,1.0
+211684,708,2014-02-20,,,,,,2013.0,1.0
+3989,3323,2015-02-03,,,,,,2014.0,1.0
+3506,3337,2022-08-31,,Toni,Selimi,25.0,Albania,2022.0,1.0
+3581,2256,2018-01-05,,Ndriçim,Shtubina,42.0,Albania,2017.0,1.0
+74329,3337,2017-01-31,,Mergent,Sulmataj,32.0,Albania,2016.0,1.0
+3733,3318,2018-08-17,,Sebino,Plaku,43.0,Albania,2018.0,4.0
+4322,3318,2018-07-27,,Albi,Koldashi,32.0,Albania,2018.0,4.0
+4209,3318,2018-08-16,,Klevis,Sadiku,32.0,Albania,2018.0,4.0
+3723,3318,2018-08-01,,Argjend,Malaj,37.0,Kosovo,2018.0,4.0
+3626,694,2016-07-22,,Gentjan,Muça,43.0,Albania,2016.0,2.0
+74519,694,2016-07-08,,Ansi,Nika,38.0,Albania,2016.0,2.0
+74097,3325,2016-09-06,,Arbër,Mone,42.0,Albania,2016.0,1.0
+197611,3321,2021-09-05,,Irvi,Bylyku,24.0,Albania,2021.0,2.0
+265515,3321,2021-07-01,,Redi,Kaçanolli,23.0,Albania,2021.0,2.0
+4300,2256,2014-06-01,,,,,,2013.0,1.0
+302088,577,2021-09-05,,Rigels,Cani,25.0,Albania,2021.0,3.0
+26866,577,2021-08-06,,Pablo,de Lucas Torres,39.0,Spain,2021.0,3.0
+65321,577,2021-08-31,,Kristi,Marku,31.0,Albania,2021.0,3.0
+3484,15580,2021-07-18,,Jetmir,Basha,27.0,Albania,2021.0,1.0
+210618,577,2012-08-29,,Luko,Biskup,52.0,Croatia,2012.0,6.0
+210983,577,2012-08-27,,Besart,Peposhi,41.0,Albania,2012.0,6.0
+211738,577,2013-01-30,,Inzaghi,Donígio,48.0,Guinea-Bissau,2012.0,6.0
+258996,577,2013-02-01,,Serxhio,Abdurahmani,43.0,Albania,2012.0,6.0
+74544,577,2012-07-01,,Rraman,Hallaçi,53.0,Albania,2012.0,6.0
+106216,577,2013-01-30,,Matteo,Prandelli,48.0,Italy,2012.0,6.0
+210871,3318,2014-01-31,,Fatjon,Bytyçi,38.0,Albania,2013.0,1.0
+295338,15576,2022-07-11,,Kreshnik,Bahtiri,33.0,Kosovo,2022.0,1.0
+211115,3324,2012-01-31,,Elton,Kola,49.0,Albania,2011.0,3.0
+211318,3324,2012-01-25,,Kreshnik,Ivanaj,52.0,Albania,2011.0,3.0
+211517,3324,2011-08-31,,Leonid,Haxhia,46.0,Albania,2011.0,3.0
+211154,3318,2012-08-30,,Andi,Koçi,45.0,Albania,2012.0,1.0
+74632,14395,2018-07-03,,Bujar,Idrizi,37.0,Kosovo,2018.0,1.0
+211313,3326,2012-08-10,,Romeo,Hamzai,50.0,Albania,2012.0,2.0
+4023,3326,2012-08-30,,Klaudio,Rexhepi,43.0,Albania,2012.0,2.0
+211367,577,2013-08-31,,Kushtrim,Abdullahi,39.0,North Macedonia,2013.0,6.0
+211700,577,2014-01-27,,Henry Iffanyi,Uche,42.0,Nigeria,2013.0,6.0
+74518,577,2014-06-01,,Jefferson Francisco,Marques Lopes,42.0,Brazil,2013.0,6.0
+164943,577,2013-07-01,,Georges,Ambourouet,47.0,Gabon,2013.0,6.0
+211699,577,2014-01-27,,Pierre,Boya,48.0,Cameroon,2013.0,6.0
+116651,577,2014-01-27,,Peter Terna,Suswam,41.0,Nigeria,2013.0,6.0
+211413,708,2012-08-30,,Endri,Rënxa,47.0,Albania,2012.0,4.0
+211436,708,2012-08-31,,Besmir,Berberi,48.0,Albania,2012.0,4.0
+3792,708,2013-01-01,,Endri,Lala,41.0,Albania,2012.0,4.0
+4287,708,2012-08-01,,Andrelis,Pashaj,46.0,Albania,2012.0,4.0
+211733,13185,2014-01-01,,Christian,Dragoi,50.0,Romania,2013.0,1.0
+74095,3318,2016-08-05,,Mario,Morina,37.0,Albania,2016.0,2.0
+74500,3318,2016-09-20,,Nertil,Ferraj,45.0,Albania,2016.0,2.0
+74617,4566,2019-01-07,,Donjet,Shkodra,39.0,Kosovo,2018.0,2.0
+3509,4566,2019-06-07,,Reginaldo Artur,Faife,39.0,Mozambique,2018.0,2.0
+4305,3336,2022-08-31,,Fatjon,Çollari,25.0,Albania,2022.0,2.0
+4310,3336,2022-08-15,,Kledis,Hida,25.0,Albania,2022.0,2.0
+3964,3317,2015-07-13,,Argent,Halilaj,50.0,Albania,2015.0,2.0
+74514,3317,2015-08-22,,Yll,Hoxha,45.0,Kosovo,2015.0,2.0
+97158,15577,2022-01-10,,Jurgen,Dushkaj,32.0,Albania,2021.0,1.0
+3486,493,2020-10-02,,Maurice,Gomis,28.0,Senegal,2020.0,1.0
+147956,577,2020-08-01,,Klajdi,Rasha,24.0,Albania,2020.0,2.0
+48740,577,2020-10-08,,Sadik,Vitija,27.0,Kosovo,2020.0,2.0
+74555,577,2015-01-23,,Rigers,Dushku,40.0,Albania,2014.0,4.0
+211665,577,2015-01-22,,Márcio,Borges dos Santos,42.0,Brazil,2014.0,4.0
+171562,577,2015-01-22,,Allisson Ricardo,Faramilio,41.0,Brazil,2014.0,4.0
+210379,577,2014-08-01,,Ivan,Gvozdenović,53.0,Serbia,2014.0,4.0
+74085,3325,2016-02-01,,Solomonson,Izuchukwuka,42.0,Nigeria,2015.0,1.0
+74110,694,2015-07-01,,Dritan,Smajlaj,41.0,Albania,2015.0,1.0
+74568,2256,2014-08-01,,Elton,Doku,41.0,Albania,2014.0,2.0
+210996,2256,2014-08-22,,Artan,Thorja,38.0,Albania,2014.0,2.0
+77705,10672,2016-01-01,,Juliano André,Pereira da Silva,44.0,Brazil,2015.0,1.0
+55532,577,2022-07-01,,Agnaldo,Pinto de Moraes Júnior,31.0,Brazil,2022.0,7.0
+11073,577,2022-07-23,,Ebert,Cardoso da Silva,32.0,Brazil,2022.0,7.0
+319520,577,2022-07-07,,Antonio,Ilieski,30.0,North Macedonia,2022.0,7.0
+59537,577,2023-01-31,,Juan David,Martínez Sánchez,24.0,Colombia,2022.0,7.0
+406157,577,2023-01-31,,Albnor,Kaba,23.0,North Macedonia,2022.0,7.0
+127580,577,2022-08-24,,Layton Julius,Ndukwu,28.0,England,2022.0,7.0
+11003,577,2022-08-15,,Edwin Oppong,Anane-Gyasi,35.0,Ghana,2022.0,7.0
+74547,609,2017-08-01,,Izair,Emini,45.0,North Macedonia,2017.0,1.0
+14376,270,2017-08-02,,Matija,Dvorneković,40.0,Croatia,2017.0,1.0
+3705,3320,2019-07-02,,Arlind,Kalaja,33.0,Albania,2019.0,2.0
+3485,3320,2019-08-13,,Stivi,Frashëri,38.0,Albania,2019.0,2.0
+68361,6410,2018-07-01,,Amido,Baldé,36.0,Guinea-Bissau,2018.0,1.0
+66985,3740,2013-02-15,,Stevan,Marković,44.0,Montenegro,2012.0,1.0
+98163,693,2012-01-01,,Igor,Pavlović,51.0,Serbia,2011.0,1.0
+228511,577,2016-01-30,,Mario,Mijatovic,50.0,Croatia,2015.0,6.0
+74526,577,2015-07-01,,Felipe,Moreira Santos,42.0,Brazil,2015.0,6.0
+74572,577,2016-02-01,,Resul,Kastrati,36.0,Albania,2015.0,6.0
+74585,577,2015-08-02,,Kostandin,Ndoni,41.0,Albania,2015.0,6.0
+74597,577,2015-07-01,,Edison,Qafa,41.0,Albania,2015.0,6.0
+74562,577,2015-07-01,,João Emanuel,Ferreira Souza,40.0,Brazil,2015.0,6.0
+67029,3738,2016-08-01,,Marko,Šćepanović,47.0,Montenegro,2016.0,1.0
+74340,3320,2015-01-21,,Julian,Brahja,47.0,Albania,2014.0,2.0
+4093,3320,2014-07-01,,Klaudio,Hyseni,37.0,Albania,2014.0,2.0
+80102,1018,2017-08-01,,Pero,Pejić,43.0,Croatia,2017.0,1.0
+59926,577,2017-07-01,,Albert,Serrán Polo,45.0,Spain,2017.0,6.0
+3498,577,2018-01-09,,Irakli,Dzaria,41.0,Georgia,2017.0,6.0
+14742,577,2018-01-12,,Filip,Žderić,38.0,Croatia,2017.0,6.0
+7788,577,2017-08-09,,Elis,Bakaj,42.0,Albania,2017.0,6.0
+74650,577,2018-01-31,,Lavdrim,Ebipi,35.0,Switzerland,2017.0,6.0
+111255,577,2017-08-28,,Samuel,Gilmore,28.0,Nigeria,2017.0,6.0
+74608,2212,2017-01-13,,Felipe,Hereda dos Santos,40.0,Brazil,2016.0,1.0
+74508,2228,2018-01-10,,Jean,Agostinho da Silva,41.0,Brazil,2017.0,1.0
+210859,3322,2014-09-26,,Gentian,Manuka,40.0,Albania,2014.0,1.0
+3808,3323,2020-07-01,,Oumar Tourad,Camara,26.0,Guinea,2020.0,1.0
+105630,4482,2017-09-15,,Siraj,Nasser,35.0,Israel,2017.0,1.0
+74592,2228,2016-01-01,,Leomir,Soares Cruz,45.0,Brazil,2015.0,1.0
+117891,3838,2015-02-06,,Junior Pericles,Pinto Catarina,42.0,Brazil,2014.0,1.0
+3488,14281,2019-08-16,,Ardian,Cuculi,41.0,North Macedonia,2019.0,1.0
+74533,3320,2017-08-14,,Nijas,Lena,42.0,North Macedonia,2017.0,1.0
+66785,2448,2018-03-18,,Miloš,Krkotić,43.0,Montenegro,2017.0,1.0
+3858,3325,2018-01-15,,Vjali,Mahmuti,31.0,Albania,2017.0,1.0
+3518,708,2016-02-01,,Franc,Veliu,43.0,Albania,2015.0,2.0
+3536,708,2016-06-20,,Renato,Arapi,44.0,Albania,2015.0,2.0
+43265,4566,2022-08-19,,Filip,Gligorov,33.0,North Macedonia,2022.0,1.0
+56022,3326,2021-07-16,,Agim,Ibraimi,37.0,North Macedonia,2021.0,1.0
+3564,3329,2018-01-31,,Klaudio,Çema,33.0,Albania,2017.0,1.0
+7917,680,2020-10-05,,Enis,Gavazaj,33.0,Albania,2020.0,1.0
+3510,2256,2022-08-20,,Vasil,Shkurtaj,34.0,Albania,2022.0,1.0
+74625,627,2018-07-01,,Rauf,Əliyev,40.0,Azerbaijan,2018.0,3.0
+74517,627,2018-07-01,,Sabien,Lilaj,40.0,Albania,2018.0,3.0
+74504,627,2018-07-01,,Adeniyi Segun,James,38.0,Nigeria,2018.0,3.0
+97842,568,2015-08-01,,Dmitri,Stajila,40.0,Moldova,2015.0,1.0
+3673,2261,2018-07-01,,Maldin,Ymeraj,32.0,Albania,2018.0,1.0
+211245,3836,2013-01-31,,Miloš,Jevđević,52.0,Serbia,2012.0,1.0
+7471,4627,2021-09-08,,Mehdi,Hetemaj,29.0,Austria,2021.0,1.0
+3504,1318,2019-08-20,,Valdet,Rama,41.0,Albania,2019.0,1.0
+3881,3326,2017-09-12,,Brajan,Tola,29.0,Albania,2017.0,1.0
+74584,3331,2016-07-25,,Denis,Peposhi,31.0,Albania,2016.0,1.0
+74090,1424,2015-07-20,,Albi,Dosti,35.0,Albania,2015.0,1.0
+3493,12772,2019-08-16,,Ylli,Shameti,41.0,Albania,2019.0,1.0
+74164,3319,2013-08-31,,Enco,Malindi,41.0,Albania,2013.0,2.0
+78074,3319,2014-01-31,,Davor,Bratić,48.0,Croatia,2013.0,2.0
+74133,3836,2015-08-22,,Roland,Peqini,37.0,Albania,2015.0,1.0
+74493,2256,2017-01-31,,Bekim,Dema,37.0,Albania,2016.0,1.0
+74326,3839,2016-02-04,,Eglantin,Dhima,37.0,Albania,2015.0,1.0
+74596,15573,2018-08-20,,,,,,2018.0,1.0
+74444,3320,2015-08-31,,Endri,Muçmata,31.0,Albania,2015.0,1.0
+74551,577,2011-08-31,,Ervis,Koci,50.0,Albania,2011.0,1.0
+74538,3318,2018-01-06,,Hair,Zeqiri,37.0,Albania,2017.0,3.0
+3689,3318,2017-08-31,,Armando,Rami,34.0,Albania,2017.0,3.0
+3721,3318,2017-08-01,,Masato,Fukui,40.0,Japan,2017.0,3.0
+3744,3339,2014-01-31,,Antonio,Marku,40.0,Albania,2013.0,1.0
+74327,3838,2013-01-31,,,,,,2012.0,1.0
+74576,4671,2014-08-15,,Eglant,Haxho,45.0,Albania,2014.0,1.0
+58367,1941,2015-01-01,,Lucas Damián,Malacarne,45.0,Argentina,2014.0,1.0
+3494,3153,2020-07-23,,Olsi,Teqja,39.0,Albania,2020.0,1.0
+3612,14392,2022-08-13,,Zenel,Gavazaj,25.0,Albania,2022.0,1.0
+56779,4619,2021-01-23,,Entonjo,Elezaj,32.0,Albania,2020.0,1.0
+406158,3322,2023-07-17,,Rrezart,Kokollari,21.0,North Macedonia,2023.0,1.0
+406254,3323,2023-01-31,,Oseni,Olamilekan Sodiq,22.0,Nigeria,2022.0,1.0
+421919,3336,2023-08-15,,Olalekan Ibrahim,Alliu,21.0,Nigeria,2023.0,1.0
+292224,3340,2022-08-09,,Kristi,Karaj,25.0,Albania,2022.0,2.0
+3789,3340,2022-08-05,,Jurgen,Vrapi,28.0,Albania,2022.0,2.0
+74093,3319,2015-09-12,,Vilfor,Hysa,44.0,Albania,2015.0,2.0
+74134,3319,2015-08-31,,Enkel,Alikaj,45.0,Albania,2015.0,2.0
+3507,3337,2019-09-01,,Franc,Zylyftari,33.0,Albania,2019.0,1.0
+3532,3336,2021-09-04,,Ardit,Ziaj,27.0,Albania,2021.0,1.0
+420155,3324,2023-08-01,,Marjus,Kola,24.0,Albania,2023.0,1.0
+292223,3322,2022-07-07,,Xheron,Osma,24.0,Albania,2022.0,1.0
+3868,3322,2017-09-14,,Bekim,Dida,34.0,Albania,2017.0,2.0
+3930,3322,2017-09-01,,Xhefri,Bushi,29.0,Albania,2017.0,2.0
+152713,10720,2022-08-31,,Serxhio,Tabaku,26.0,Albania,2022.0,1.0
+3791,3329,2020-08-22,,Markovanbasten,Çema,30.0,Albania,2020.0,1.0
+147803,3331,2023-08-30,,Laurenc,Xheka,25.0,Albania,2023.0,1.0
+3951,3836,2013-08-30,,Sokol,Mziu,48.0,Albania,2013.0,2.0
+74427,3836,2013-08-30,,Vilson,Lila,46.0,Albania,2013.0,2.0
+3632,694,2017-09-04,,Bedri,Greca,41.0,Albania,2017.0,2.0
+3682,694,2017-09-29,,Johan,Beçka,29.0,Albania,2017.0,2.0
+3633,3339,2017-07-29,,Edon,Hasani,39.0,Albania,2017.0,2.0
+3727,3339,2017-08-11,,Nurudeen,Orelesi,42.0,Nigeria,2017.0,2.0
+3500,3331,2020-10-07,,Kristi,Joti,30.0,Albania,2020.0,1.0
+67260,2206,2017-01-01,,Erick,Flores Bonfim,43.0,Brazil,2016.0,1.0
+25843,3885,2017-06-15,,Kushtrim,Lushtaku,43.0,Kosovo,2016.0,1.0
+3609,4552,2023-07-04,,Sciprim,Taipi,28.0,Kosovo,2023.0,1.0
+24639,685,2021-08-01,,Mate,Tsintsadze,32.0,Georgia,2021.0,1.0
+3940,3885,2018-01-25,,Rexhep,Memini,37.0,Albania,2017.0,2.0
+160977,3885,2018-01-30,,Egzon,Sekiraça,38.0,Kosovo,2017.0,2.0
+43044,4801,2023-01-01,,Tiago Emanuel,Canelas Almeida Ferreira,33.0,Portugal,2022.0,1.0
+91431,957,2023-07-01,,Gabriel,Barbosa Avelino,26.0,Brazil,2023.0,1.0
+14500,2256,2020-10-01,,Erhun,Obanor,33.0,Nigeria,2020.0,1.0
+80162,148,2023-04-06,,Vitor,Correia da Silva,30.0,Brazil,2022.0,1.0
+80698,142,2017-01-02,,Philippe,Guimarães,41.0,Brazil,2016.0,1.0
+16200,4322,2021-06-21,,Matheus,Leiria dos Santos,33.0,Brazil,2020.0,1.0
+7476,1397,2022-01-24,,Albin,Gashi,30.0,Austria,2021.0,1.0
+66105,577,2018-07-01,,Haris,Harba,42.0,Bosnia and Herzegovina,2018.0,1.0
+87027,648,2019-02-02,,Chafik,Tigroudja,38.0,France,2018.0,1.0
+55892,2589,2021-07-01,,Rolandas,Baravykas,32.0,Lithuania,2021.0,1.0
+80099,4196,2020-02-01,,Tome,Kitanovski,37.0,North Macedonia,2019.0,1.0
+14635,4659,2023-02-19,,Ante,Živković,33.0,Croatia,2022.0,1.0
+125709,577,2020-01-31,,Godberg Barry,Cooper,32.0,Ghana,2019.0,1.0
+3492,2589,2020-01-20,,Simo,Rumbullaku,38.0,Albania,2019.0,1.0
+4016,3332,2015-09-11,,,,,,2015.0,1.0
+3987,2261,2010-09-01,,,,,,2010.0,1.0
+7282,1396,2017-07-01,,,,,,2017.0,1.0
+93757,605,2020-01-31,,Alfred,Mensah,33.0,Netherlands,2019.0,5.0
+3627,605,2019-08-08,,Marvin,Turtulli,32.0,Albania,2019.0,5.0
+137453,605,2019-08-31,,Georgios,Tampas,24.0,Greece,2019.0,5.0
+3524,605,2019-08-20,,Artim,Pollozhani,44.0,North Macedonia,2019.0,5.0
+137396,605,2019-08-31,,Jean Jacques,Idrissa Ndecky,29.0,Senegal,2019.0,5.0
+211635,374,2011-01-01,,Alban,Dragusha,57.0,Kosovo,2010.0,1.0
+145730,4346,2020-09-02,,Malsor,Ajeti,27.0,Kosovo,2020.0,1.0
+74594,4132,2016-07-01,,Jacek Deniz,Troshupa,37.0,Poland,2016.0,1.0
+199633,4633,2022-03-29,,Beli,Lukaj,26.0,Albania,2021.0,1.0
+29772,2733,2019-01-06,,Reza,Karimi,32.0,Iran,2018.0,1.0
+110200,666,2015-07-01,,Dhiego,de Souza Martins,42.0,Brazil,2015.0,1.0
+4242,3334,2016-09-20,,Hektor,Mali,35.0,Albania,2016.0,1.0
+3784,3319,2020-01-24,,Rei,Nuriu,29.0,Albania,2019.0,1.0
+3770,694,2020-08-15,,Marlind,Nuriu,29.0,Albania,2020.0,1.0
+3625,694,2013-08-30,,Dorian,Kërçiku,40.0,Albania,2013.0,4.0
+4161,694,2013-08-30,,Ilir,Caushaj,46.0,Albania,2013.0,4.0
+3750,694,2013-07-26,,Gilman,Lika,44.0,Albania,2013.0,4.0
+74553,694,2013-08-30,,Endri,Vrapi,47.0,Albania,2013.0,4.0
+3899,605,2020-10-02,,Kostandino,Dramolli,28.0,Albania,2020.0,4.0
+301684,605,2021-01-31,,Alexandros,Abdel Rahim,32.0,Greece,2020.0,4.0
+3538,605,2020-10-02,,Ditmar,Bicaj,38.0,Albania,2020.0,4.0
+100241,605,2020-10-02,,Mërgim,Shala,28.0,Kosovo,2020.0,4.0
+147958,9787,2020-11-06,,Emmanuel,Essien,24.0,Ghana,2020.0,1.0
+180983,9809,2019-11-30,,Eloy Robles,Marin,39.0,Spain,2019.0,1.0
+3610,3749,2019-07-01,,Idriz,Toskić,33.0,Montenegro,2019.0,1.0
+4297,3325,2010-07-01,,Klevis,Roshi,50.0,Albania,2010.0,1.0
+166369,2261,2013-01-30,,Marko,Milivojević,45.0,Serbia,2012.0,1.0
+210840,2261,2015-02-05,,Artnant,Tahirllari,39.0,Albania,2014.0,1.0
+210954,3328,2011-08-31,,Joseph,Olatunji,41.0,Nigeria,2011.0,1.0
+211793,3382,2012-01-16,,Altin,Grbović,48.0,Serbia,2011.0,1.0
+211801,3838,2015-09-01,,Bravald,Xhafka,36.0,Albania,2015.0,2.0
+4275,3838,2015-09-11,,Mario,Kame,38.0,Albania,2015.0,2.0
+211737,605,2012-08-31,,Fernando,Santos de Souza,47.0,Brazil,2012.0,2.0
+133594,605,2012-08-29,,Miloš,Marković,43.0,Montenegro,2012.0,2.0
+105663,680,2018-06-01,,Argjend,Mustafa,34.0,Kosovo,2017.0,1.0
+290561,12772,2021-01-30,,Drin,Govori,26.0,Kosovo,2020.0,1.0
+284891,12250,2021-02-22,,Samuel,Armah,27.0,Ghana,2020.0,1.0
+74673,2599,2019-10-07,,Arnaud Arthur Jacques-Marie,Guedj,31.0,France,2019.0,1.0
+134077,4333,2011-07-01,,Eftim,Aksentiev,51.0,North Macedonia,2011.0,1.0
+3595,1019,2019-08-28,,Marko,Radas,42.0,Croatia,2019.0,1.0
+3529,3321,2015-01-31,,Andi,Ribaj,44.0,Albania,2014.0,1.0
+3599,2659,2019-07-01,,Elmir,Asani,30.0,Serbia,2019.0,1.0
+3602,7257,2021-07-01,,,,,,2021.0,1.0
+278588,13855,2018-01-01,,Ridwan Rasak,Adeshina,34.0,Nigeria,2017.0,1.0
+3592,2261,2019-08-21,,Enes,Isufi,28.0,Albania,2019.0,1.0
+4332,3336,2018-08-31,,Everest,Braçe,27.0,Albania,2018.0,1.0
+74580,605,2015-08-31,,Djair,Veiga Francisco Junior,41.0,Brazil,2015.0,3.0
+74552,605,2016-01-08,,Renato Carlos,Martins Júnior,44.0,Brazil,2015.0,3.0
+10652,605,2015-07-08,,Ventsislav,Dimitrov Hristov,44.0,Bulgaria,2015.0,3.0
+4028,3321,2014-01-24,,Amarildo,Dimo,49.0,Albania,2013.0,1.0
+14321,4356,2013-08-15,,Muzafer,Ejupi,42.0,North Macedonia,2013.0,1.0
+106917,574,2015-07-01,,Aco,Stojkov,45.0,North Macedonia,2015.0,1.0
+66978,3739,2017-08-17,,Goran,Vujović,43.0,Montenegro,2017.0,1.0
+31216,605,2021-07-23,,Bismark,Ngissah,28.0,Ghana,2021.0,4.0
+7292,605,2021-07-23,,Joseph Junior,Asante,28.0,Ghana,2021.0,4.0
+80531,605,2021-08-28,,,,,,2021.0,4.0
+156144,605,2021-07-15,,Murilo Augusto,Lino Rosa,32.0,Brazil,2021.0,4.0
+30774,495,2021-07-01,,Fallou,Njie,25.0,Gambia,2021.0,1.0
+57000,605,2016-08-05,,Simone,Mattia,34.0,Italy,2016.0,2.0
+3604,605,2017-01-30,,Gjergj,Muzaka,44.0,Albania,2016.0,2.0
+66290,605,2017-08-31,,Martin,Nešpor,40.0,Czech Republic,2017.0,1.0
+3786,3325,2013-08-10,,Jetmir,Sefa,45.0,Albania,2013.0,1.0
+74628,4021,2018-06-21,,Afrim,Taku,39.0,Albania,2017.0,1.0
+3542,3320,2018-08-07,,Tefik,Osmani,41.0,Albania,2018.0,1.0
+3598,3787,2019-06-04,,Kristi,Vangjeli,42.0,Albania,2018.0,1.0
+210728,4375,2012-01-01,,Almir,Sulejmanović,56.0,Slovenia,2011.0,1.0
+131382,5727,2015-01-01,,Željko,Tomić,47.0,Croatia,2014.0,1.0
+74607,2542,2016-09-01,,Ángel Reinaldo,Orué Echevarría,42.0,Paraguay,2016.0,1.0
+3590,680,2019-08-05,,Leonit,Abazi,36.0,Kosovo,2019.0,2.0
+3614,680,2020-01-07,,John,Otto John,31.0,Nigeria,2019.0,2.0
+76349,4558,2017-06-17,,Marvin,Ogunjimi,42.0,Belgium,2016.0,1.0
+210727,946,2012-08-15,,Bernardo,Salim Ribeiro,44.0,Brazil,2012.0,1.0
+74138,11147,2014-09-25,,Visard,Tako,32.0,Albania,2014.0,1.0
+100398,3325,2012-07-01,,Denis,Viana Da Silva,47.0,Brazil,2012.0,1.0
+42951,2606,2017-07-27,,Cornel Alexandru,Predescu,41.0,Romania,2017.0,1.0
+3516,3317,2010-01-30,,Lejdi,Liçaj,51.0,Albania,2009.0,1.0
+69190,7507,2019-09-10,,Flavio,Demollari,28.0,Albania,2019.0,1.0
+145753,7507,2018-09-01,,Anesti,Tako,31.0,Albania,2018.0,1.0
+115767,15106,2015-01-01,,Marconi,Ribeiro Souza,45.0,Brazil,2014.0,1.0
+210348,3885,2014-08-29,,Samir,Sahiti,46.0,Kosovo,2014.0,1.0
+385976,20139,2011-08-01,,Dejan,Grabič,57.0,Slovenia,2011.0,1.0
+3603,3595,2022-07-01,,Uerdi,Mara,27.0,Albania,2022.0,1.0
+3611,3320,2020-09-28,,Dejvi,Bregu,33.0,Albania,2020.0,1.0
+119355,3499,2022-08-19,,Jean Victor,Gonçalves,31.0,Brazil,2022.0,1.0
+145759,7507,2016-09-01,,,,,,2016.0,1.0
+210976,11147,2013-10-20,,Nikolin,Rapo,42.0,Albania,2013.0,2.0
+145758,11147,2013-10-20,,,,,,2013.0,2.0
+268119,3334,2015-09-11,,Rudens,Muçollari,39.0,Albania,2015.0,1.0
+3656,4671,2023-09-21,,Oltion,Rapa,36.0,Albania,2023.0,1.0
+286675,17740,2022-09-29,,Vasili,Tuni,25.0,Albania,2022.0,1.0
+338315,3334,2023-09-21,,Euxhenio,Torollari,21.0,Albania,2023.0,2.0
+341031,3334,2023-09-21,,Rajan,Lipo,21.0,Albania,2023.0,2.0
+4274,3334,2018-08-01,,Paulo,Ivani,33.0,Albania,2018.0,1.0
+286676,3836,2022-08-31,,Krisi,Kaso,25.0,Albania,2022.0,2.0
+386261,3836,2023-01-27,,Kelvin Edo,Dosseh,23.0,Ghana,2022.0,2.0
+3461,20406,2023-07-01,,Hektor,Idrizaj,36.0,Albania,2023.0,1.0
+3596,581,2020-02-01,,Kabba,Sambou,34.0,Gambia,2019.0,1.0
+3489,12832,2021-07-16,,Faton,Džemaili,29.0,Albania,2021.0,1.0
+54647,214,2016-08-01,,Francisco Lisvaldo,Daniel Duarte,42.0,Brazil,2016.0,1.0
+3920,3325,2019-07-02,,Saliou,Guindo,33.0,Mali,2019.0,1.0
+27080,605,2018-08-31,,Renato,Ziko,33.0,Albania,2018.0,1.0
+284890,9030,2022-01-10,,Dennis,Dowouna,27.0,Ghana,2021.0,1.0
+54418,7858,2017-01-18,,Ademir,Ribeiro Souza,48.0,Brazil,2016.0,1.0
+3606,616,2019-07-01,,Marko,Pervan,33.0,Croatia,2019.0,1.0
+3608,9390,2019-08-01,,Kwasi,Sibo,31.0,Ghana,2019.0,1.0
+137403,3885,2020-01-31,,Arbnor,Muja,31.0,Albania,2019.0,1.0
+74610,3320,2016-08-15,,Valdrin,Rashica,38.0,Kosovo,2016.0,1.0
+3759,5499,2023-01-22,,Belajdi,Pusi,28.0,Albania,2022.0,1.0
+145754,3318,2011-08-31,,Arlind,Xaka,49.0,Albania,2011.0,1.0
+268404,10726,2019-09-01,,,,,,2019.0,1.0
+3553,3836,2023-09-15,,Uendi,Vecaj,28.0,Albania,2023.0,1.0
+3607,3326,2019-08-31,,Aldo,Qoshku,29.0,Albania,2019.0,1.0
+74510,2256,2012-07-25,,Erjon,Vucaj,46.0,Albania,2012.0,1.0
+387450,3333,2023-09-12,,Leonard,Owusu,22.0,Ghana,2023.0,1.0
+74539,14394,2019-03-11,,Ardit,Hoxhaj,36.0,Albania,2018.0,1.0
+3479,3319,2021-01-14,,Joan,Çela,28.0,Albania,2020.0,1.0
+3623,3339,2020-09-14,,Eni,Imami,36.0,Albania,2020.0,1.0
+3645,3340,2023-07-01,,Shkëlzen,Ruçi,33.0,Albania,2023.0,1.0
+3572,694,2022-08-25,,Elvi,Berisha,27.0,Albania,2022.0,1.0
+105284,577,2020-08-13,14146.0,Kenan,Horić,33.0,Bosnia and Herzegovina,2023.0,
+334505,577,2022-08-22,577.0,Abdou,M'bark el id,24.0,Mauritania,2023.0,
+406255,3323,2023-01-31,577.0,Shamsuddeen,Sani,21.0,Nigeria,2023.0,
+3474,3325,2023-01-16,3329.0,Kristi,Kote,26.0,Albania,2023.0,
+3675,3329,2023-08-26,3329.0,Elian,Çelaj,25.0,Albania,2023.0,
+3522,3327,2022-07-01,3327.0,Emiljano,Musta,32.0,Albania,2023.0,
+61305,3551,2019-01-29,10542.0,Dino,Špehar,30.0,Croatia,2023.0,
+61305,3551,2019-01-29,677.0,Dino,Špehar,29.0,Croatia,2023.0,
+123691,577,2018-01-09,12561.0,Nicholas Lee,Dillon,27.0,Trinidad and Tobago,2023.0,
+14433,128,2016-07-26,4215.0,Mateus,Lima Cruz,31.0,Brazil,2023.0,
+426740,577,2023-07-01,577.0,Blerim,Sahitaj,24.0,Kosovo,2023.0,
+3528,3317,2018-11-20,12772.0,Élton,Pereira Gomes,36.0,Brazil,2023.0,
+80194,12772,2023-08-23,12772.0,Edi,Baša,31.0,Croatia,2023.0,
+147957,12733,2021-09-06,12772.0,Arens,Mateli,24.0,Albania,2023.0,
+63409,3326,2021-07-15,12772.0,Besir,Demiri,30.0,Albania,2023.0,
+63502,12772,2023-08-21,12772.0,Betim,Halimi,28.0,Kosovo,2023.0,
+74604,3885,2017-06-01,4132.0,Lapidar,Lladrovci,34.0,Kosovo,2023.0,
+109569,4132,2023-08-01,4132.0,Jakup,Berisha,24.0,North Macedonia,2023.0,
+271068,577,2016-07-01,4132.0,Armend,Halili,27.0,Kosovo,2023.0,
+271068,577,2016-07-01,12772.0,Armend,Halili,27.0,Kosovo,2023.0,
+3487,14281,2019-07-24,14281.0,Faton,Maloku,33.0,Kosovo,2023.0,
+3503,12772,2020-09-22,12772.0,Besar,Musolli,35.0,Kosovo,2023.0,
+3503,12772,2020-09-22,14395.0,Besar,Musolli,35.0,Kosovo,2023.0,
+3709,4132,2020-08-04,14395.0,Ilir,Avdyli,34.0,Kosovo,2023.0,
+74665,2256,2018-08-31,12733.0,Albin,Berisha,23.0,Kosovo,2023.0,
+3502,694,2021-07-01,12733.0,Vesel,Limaj,28.0,Germany,2023.0,
+3495,708,2019-07-01,2256.0,William,Cordeiro Melo,31.0,Brazil,2023.0,
+14317,554,2020-08-01,694.0,Kristal,Abazaj,28.0,Albania,2023.0,
+3578,2256,2017-01-20,694.0,Fjoart,Jonuzi,28.0,Albania,2023.0,
+74663,3321,2023-01-26,694.0,Rimal,Haxhiu,25.0,Albania,2023.0,
+3594,694,2022-08-31,694.0,Bruno,Lulaj,29.0,Albania,2023.0,
+48587,708,2023-07-06,708.0,Gjelbrim,Taipi,32.0,Kosovo,2023.0,
+74667,708,2023-08-19,577.0,Altin,Bytyçi,22.0,Kosovo,2023.0,
+74667,708,2023-08-19,708.0,Altin,Bytyçi,23.0,Kosovo,2023.0,
+3687,3327,2023-07-06,3327.0,Edison,Ndreca,30.0,Albania,2023.0,
+3743,708,2016-08-08,3327.0,Renato,Malota,35.0,Albania,2023.0,
+152724,577,2023-08-31,577.0,Xhoi,Hajdëraj,24.0,Albania,2023.0,
+353662,3836,2023-01-31,3329.0,Elvis,Gjoni,23.0,Albania,2023.0,
+145742,577,2023-07-01,577.0,Redi,Veriu,24.0,Albania,2023.0,
+39402,577,2023-08-23,577.0,Sebastián Milton,La Torre Miranda,26.0,Peru,2023.0,
+3490,3327,2020-08-31,3329.0,Gëzim,Krasniqi,34.0,Albania,2023.0,
+3477,2270,2020-09-26,708.0,Bruno,Telushi,34.0,Albania,2023.0,
+3469,694,2022-07-01,694.0,Ardit,Hila,31.0,Albania,2023.0,
+3480,3320,2023-01-31,3320.0,Klejdi,Daci,25.0,Albania,2023.0,
+71579,3320,2023-07-01,3320.0,Ergys,Peposhi,24.0,Albania,2023.0,
+3635,694,2013-08-30,3320.0,Erando,Karabeci,36.0,Albania,2023.0,
+3496,3320,2019-07-31,3320.0,Arbër,Çyrbja,31.0,Albania,2023.0,
+3496,3320,2019-07-31,14393.0,Arbër,Çyrbja,30.0,Albania,2023.0,
+3515,3320,2021-07-01,3320.0,Blerim,Kotobelli,32.0,Albania,2023.0,
+74606,3317,2018-08-20,3320.0,Albi,Alla,31.0,Albania,2023.0,
+163432,577,2023-08-01,577.0,Atdhe,Rashiti,25.0,Albania,2023.0,
+163432,577,2023-08-01,12772.0,Atdhe,Rashiti,25.0,Albania,2023.0,
+404516,577,2023-09-19,577.0,Alen,Ndreu,20.0,Albania,2023.0,
+404516,577,2023-09-19,3326.0,Alen,Ndreu,19.0,Albania,2023.0,
+128188,577,2023-08-25,577.0,Arbër,Mehmetllari,24.0,Albania,2023.0,
+128188,577,2023-08-25,2256.0,Arbër,Mehmetllari,23.0,Albania,2023.0,
+195063,577,2023-07-03,577.0,Mario,Beshiraj,25.0,Albania,2023.0,
+335196,577,2022-10-01,577.0,Endri,Murati,23.0,Albania,2023.0,
+3366,577,2022-08-22,577.0,Abdou,M'Bark El Id,25.0,Mauritania,2023.0,
+290149,577,2022-07-17,577.0,Françesko,Hasaj,23.0,Albania,2023.0,
+3720,577,2023-07-20,577.0,Plarent,Fejzaj,27.0,Albania,2023.0,
+144066,577,2023-08-31,577.0,Matheus,da Motta Donha Fernandes,27.0,Brazil,2023.0,
+3692,577,2022-07-14,577.0,Arbër,Basha,26.0,Albania,2023.0,
+31839,577,2023-07-10,577.0,Vasilios,Zogos,25.0,Greece,2023.0,
+147807,577,2023-08-23,577.0,Endri,Reçi,24.0,Albania,2023.0,
+27028,577,2023-01-12,577.0,Franko,Lamçe,26.0,Albania,2023.0,
+3875,577,2023-08-15,577.0,Franci,Lala,25.0,Albania,2023.0,
+189040,577,2023-08-08,577.0,Nikolin,Duka,24.0,Albania,2023.0,
+189040,577,2023-08-08,2256.0,Nikolin,Duka,23.0,Albania,2023.0,
+3832,3339,2023-07-01,577.0,Redon,Dragoshi,24.0,Albania,2023.0,
+3832,3339,2023-07-01,3339.0,Redon,Dragoshi,24.0,Albania,2023.0,
+405938,577,2023-09-22,577.0,Igli,Çulaj,22.0,Albania,2023.0,
+204200,577,2023-08-01,577.0,Angelo,Tafas,24.0,Albania,2023.0,
+204200,577,2023-08-01,12772.0,Angelo,Tafas,24.0,Albania,2023.0,
+3913,3325,2018-08-23,3329.0,Ardit,Peposhi,31.0,Albania,2023.0,
+3456,3329,2022-07-19,3329.0,Dashamir,Xhika,35.0,Albania,2023.0,
+4280,3337,2018-01-20,3329.0,Klevis,Hasanbelli,27.0,Albania,2023.0,
+137402,22247,2023-09-13,3326.0,Jorgo,Meksi,29.0,Albania,2023.0,
+3651,2261,2018-08-31,3326.0,Rustem,Hoxha,33.0,Albania,2023.0,
+3702,3329,2021-08-25,3326.0,Ersil,Ymeri,29.0,Albania,2023.0,
+76902,679,2021-07-01,6224.0,Numan,Kurdić,25.0,Bosnia and Herzegovina,2023.0,
+73249,3361,2023-07-01,3361.0,Mirza,Delimeđac,25.0,Bosnia and Herzegovina,2023.0,
+41289,4450,2023-09-15,4450.0,Johnson,Oppong Owusu,26.0,Ghana,2023.0,
+3605,1483,2022-07-01,1483.0,Jorgo,Pëllumbi,24.0,Albania,2023.0,
+3605,1483,2022-07-01,2392.0,Jorgo,Pëllumbi,24.0,Albania,2023.0,
+3491,577,2018-07-01,4346.0,Edis,Malikji,29.0,North Macedonia,2023.0,
+71375,577,2021-09-05,2524.0,Luka,Milunović,32.0,Serbia,2023.0,
+106968,577,2021-09-05,691.0,Artiom,Puntus,29.0,Moldova,2023.0,
+146022,12423,2018-07-01,5172.0,Kufre,Ebong,29.0,Nigeria,2023.0,
+40622,2896,2021-07-01,699.0,Patrick Friday,Eze,32.0,Nigeria,2023.0,
+55384,1401,2017-07-18,3627.0,Lucas Rangel,Nunes Gonçalves,30.0,Brazil,2023.0,
+77076,4223,2023-01-01,4223.0,Tarik,Isić,30.0,Bosnia and Herzegovina,2023.0,
+169199,577,2024-01-05,577.0,Kleandro,Lleshi,25.0,Albania,2023.0,
+405233,577,2023-01-25,577.0,Erduan,Smajli,21.0,Switzerland,2023.0,
+41828,577,2024-01-13,577.0,Felipe Ryan,Alves Silva,27.0,Brazil,2023.0,
+41828,577,2024-01-13,1416.0,Felipe Ryan,Alves Silva,27.0,Brazil,2023.0,
+3953,577,2024-01-05,577.0,Geri,Selita,23.0,Albania,2023.0,
+3953,577,2024-01-05,3327.0,Geri,Selita,23.0,Albania,2023.0,
+88597,577,2024-01-14,577.0,Alexandre,de Oliveira Macedo Júnior,28.0,Brazil,2023.0,
+311563,577,2024-01-13,577.0,Kristian,Rroku,21.0,Albania,2023.0,
+27386,577,2024-01-13,577.0,Stefan,Abara,25.0,Albania,2023.0,
+156439,577,2024-01-19,577.0,Nicolai,Solodovnicov,24.0,Moldova,2023.0,
+156439,577,2024-01-19,5376.0,Nicolai,Solodovnicov,24.0,Moldova,2023.0,
+88560,577,2024-01-19,577.0,Theodoros,Mingos,26.0,Greece,2023.0,
+295287,577,2024-01-12,577.0,Melos,Zenunaj,24.0,Kosovo,2023.0,
+295287,577,2024-01-12,14402.0,Melos,Zenunaj,23.0,Kosovo,2023.0,
+66905,577,2021-07-12,2258.0,Aleksandar,Milić,26.0,Montenegro,2023.0,
+45384,3747,2022-07-01,3747.0,Alija,Krnić,26.0,Montenegro,2023.0,
+14655,616,2020-01-01,1083.0,Mirlind,Daku,26.0,Albania,2023.0,
+3505,3578,2020-09-18,3578.0,Eduart,Rroca,31.0,Albania,2023.0,
+2154,1022,2014-08-01,607.0,Sokol,Çikalleshi,34.0,Albania,2023.0,
+3499,3578,2021-01-05,607.0,Valon,Ethemi,27.0,North Macedonia,2023.0,
+3499,3578,2021-01-05,3578.0,Valon,Ethemi,27.0,North Macedonia,2023.0,
+3698,10124,2019-07-01,2599.0,Roger Junio,Rodrigues Ferreira,28.0,Brazil,2023.0,
+8713,624,2018-07-01,3578.0,Sindrit,Guri,31.0,Albania,2023.0,
+290767,605,2022-08-31,605.0,Franko,Kapllani,22.0,Albania,2023.0,
+3833,3319,2021-01-30,3329.0,Amer,Duka,25.0,Albania,2023.0,
+109622,609,2022-07-01,4197.0,Leard,Sadriu,23.0,Kosovo,2023.0,
+109531,3322,2017-02-02,2644.0,Geoffrey Charles,Chinedu,27.0,Nigeria,2023.0,
+74655,14395,2018-07-02,12772.0,Shend,Kelmendi,30.0,Kosovo,2023.0,
+74611,4330,2016-08-01,12772.0,Valjmir,Nafiu,29.0,North Macedonia,2023.0,
+3691,3339,2022-07-01,12772.0,Dajan,Shehi,27.0,Albania,2023.0,
+297536,2265,2022-07-01,12772.0,Melos,Bajrami,23.0,Kosovo,2023.0,
+297536,2265,2022-07-01,4196.0,Melos,Bajrami,23.0,Kosovo,2023.0,
+204138,4132,2021-08-18,4132.0,Alban,Shabani,24.0,Kosovo,2023.0,
+157190,4132,2016-01-06,14393.0,Bujar,Shabani,34.0,Kosovo,2023.0,
+3613,3320,2020-08-12,14281.0,Blerim,Krasniqi,28.0,Albania,2023.0,
+107484,14281,2020-01-16,14281.0,Almir,Ajzeraj,27.0,Kosovo,2023.0,
+133922,14281,2022-07-01,14281.0,Leonat,Vitija,24.0,Kosovo,2023.0,
+3601,12733,2020-08-19,12733.0,Nazmi,Gripshi,27.0,Albania,2023.0,
+3593,12733,2020-08-06,12733.0,Bajram,Jashanica,34.0,Kosovo,2023.0,
+3511,12772,2020-07-30,12733.0,Enea,Koliçi,38.0,Albania,2023.0,
+47940,2167,2019-02-23,4119.0,Beneyam Belye,Demte,26.0,Ethiopia,2023.0,
+3615,3334,2023-09-20,605.0,Jorgo,Qeleshi,22.0,Albania,2023.0,
+3550,648,2016-06-22,14395.0,Gerhard,Progni,37.0,Albania,2023.0,
+286995,3327,2021-08-01,6402.0,Dujardin,Remi,27.0,"Hong Kong, China",2023.0,
+32361,605,2023-08-24,605.0,Jourdain Ronaldo,Fletcher,26.0,Jamaica,2023.0,
+32361,605,2023-08-24,3441.0,Jourdain Ronaldo,Fletcher,26.0,Jamaica,2023.0,
+3600,609,2020-07-31,609.0,Bruno,Dita,31.0,Albania,2023.0,
+11312,953,2018-07-03,2265.0,Suad,Sahiti,29.0,Kosovo,2023.0,
+74645,3325,2023-01-14,4346.0,Vangjel,Zguro,31.0,Albania,2023.0,
+326790,2504,2023-07-01,2504.0,Abdul,Abdeen Temitope,29.0,Republic of Ireland,2023.0,
+146044,1483,2020-09-11,1483.0,Agon,Elezi,23.0,North Macedonia,2023.0,
+146044,1483,2020-09-11,176.0,Agon,Elezi,23.0,North Macedonia,2023.0,
+61881,3575,2018-08-21,2254.0,Bakary,Nimaga,30.0,Mali,2023.0,
+1249,631,2016-01-04,598.0,Peter,Oladeji Olayinka,29.0,Nigeria,2023.0,
+135857,2110,2021-07-01,956.0,Alexandros,Tereziou,24.0,Greece,2023.0,
+109559,2265,2018-07-10,133.0,Sérgio Antonio,Da Luiz Junior,29.0,Brazil,2023.0,
+53545,1082,2016-01-13,1085.0,Bernard,Berisha,33.0,Kosovo,2023.0,
+48211,374,2019-02-03,783.0,Fidan,Aliti,31.0,Kosovo,2023.0,
+48211,374,2019-02-03,996.0,Fidan,Aliti,31.0,Kosovo,2023.0,
+11012,605,2017-08-02,1010.0,Ali,Sowe,30.0,Gambia,2023.0,
+4336,3339,2023-08-28,3339.0,Dritmir,Beci,28.0,Albania,2023.0,
+37022,9234,2017-01-31,3329.0,Agim,Zeka,26.0,Albania,2023.0,
+4277,3334,2018-08-01,3329.0,Anteo,Osmanllari,26.0,Albania,2023.0,
+28476,2391,2017-08-25,694.0,Liridon,Latifi,30.0,Albania,2023.0,
+74545,609,2018-07-20,694.0,Gledi,Mici,33.0,Albania,2023.0,
+3665,2261,2019-01-05,3320.0,Realdo,Fili,28.0,Albania,2023.0,
+3631,3320,2020-09-01,3320.0,Asjon,Daja,34.0,Albania,2023.0,
+3716,14392,2021-01-31,3320.0,Harallamb,Qaqi,31.0,Albania,2023.0,
+280272,4487,2022-07-01,708.0,Alfred,Mensah,25.0,Ghana,2023.0,
+27247,2111,2018-08-21,708.0,Emiljano,Vila,36.0,Albania,2023.0,
+3530,708,2021-07-01,708.0,Arinaldo,Rrapaj,23.0,Albania,2023.0,
+3666,3336,2023-08-03,3327.0,Erald,Hyseni,25.0,Albania,2023.0,
+363898,605,2024-07-01,605.0,Kevin,Hysolli,20.0,Albania,2023.0,
+3539,3317,2024-01-31,605.0,Erlis,Frashëri,36.0,Albania,2023.0,
+3589,708,2019-07-04,708.0,Aldo,Teqja,29.0,Albania,2023.0,
+109589,609,2022-06-30,708.0,Bekim,Redjepi,28.0,North Macedonia,2023.0,
+109589,609,2022-06-30,3326.0,Bekim,Redjepi,28.0,North Macedonia,2023.0,
+314303,605,2023-08-14,605.0,Uche Great,Sabastine,24.0,Nigeria,2023.0,
+382272,605,2023-07-01,605.0,Ermir,Rashica,20.0,Albania,2023.0,
+321770,605,2021-07-05,605.0,Ardit,Nikaj,22.0,Albania,2023.0,
+109578,605,2023-07-01,605.0,Suhejlj,Muharem,23.0,North Macedonia,2023.0,
+444167,605,2024-07-01,605.0,Emmanuel Ifeanyi,Godday,20.0,Nigeria,2023.0,
+439536,605,2023-08-13,605.0,Ivan Cabrel,Djantou Tchaboutang,22.0,Cameroon,2023.0,
+291977,605,2024-01-06,605.0,Kostika,Beçka,21.0,Albania,2023.0,
+385740,605,2023-08-31,605.0,Nnamdi Franklin,Ahanonu,22.0,Nigeria,2023.0,
+136060,605,2023-08-24,605.0,Riliwan Oyindamola,Rabiu,24.0,Nigeria,2023.0,
+3885,605,2022-08-31,605.0,Gresild,Lika,27.0,Albania,2023.0,
+281283,605,2022-08-31,605.0,Dean,Liço,24.0,Albania,2023.0,
+368911,605,2023-09-01,605.0,Erest,Lamellari,20.0,Albania,2023.0,
+354203,605,2023-08-24,605.0,Dejvid,Janaqi,21.0,Albania,2023.0,
+290148,605,2023-07-19,605.0,Yuri Merlim,dos Santos Carvalho,26.0,Brazil,2023.0,
+161679,605,2022-01-14,605.0,Ramin,Alii,23.0,North Macedonia,2023.0,
+4353,605,2023-08-01,605.0,Klevis,Shaqe,25.0,Albania,2023.0,
+204066,605,2023-07-19,605.0,Andrea,Gerco,24.0,Albania,2023.0,
+74636,605,2022-08-01,605.0,Elvis,Prençi,31.0,Albania,2023.0,
+152714,605,2023-08-01,605.0,Marcos Matheus,de Oliveira Ramos,25.0,Brazil,2023.0,
+290151,605,2022-07-04,605.0,Herdis,Alliu,26.0,Albania,2023.0,
+1832,605,2023-07-01,605.0,Marco,Alia,24.0,Albania,2023.0,
+3588,2256,2021-07-01,2256.0,Mario,Dajsinani,26.0,Albania,2023.0,
+257407,14008,2023-09-11,14008.0,Abbey,Agbodzie,25.0,Ghana,2023.0,
