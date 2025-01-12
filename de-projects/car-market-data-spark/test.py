@@ -10,34 +10,60 @@ from pyppeteer import launch
 from requests_html import HTML
 import asyncio
 import traceback
+from urllib.parse import urlencode, urlparse, parse_qs
 
 
 class HtmlContent:
-    def __init__(self, def_ua:str, main_url:str, pagination_add:str):
+    def __init__(self, def_ua: str, main_url:str):
         self.def_ua = def_ua
         try:
-            requests.get(main_url, headers={'user-agent':self.def_ua}).raise_for_status()
+            requests.get(main_url, headers={'user-agent': self.def_ua}).raise_for_status()
             self.main_url = main_url
         except Exception as e:
             print(f"provided url does not exists or not in proper format")
             raise e
         self.temp_url = str()
-        self.pagination_add = {pagination_add: int()}
+        self.html_data = str()
 
     @staticmethod
-    def check_url(url:str, headers: dict) -> None | str:
+    def check_url(url: str, headers: dict) -> None | str:
         try:
             requests.get(url, headers=headers).raise_for_status()
-            return None
-        except Exception as e:
             return url
+        except:
+            return
 
-    def assign_temp_url(self, params:dict, temp_url:str = None, use_main:bool = True):
+    @staticmethod
+    def add_url_params(org_url: str, add_params: dict) -> str:
+        url_components = urlparse(org_url)
+        original_params = parse_qs(url_components.query)
+
+        merged_params = {**original_params, **add_params}
+        updated_query = urlencode(merged_params, doseq=True)
+
+        return url_components._replace(query=updated_query).geturl()
+
+    @staticmethod
+    def edit_url_param(url: str, param_name: str, param_new_val: any):
+        url_components = urlparse(url)
+        params = parse_qs(url_components.query)
         try:
-            url_inner = self.main_url if use_main else self.check_url(temp_url, headers={'user-agent':self.def_ua})
-            assert url_inner
+            assert params.get(param_name)
         except AssertionError as e:
-            print()
+            print(f"url does not contain specified param - please add param before trying to modify it.")
+            raise e
+        params[param_name] = param_new_val
+        updated_query = urlencode(params, doseq=True)
+        return url_components._replace(query=updated_query).geturl()
+
+    def assign_temp_url(self, params: dict = None, temp_url: str = None, use_main: bool = True):
+        try:
+            url_tmp = self.main_url if use_main else self.check_url(temp_url, headers={'user-agent': self.def_ua})
+            self.temp_url = self.add_url_params(url_tmp, params) if params else url_tmp
+            assert self.temp_url
+        except AssertionError as e:
+            print(f"Url provided is not in proper format/does not exists")
+            raise e
 
     async def fetch(self, url, browser, ua: str = None):
         page = await browser.newPage()
@@ -61,36 +87,44 @@ class HtmlContent:
         await browser.close()
 
         html = HTML(html=doc)
-        return html.html
+        self.html_data = html.html
 
 
 class OtoMotoData(HtmlContent):
-    def encode_decode(self, str_data:str) -> str:
+    allowed_fields = {
+        'el_id',
+        'notice_name',
+        'engine_capacity',
+        'engine_power',
+        'price_str',
+        'mileage',
+        'fuel_type',
+        'gearbox',
+        'production_year',
+        'when_added',
+        'ds1_rest'
+    }
+
+    def __init__(self, main_url: str, def_ua: str, fields: set, data_path:str, def_file_name:str):
+        super().__init__(def_ua, main_url)
+        try:
+            assert not fields.difference(self.allowed_fields)
+            self.fields = fields
+        except AssertionError as e:
+            print(f"not allowed field/s : {fields.difference(self.allowed_fields)}")
+            raise e
+        self.new_data = dict()
+        self.stored_data = pd.DataFrame()
+        self.data_path = os.path.abspath(data_path)
+        self.def_file_name = def_file_name
+
+    @staticmethod
+    def encode_decode(str_data: str) -> str:
         f_string = str_data.encode().decode('unicode-escape').encode('latin-1').decode()
         return f_string
 
-
-    def save_get_data(self, data_dict: dict = None, org_df: pd.DataFrame = pd.DataFrame()) -> None | pd.DataFrame:
-        data_path = os.path.abspath(os.path.join(Path(__file__).parent, './data/comb_data.csv'))
-        Path(data_path).parent.mkdir(parents=True, exist_ok=True)
-
-        if not data_dict:
-            if Path(data_path).is_file():
-                pd_df = pd.read_csv(data_path, header=0)
-                return pd_df
-            return pd.DataFrame()
-        else:
-            pd_df = pd.DataFrame([[key, *list(values)] for key, values in data_dict.items()]
-                                 , columns=['el_id', 'notice_name','engine_capacity', 'engine_power', 'price_str',
-                                            'mileage', 'fuel_type', 'gearbox', 'production_year', 'when_added', 'ds1_rest']
-                                 )
-            pd_df = pd.concat([pd_df.reset_index(drop=True), org_df.reset_index(drop=True)], axis=0)
-            print(pd_df)
-            pd_df.to_csv(data_path, index=False)
-            return
-
-
-    def resolve_time(self, start_time: datetime, data_string:str) -> None | datetime:
+    @staticmethod
+    def resolve_time(start_time: datetime, data_string:str) -> None | datetime:
         data_string = data_string.replace("wczoraj", "1 dni temu")
         if str_val := re.search('([0-9]+)\\s+(minut[ęy]?)', data_string):
             f_time = start_time - timedelta(minutes=int(str_val.group(1)))
@@ -103,6 +137,35 @@ class OtoMotoData(HtmlContent):
             return
         return f_time
 
+    def get_stored_data(self, alt_path: str = None):
+        try:
+            inner_path = self.data_path if not alt_path else os.path.abspath(alt_path)
+            assert os.path.isfile(inner_path)
+        except AssertionError as e:
+            print(f"Provided path is not file.")
+            raise e
+        self.stored_data = pd.read_csv(inner_path, header=0)
+
+    def save_data(self, alt_path: str = None):
+        inner_path = self.data_path if not alt_path else os.path.abspath(alt_path)
+        Path(inner_path).parent.mkdir(parents=True, exist_ok=True)
+        try:
+            stored_columns = set(self.stored_data.columns)
+            assert not stored_columns.difference(self.fields)
+            assert self.new_data
+        except AssertionError as e:
+            print(f"stored data contains columns to used in collected data/ new data dict are empty.")
+            raise e
+        data_inner = [[key, *list(val_out.values())] for key, val_out in self.new_data.items()]
+
+        pd_inner = pd.DataFrame(data_inner, columns = list(self.fields))
+        pd_inner = pd.concat([pd_inner.reset_index(drop=True), self.stored_data.reset_index(drop=True)], axis=0)
+        pd_inner.to_csv(os.path.join(inner_path, self.def_file_name), index=False)
+
+    def diff_data(self): #check if current ids are occupied
+        pass
+    def extract_fields(self): #extract data from html
+        pass
 
 if __name__ == "__main__":
     execution_start = datetime.now()
