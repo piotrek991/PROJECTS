@@ -11,6 +11,7 @@ from requests_html import HTML
 import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
+from typing import Any
 
 
 class HtmlContent:
@@ -43,13 +44,14 @@ class HtmlContent:
 
         return url_components._replace(query=updated_query).geturl()
 
-    def edit_url_param(self, url: str, param_name: str, param_new_val: any):
+    def edit_url_param(self, url: str, param_name: str, param_new_val: Any):
+        print(f"checking url {url}")
         url_components = urlparse(url)
         params = parse_qs(url_components.query)
         try:
             assert params.get(param_name)
         except AssertionError as e:
-            url_inner = self.add_url_params(self.main_url, {param_name:param_new_val})
+            url_inner = self.add_url_params(self.main_url, {param_name: param_new_val})
             print(f"url does not contain specified param - ADDING.")
             return url_inner
         params[param_name] = param_new_val
@@ -91,8 +93,7 @@ class HtmlContent:
 
 
 class OtoMotoData(HtmlContent):
-    allowed_fields = {
-        'el_id',
+    allowed_fields = [
         'notice_name',
         'engine_capacity',
         'engine_power',
@@ -103,13 +104,17 @@ class OtoMotoData(HtmlContent):
         'production_year',
         'when_added',
         'ds1_rest'
-    }
+    ]
+    allowed_key_field = ['el_id']
 
-    def __init__(self, main_url: str, def_ua: str, fields: set, data_path:str, def_file_name:str):
+    def __init__(self, main_url: str, def_ua: str, data_path: str, def_file_name: str, key_field: str, fields: list = None):
         super().__init__(def_ua, main_url)
         try:
-            assert not fields.difference(self.allowed_fields)
-            self.fields = fields
+            fields = fields or set()
+            assert not fields.difference(set(self.allowed_fields))
+            assert key_field in self.allowed_key_field
+            self.fields = fields if fields else self.allowed_fields
+            self.key_field = key_field
         except AssertionError as e:
             print(f"not allowed field/s : {fields.difference(self.allowed_fields)}")
             raise e
@@ -117,6 +122,7 @@ class OtoMotoData(HtmlContent):
         self.stored_data = pd.DataFrame()
         self.data_path = os.path.abspath(data_path)
         self.def_file_name = def_file_name
+
 
     @staticmethod
     def encode_decode(str_data: str) -> str:
@@ -128,7 +134,7 @@ class OtoMotoData(HtmlContent):
         data_string = data_string.replace("wczoraj", "1 dni temu")
         if str_val := re.search('([0-9]+)\\s+(minut[ęy]?)', data_string):
             f_time = start_time - timedelta(minutes=int(str_val.group(1)))
-        elif str_val:= re.search('([0-9]+)\\s+(godzin[ęy]?)', data_string):
+        elif str_val := re.search('([0-9]+)\\s+(godzin[ęy]?)', data_string):
             f_time = start_time - timedelta(hours=int(str_val.group(1)))
         elif str_val := re.search('([0-9]+)\\s+(dni)', data_string):
             f_time = start_time - timedelta(days=int(str_val.group(1)))
@@ -144,7 +150,7 @@ class OtoMotoData(HtmlContent):
             assert os.path.isfile(inner_path)
         except AssertionError as e:
             print(f"Provided path is not file.")
-            raise e
+            return
         self.stored_data = pd.read_csv(inner_path, header=0)
 
     def save_data(self, alt_path: str = None):
@@ -152,20 +158,25 @@ class OtoMotoData(HtmlContent):
         Path(inner_path).parent.mkdir(parents=True, exist_ok=True)
         try:
             stored_columns = set(self.stored_data.columns)
-            assert not stored_columns.difference(self.fields)
+            print(f"first check {stored_columns.difference(set(self.fields))}")
+            print(f"second check {self.new_data}")
+            if stored_columns:
+                assert self.key_field in stored_columns
+                stored_columns.remove(self.key_field)
+            assert not stored_columns.difference(set(self.fields))
             assert self.new_data
         except AssertionError as e:
-            print(f"stored data contains columns to used in collected data/ new data dict are empty.")
+            print(f"stored data contains columns not used in collected data/ new data dict are empty.")
             raise e
-        data_inner = [[key, *list(val_out.values())] for key, val_out in self.new_data.items()]
+        data_inner = [[key, *val_out] for key, val_out in self.new_data.items()]
 
-        pd_inner = pd.DataFrame(data_inner, columns = list(self.fields))
+        pd_inner = pd.DataFrame(data_inner, columns=[*self.allowed_key_field, *self.allowed_fields])
         pd_inner = pd.concat([pd_inner.reset_index(drop=True), self.stored_data.reset_index(drop=True)], axis=0)
         pd_inner.to_csv(os.path.join(inner_path, self.def_file_name), index=False)
 
     def diff_data(self, key_field: str):
         try:
-            assert self.stored_data
+            assert not self.stored_data.empty
             inner_ids = pd.Series(self.stored_data[key_field]).to_list()
             diff_ids = list(set(self.new_data.keys()).difference(set(inner_ids)))
         except AssertionError as e:
@@ -174,18 +185,26 @@ class OtoMotoData(HtmlContent):
         except Exception as e:
             print(f"Error occurred during checking diff")
             raise e
-        inner_diff_items = list(itemgetter(*diff_ids)(self.new_data))
-        inner_diff_dict = {inner_val: inner_diff_items[inner_num] for inner_num, inner_val in enumerate(diff_ids)}
-        return inner_diff_dict
+
+        try:
+            assert diff_ids
+            inner_diff_items = list(itemgetter(*diff_ids)(self.new_data))
+            print(f"found new items {inner_diff_items}")
+            self.new_data = {inner_val: inner_diff_items[inner_num] for inner_num, inner_val in enumerate(diff_ids)}
+        except AssertionError as e:
+            print(f"theres no difference between stored and new data")
+            self.new_data = dict()
+
+
 
     def extract_fields(self):
-        self.html_data = asyncio.run(self.main(use_temp=False))
+        asyncio.run(self.main(use_temp=False))
         html_etree = etree.HTML(str(self.html_data))
 
         for num, el in enumerate(html_etree.xpath("//div[@data-testid='search-results']/div/article")):
             el_id = el.get('data-id')
             ###dimensions###
-            notice_name = self.self.encode_decode(
+            notice_name = self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/*/a[@target='_self']")[0] \
                     .text)
             describe_str_1 = self.encode_decode(
@@ -198,8 +217,7 @@ class OtoMotoData(HtmlContent):
                 el.xpath(
                     ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='mileage']/text()")[
                     0]
-            )
-                                  ))
+            )))
             fuel_type = self.encode_decode(
                 el.xpath(
                     ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='fuel_type']/text()")[
@@ -226,25 +244,44 @@ class OtoMotoData(HtmlContent):
             ds1_rest = re.search("(•\\s+)([^•]+$)", describe_str_1).group(2)
 
             inner_dict = {
-                'notice_name': notice_name
+                'el_id': el_id
+                , 'notice_name': notice_name
                 , 'engine_capacity': engine_capacity
                 , 'engine_power': engine_power
                 , 'price_str': price_str
-                , 'mile_age': mile_age
+                , 'mileage': mile_age
                 , 'fuel_type': fuel_type
                 , 'gearbox': gearbox
                 , 'production_year': production_year
                 , 'when_added': when_added
                 , 'ds1_rest': ds1_rest
             }
-            self.new_data[int(el_id)] = itemgetter(*list(self.fields))(inner_dict)
+            self.new_data[int(inner_dict.pop(self.key_field))] = list(itemgetter(*list(self.fields))(inner_dict))
 
-    def next_page(self):
-        pass
+    def next_page(self) -> None:
+        url_components = urlparse(self.main_url)
+        org_params = parse_qs(url_components.query)
+        print(f"params {org_params}")
+        if org_params.get('page'):
+            print(f"page already exists : {org_params.get('page')} of type {type(org_params.get('page'))}")
+            self.main_url = self.edit_url_param(self.main_url, 'page', int(org_params.get('page')[0])+1)
+        else:
+            self.main_url = self.edit_url_param(self.main_url, 'page', 2)
+
+
 if __name__ == "__main__":
-    execution_start = datetime.now()
-    URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc&page=3'
+    URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc'
     UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+    execution_start = datetime.now()
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name='COMB_DATA.csv', data_path='./data' ,key_field='el_id')
+    print(f"created object")
+    om_object.get_stored_data()
+    for i in range(2):
+        om_object.extract_fields()
+        om_object.next_page()
+    om_object.diff_data('el_id')
+    om_object.save_data()
+
 
 
 
