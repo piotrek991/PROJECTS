@@ -12,6 +12,8 @@ import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
 from typing import Any
+import queue
+import threading
 
 
 class HtmlContent:
@@ -44,9 +46,8 @@ class HtmlContent:
 
         return url_components._replace(query=updated_query).geturl()
 
-    def edit_url_param(self, url: str, param_name: str, param_new_val: Any):
-        print(f"checking url {url}")
-        url_components = urlparse(url)
+    def edit_url_param(self, param_name: str, param_new_val: Any, url: str = None):
+        url_components = urlparse(url) if url else urlparse(self.main_url)
         params = parse_qs(url_components.query)
         try:
             assert params.get(param_name)
@@ -195,8 +196,6 @@ class OtoMotoData(HtmlContent):
             print(f"theres no difference between stored and new data")
             self.new_data = dict()
 
-
-
     def extract_fields(self):
         asyncio.run(self.main(use_temp=False))
         html_etree = etree.HTML(str(self.html_data))
@@ -272,6 +271,15 @@ class OtoMotoData(HtmlContent):
 if __name__ == "__main__":
     URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc'
     UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
+    N_PAGES = 5
+    sites_list = list()
+    html_base = HtmlContent(UA, URL)
+    sites_list.append(html_base.main_url)
+    for i in range(2, N_PAGES + 1):
+        html_base.main_url = html_base.edit_url_param('page', i)
+        sites_list.append(html_base.main_url)
+    print(sites_list)
+    exit()
     execution_start = datetime.now()
     om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name='COMB_DATA.csv', data_path='./data' ,key_field='el_id')
     print(f"created object")
