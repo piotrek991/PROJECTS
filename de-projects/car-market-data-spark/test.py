@@ -11,9 +11,12 @@ from requests_html import HTML
 import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
-from typing import Any
+from typing import Any, Callable, Coroutine, List
 import queue
 import threading
+####
+exitFLG = 0
+####
 
 
 class HtmlContent:
@@ -69,16 +72,19 @@ class HtmlContent:
             raise e
 
     async def fetch(self, url, browser, ua: str = None):
+        print(f"processing")
         page = await browser.newPage()
         ua_inner = ua if ua else self.def_ua
         await page.setUserAgent(ua_inner)
 
         try:
-            await page.goto(url, {'waitUntil': 'load'})
+            await page.goto(url, {'waitUntil': 'load', 'Connection': 'close'})
         except Exception as e:
             traceback.print_exc()
         else:
-            return await page.content()
+            doc = await page.content()
+            html = HTML(html=doc)
+            return html.html
         finally:
             await page.close()
 
@@ -88,9 +94,19 @@ class HtmlContent:
 
         doc = await self.fetch(page_url, browser)
         await browser.close()
+        self.html_data = doc
 
-        html = HTML(html=doc)
-        self.html_data = html.html
+    async def main_multi_fetcher(self, page_urls: List):
+        browser = await launch(headless=True, args=['--no-sandbox'])
+        tasks = []
+        for url in page_urls:
+            tasks.append(self.fetch(
+                url
+                , browser
+            ))
+        html_gather_data = await asyncio.gather(*tasks, return_exceptions=True)
+        await browser.close()
+        return html_gather_data
 
 
 class OtoMotoData(HtmlContent):
@@ -123,7 +139,6 @@ class OtoMotoData(HtmlContent):
         self.stored_data = pd.DataFrame()
         self.data_path = os.path.abspath(data_path)
         self.def_file_name = def_file_name
-
 
     @staticmethod
     def encode_decode(str_data: str) -> str:
@@ -196,9 +211,9 @@ class OtoMotoData(HtmlContent):
             print(f"theres no difference between stored and new data")
             self.new_data = dict()
 
-    def extract_fields(self):
-        asyncio.run(self.main(use_temp=False))
-        html_etree = etree.HTML(str(self.html_data))
+    async def extract_fields(self, alt_html_content:HTML.html = None):
+        html_etree = etree.HTML(str(self.html_data)) if not alt_html_content \
+            else etree.HTML(str(alt_html_content))
 
         for num, el in enumerate(html_etree.xpath("//div[@data-testid='search-results']/div/article")):
             el_id = el.get('data-id')
@@ -209,10 +224,10 @@ class OtoMotoData(HtmlContent):
             describe_str_1 = self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/p")[0].text
             )
-            price_str = int(self.encode_decode(
+            price_str =  int(self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/h3")[0].text.replace(" ", "")
             ))
-            mile_age = int(re.sub(r'\s|km', '', self.encode_decode(
+            mile_age =  int(re.sub(r'\s|km', '', self.encode_decode(
                 el.xpath(
                     ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='mileage']/text()")[
                     0]
@@ -255,7 +270,9 @@ class OtoMotoData(HtmlContent):
                 , 'when_added': when_added
                 , 'ds1_rest': ds1_rest
             }
+            print(f"processing data")
             self.new_data[int(inner_dict.pop(self.key_field))] = list(itemgetter(*list(self.fields))(inner_dict))
+            return
 
     def next_page(self) -> None:
         url_components = urlparse(self.main_url)
@@ -267,28 +284,101 @@ class OtoMotoData(HtmlContent):
         else:
             self.main_url = self.edit_url_param(self.main_url, 'page', 2)
 
+    async def process_multi_html(self, html_datas_inner: List):
+        t_list_inner = []
+        for html_inner in html_datas_inner:
+            t_list_inner.append(
+                self.extract_fields(alt_html_content=html_inner)
+            )
+        print(f"tasks list {t_list_inner}")
+        await asyncio.gather(*t_list_inner)
+
+
+class MyThreading(threading.Thread):
+    def __init__(self, thread_id:int, thread_name:str, q: queue.Queue):
+        threading.Thread.__init__(self)
+        self.thread_id = thread_id
+        self.thread_name = thread_name
+        self.q = q
+
+    def run(self):
+        process_data(self.thread_name, self.q)
+
+
+def process_data(thread_name:str, q: queue.Queue):
+    while not exitFLG:
+        queueLock.acquire()
+        if not workQueue.empty():
+            data = q.get()
+            queueLock.release()
+            #process
+            print(f"processing {thread_name}")
+            data.extract_fields(multi_thread=True)
+            print(f"finished {thread_name}")
+            data.save_data()
+            #end process
+        else:
+            queueLock.release()
+
 
 if __name__ == "__main__":
     URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc'
     UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-    N_PAGES = 5
-    sites_list = list()
+    N_PAGES = 3
+    t_list = list()
+    l_pages = list()
+
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    queueLock = threading.Lock()
+    workQueue = queue.Queue(10)
+    execution_start = datetime.now()
+
     html_base = HtmlContent(UA, URL)
-    sites_list.append(html_base.main_url)
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f"COMB_DATA.csv"
+                            , data_path='./data', key_field='el_id')
     for i in range(2, N_PAGES + 1):
         html_base.main_url = html_base.edit_url_param('page', i)
-        sites_list.append(html_base.main_url)
-    print(sites_list)
-    exit()
-    execution_start = datetime.now()
-    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name='COMB_DATA.csv', data_path='./data' ,key_field='el_id')
-    print(f"created object")
-    om_object.get_stored_data()
-    for i in range(2):
-        om_object.extract_fields()
-        om_object.next_page()
-    om_object.diff_data('el_id')
-    om_object.save_data()
+        l_pages.append(html_base.main_url)
+
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    print(f"pages to process {l_pages}")
+
+    html_datas = asyncio.get_event_loop().run_until_complete(html_base.main_multi_fetcher(l_pages))
+    tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_html(html_datas))
+    print(om_object.new_data)
+
+
+    # #for i in range(N_PAGES):
+    # queueLock.acquire()
+    # for i in range(2, N_PAGES + 1):
+    #     print(f"{i-1} link is {html_base.main_url}")
+    #     om_object = OtoMotoData(main_url=html_base.main_url, def_ua=UA, def_file_name=f"COMB_DATA_{i}.csv"
+    #                             , data_path='./data', key_field='el_id')
+    #     workQueue.put(om_object)
+    #     t_tmp = MyThreading(i, f"page_{i}", workQueue)
+    #     t_tmp.start()
+    #     t_list.append(t_tmp)
+    #     html_base.main_url = html_base.edit_url_param('page', i)
+    # queueLock.release()
+    #
+    # while not workQueue.empty():
+    #     pass
+    # exitFLG = 1
+    # for thread in t_list:
+    #     thread.join()
+
+    # print(sites_list)
+    # exit()
+    # execution_start = datetime.now()
+    # om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name='COMB_DATA.csv', data_path='./data' ,key_field='el_id')
+    # print(f"created object")
+    # om_object.get_stored_data()
+    # for i in range(2):
+    #     om_object.extract_fields()
+    #     om_object.next_page()
+    # om_object.diff_data('el_id')
+    # om_object.save_data()
 
 
 
