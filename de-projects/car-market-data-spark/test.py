@@ -1,4 +1,6 @@
 import re
+import time
+
 import requests
 from lxml import etree
 import pandas as pd
@@ -14,6 +16,9 @@ from urllib.parse import urlencode, urlparse, parse_qs
 from typing import Any, Callable, Coroutine, List
 import queue
 import threading
+from threading import Event
+from multiprocessing.pool import ThreadPool
+from concurrent.futures import ThreadPoolExecutor
 ####
 exitFLG = 0
 ####
@@ -70,6 +75,16 @@ class HtmlContent:
         except AssertionError as e:
             print(f"Url provided is not in proper format/does not exists")
             raise e
+
+    def get_url_param(self, url: str, param_name: str) -> Any:
+        url_components = urlparse(url) if url else urlparse(self.main_url)
+        params = parse_qs(url_components.query)
+        try:
+            param_val = params.get(param_name)
+        except KeyError as e:
+            print(f"specific param {param_name} does not exists")
+            return
+        return param_val[0]
 
     async def fetch(self, url, browser, ua: str = None):
         print(f"processing")
@@ -174,8 +189,6 @@ class OtoMotoData(HtmlContent):
         Path(inner_path).parent.mkdir(parents=True, exist_ok=True)
         try:
             stored_columns = set(self.stored_data.columns)
-            print(f"first check {stored_columns.difference(set(self.fields))}")
-            print(f"second check {self.new_data}")
             if stored_columns:
                 assert self.key_field in stored_columns
                 stored_columns.remove(self.key_field)
@@ -293,6 +306,56 @@ class OtoMotoData(HtmlContent):
         print(f"tasks list {t_list_inner}")
         await asyncio.gather(*t_list_inner)
 
+    def find_last_page(self, start_html: str):
+        event = Event()
+        visited_hash = dict()
+        next_page_check = 100
+        last_visited_true = 100
+        last_visited_false = 300
+
+        def extract_time_only(html_data: str, lvf_inner: bool, lvt_inner: bool):
+            if not event.is_set():
+                print("in func")
+                etree_html_inner = etree.HTML(html_data)
+                first_site_obj = etree_html_inner.xpath("//div[@data-testid='search-results']/div/article")[0]
+                page_num = int(self.get_url_param(self.main_url, 'page')) if self.get_url_param(self.main_url, 'page') else 1
+                when_added = self.resolve_time(execution_start, self.encode_decode(
+                    first_site_obj.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[2]/p")[0].text
+                ))
+                if datetime.now().day != when_added.day:
+                    visited_hash[page_num] = False
+                    if visited_hash.get(page_num-1) and visited_hash.get(page_num-1) is not None:
+                        event.set()
+                    else:
+                        lvf_inner = min(lvf_inner, page_num)
+                else:
+                    visited_hash[page_num] = True
+                    if not visited_hash.get(page_num+1) and visited_hash.get(page_num+1) is not None:
+                        print("setting")
+                        event.set()
+                    else:
+                        lvt_inner = max(lvt_inner, page_num)
+                npg_inner = lvt_inner + ((lvf_inner - lvt_inner) // 2)
+                print(npg_inner)
+                return lvf_inner, lvt_inner, npg_inner
+
+        self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check, url=start_html)
+        print(self.main_url)
+        with ThreadPool() as pool:
+            while not event.is_set():
+                print(f"processing with page {next_page_check}")
+                print(f"current visited_hash {visited_hash}")
+                asyncio.run(self.main())
+                result = pool.apply_async(extract_time_only, args=(self.html_data, last_visited_false, last_visited_true))
+                last_visited_false, last_visited_true, next_page_check = result.get()
+                self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check, url=start_html)
+                print(f"after result {last_visited_false, last_visited_true, next_page_check}")
+                time.sleep(3)
+            pool.close()
+            pool.join()
+        print(f"last found True {last_visited_true}")
+
 
 class MyThreading(threading.Thread):
     def __init__(self, thread_id:int, thread_name:str, q: queue.Queue):
@@ -328,7 +391,6 @@ if __name__ == "__main__":
     t_list = list()
     l_pages = list()
 
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     queueLock = threading.Lock()
     workQueue = queue.Queue(10)
     execution_start = datetime.now()
@@ -336,49 +398,19 @@ if __name__ == "__main__":
     html_base = HtmlContent(UA, URL)
     om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f"COMB_DATA.csv"
                             , data_path='./data', key_field='el_id')
-    for i in range(2, N_PAGES + 1):
-        html_base.main_url = html_base.edit_url_param('page', i)
-        l_pages.append(html_base.main_url)
+    om_object.find_last_page(start_html=str(om_object.main_url))
 
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    print(f"pages to process {l_pages}")
-
-    html_datas = asyncio.get_event_loop().run_until_complete(html_base.main_multi_fetcher(l_pages))
-    tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_html(html_datas))
-    print(om_object.new_data)
-
-
-    # #for i in range(N_PAGES):
-    # queueLock.acquire()
     # for i in range(2, N_PAGES + 1):
-    #     print(f"{i-1} link is {html_base.main_url}")
-    #     om_object = OtoMotoData(main_url=html_base.main_url, def_ua=UA, def_file_name=f"COMB_DATA_{i}.csv"
-    #                             , data_path='./data', key_field='el_id')
-    #     workQueue.put(om_object)
-    #     t_tmp = MyThreading(i, f"page_{i}", workQueue)
-    #     t_tmp.start()
-    #     t_list.append(t_tmp)
     #     html_base.main_url = html_base.edit_url_param('page', i)
-    # queueLock.release()
+    #     l_pages.append(html_base.main_url)
     #
-    # while not workQueue.empty():
-    #     pass
-    # exitFLG = 1
-    # for thread in t_list:
-    #     thread.join()
-
-    # print(sites_list)
-    # exit()
-    # execution_start = datetime.now()
-    # om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name='COMB_DATA.csv', data_path='./data' ,key_field='el_id')
-    # print(f"created object")
-    # om_object.get_stored_data()
-    # for i in range(2):
-    #     om_object.extract_fields()
-    #     om_object.next_page()
-    # om_object.diff_data('el_id')
-    # om_object.save_data()
+    # loop = asyncio.new_event_loop()
+    # asyncio.set_event_loop(loop)
+    # print(f"pages to process {l_pages}")
+    #
+    # html_datas = asyncio.get_event_loop().run_until_complete(html_base.main_multi_fetcher(l_pages))
+    # tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_html(html_datas))
+    # print(om_object.new_data)
 
 
 
