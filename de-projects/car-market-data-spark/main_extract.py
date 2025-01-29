@@ -1,6 +1,4 @@
 import re
-import time
-
 import requests
 from lxml import etree
 import pandas as pd
@@ -13,12 +11,11 @@ from requests_html import HTML
 import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
-from typing import Any, Callable, Coroutine, List
+from typing import Any, List
 import queue
 import threading
 from threading import Event
 from multiprocessing.pool import ThreadPool
-from concurrent.futures import ThreadPoolExecutor
 ####
 exitFLG = 0
 ####
@@ -86,14 +83,15 @@ class HtmlContent:
             return
         return param_val[0]
 
-    async def fetch(self, url, browser, ua: str = None):
-        print(f"processing")
+    async def fetch(self, browser,  url, ua: str = None):
+        print(f"processing url {url}")
         page = await browser.newPage()
         ua_inner = ua if ua else self.def_ua
         await page.setUserAgent(ua_inner)
+        page.setDefaultNavigationTimeout(0)
 
         try:
-            await page.goto(url, {'waitUntil': 'load', 'Connection': 'close'})
+            await page.goto(url, {'waitUntil': 'networkidle0'})
         except Exception as e:
             traceback.print_exc()
         else:
@@ -107,7 +105,7 @@ class HtmlContent:
         browser = await launch(headless=True, args=['--no-sandbox'])
         page_url = self.temp_url if use_temp else self.main_url
 
-        doc = await self.fetch(page_url, browser)
+        doc = await self.fetch(browser, page_url)
         await browser.close()
         self.html_data = doc
 
@@ -116,8 +114,8 @@ class HtmlContent:
         tasks = []
         for url in page_urls:
             tasks.append(self.fetch(
-                url
-                , browser
+                browser
+                , url
             ))
         html_gather_data = await asyncio.gather(*tasks, return_exceptions=True)
         await browser.close()
@@ -234,6 +232,8 @@ class OtoMotoData(HtmlContent):
             notice_name = self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/*/a[@target='_self']")[0] \
                     .text)
+            url_href = self.encode_decode(
+                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/*/a[@target='_self']/@href")[0])
             describe_str_1 = self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/p")[0].text
             )
@@ -260,15 +260,20 @@ class OtoMotoData(HtmlContent):
                     ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='year']/text()")[
                     0]
             ))
-            when_added = self.resolve_time(execution_start, self.encode_decode(
-                el.xpath(
-                    ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[2]/p")[0].text
-            )).strftime("%d-%m-%Y %H:%M:%S")
-            engine_capacity = re.match("(^[0-9\\s]+cm3\\s+)•", describe_str_1).group(1) \
-                if re.match("(^[0-9\\s]+cm3\\s+)•", describe_str_1) else "NOT SPECIFIED"
-            engine_power = re.search("•([0-9\\s]*KM\\s+)•", describe_str_1).group(1) \
-                if re.search("•([0-9\\s]*KM\\s+)•", describe_str_1) else "NOT SPECIFIED"
-            ds1_rest = re.search("(•\\s+)([^•]+$)", describe_str_1).group(2)
+            try:
+                when_added = self.resolve_time(execution_start, self.encode_decode(
+                    el.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[2]/p")[0].text
+                )).strftime("%d-%m-%Y %H:%M:%S")
+            except AttributeError as e:
+                when_added = None
+
+            engine_capacity = re.match(r"(^[0-9\s]+cm3\s+)", describe_str_1).group(1) \
+                if re.match(r"(^[0-9\s]+cm3\s+)", describe_str_1) else "NOT SPECIFIED"
+            engine_power = re.search(r"(?:•|^)([0-9\s]*KM\s+)", describe_str_1).group(1) \
+                if re.search(r"•([0-9\s]*KM\s+)•", describe_str_1) else "NOT SPECIFIED"
+            ds1_rest = re.search(r"(•\s+)([^•]+$)", describe_str_1).group(2) if re.search(r"(•\s+)([^•]+$)"
+                            , describe_str_1) else "NOT DEFINED"
 
             inner_dict = {
                 'el_id': el_id
@@ -283,9 +288,8 @@ class OtoMotoData(HtmlContent):
                 , 'when_added': when_added
                 , 'ds1_rest': ds1_rest
             }
-            print(f"processing data")
             self.new_data[int(inner_dict.pop(self.key_field))] = list(itemgetter(*list(self.fields))(inner_dict))
-            return
+        return
 
     def next_page(self) -> None:
         url_components = urlparse(self.main_url)
@@ -306,7 +310,23 @@ class OtoMotoData(HtmlContent):
         print(f"tasks list {t_list_inner}")
         await asyncio.gather(*t_list_inner)
 
-    def find_last_page(self, start_html: str):
+    async def process_multi_combined(self, url_list: List):
+        browser = await launch(headless=True, args=['--no-sandbox'])
+        tasks = []
+        for url in url_list:
+            tasks.append(self.process_and_extract(
+                browser
+                , url
+            ))
+        await asyncio.gather(*tasks, return_exceptions=True)
+        await browser.close()
+        return
+
+    async def process_and_extract(self, browser_inner, url: str):
+        html_data = await self.fetch(browser_inner, url)
+        await self.extract_fields(html_data)
+
+    def find_last_page(self):
         event = Event()
         visited_hash = dict()
         next_page_check = 100
@@ -315,7 +335,6 @@ class OtoMotoData(HtmlContent):
 
         def extract_time_only(html_data: str, lvf_inner: bool, lvt_inner: bool):
             if not event.is_set():
-                print("in func")
                 etree_html_inner = etree.HTML(html_data)
                 first_site_obj = etree_html_inner.xpath("//div[@data-testid='search-results']/div/article")[0]
                 page_num = int(self.get_url_param(self.main_url, 'page')) if self.get_url_param(self.main_url, 'page') else 1
@@ -332,85 +351,48 @@ class OtoMotoData(HtmlContent):
                 else:
                     visited_hash[page_num] = True
                     if not visited_hash.get(page_num+1) and visited_hash.get(page_num+1) is not None:
-                        print("setting")
                         event.set()
                     else:
                         lvt_inner = max(lvt_inner, page_num)
                 npg_inner = lvt_inner + ((lvf_inner - lvt_inner) // 2)
-                print(npg_inner)
                 return lvf_inner, lvt_inner, npg_inner
 
-        self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check, url=start_html)
-        print(self.main_url)
-        with ThreadPool() as pool:
+        self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check)
+        with ThreadPool(5) as pool:
             while not event.is_set():
-                print(f"processing with page {next_page_check}")
-                print(f"current visited_hash {visited_hash}")
                 asyncio.run(self.main())
                 result = pool.apply_async(extract_time_only, args=(self.html_data, last_visited_false, last_visited_true))
                 last_visited_false, last_visited_true, next_page_check = result.get()
-                self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check, url=start_html)
-                print(f"after result {last_visited_false, last_visited_true, next_page_check}")
-                time.sleep(3)
+                self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check)
             pool.close()
             pool.join()
-        print(f"last found True {last_visited_true}")
-
-
-class MyThreading(threading.Thread):
-    def __init__(self, thread_id:int, thread_name:str, q: queue.Queue):
-        threading.Thread.__init__(self)
-        self.thread_id = thread_id
-        self.thread_name = thread_name
-        self.q = q
-
-    def run(self):
-        process_data(self.thread_name, self.q)
-
-
-def process_data(thread_name:str, q: queue.Queue):
-    while not exitFLG:
-        queueLock.acquire()
-        if not workQueue.empty():
-            data = q.get()
-            queueLock.release()
-            #process
-            print(f"processing {thread_name}")
-            data.extract_fields(multi_thread=True)
-            print(f"finished {thread_name}")
-            data.save_data()
-            #end process
-        else:
-            queueLock.release()
+        return last_visited_true
 
 
 if __name__ == "__main__":
     URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc'
     UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
-    N_PAGES = 3
     t_list = list()
     l_pages = list()
 
-    queueLock = threading.Lock()
-    workQueue = queue.Queue(10)
     execution_start = datetime.now()
 
-    html_base = HtmlContent(UA, URL)
     om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f"COMB_DATA.csv"
                             , data_path='./data', key_field='el_id')
-    om_object.find_last_page(start_html=str(om_object.main_url))
+    N_PAGES = om_object.find_last_page()
+    print(f"pages to process {N_PAGES}")
 
-    # for i in range(2, N_PAGES + 1):
-    #     html_base.main_url = html_base.edit_url_param('page', i)
-    #     l_pages.append(html_base.main_url)
-    #
-    # loop = asyncio.new_event_loop()
-    # asyncio.set_event_loop(loop)
-    # print(f"pages to process {l_pages}")
-    #
-    # html_datas = asyncio.get_event_loop().run_until_complete(html_base.main_multi_fetcher(l_pages))
-    # tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_html(html_datas))
-    # print(om_object.new_data)
+    l_pages.append(om_object.main_url)
+    for i in range(2, N_PAGES + 1):
+        om_object.main_url = om_object.edit_url_param('page', i)
+        l_pages.append(om_object.main_url)
+
+    om_object.main_url = URL
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_combined(l_pages))
+    om_object.save_data()
 
 
 
