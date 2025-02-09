@@ -12,13 +12,8 @@ import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
 from typing import Any, List
-import queue
-import threading
 from threading import Event
 from multiprocessing.pool import ThreadPool
-####
-exitFLG = 0
-####
 
 
 class HtmlContent:
@@ -83,23 +78,24 @@ class HtmlContent:
             return
         return param_val[0]
 
-    async def fetch(self, browser,  url, ua: str = None):
-        print(f"processing url {url}")
-        page = await browser.newPage()
-        ua_inner = ua if ua else self.def_ua
-        await page.setUserAgent(ua_inner)
-        page.setDefaultNavigationTimeout(0)
+    async def fetch(self, browser,  url, ua: str = None, async_sem=asyncio.Semaphore(20)):
+        async with async_sem:
+            print(f"processing url {url}")
+            page = await browser.newPage()
+            ua_inner = ua if ua else self.def_ua
+            await page.setUserAgent(ua_inner)
+            page.setDefaultNavigationTimeout(0)
 
-        try:
-            await page.goto(url, {'waitUntil': 'networkidle0'})
-        except Exception as e:
-            traceback.print_exc()
-        else:
-            doc = await page.content()
-            html = HTML(html=doc)
-            return html.html
-        finally:
-            await page.close()
+            try:
+                await page.goto(url, {'waitUntil': 'networkidle0'})
+            except Exception as e:
+                traceback.print_exc()
+            else:
+                doc = await page.content()
+                html = HTML(html=doc)
+                return html.html
+            finally:
+                await page.close()
 
     async def main(self, use_temp: bool = False):
         browser = await launch(headless=True, args=['--no-sandbox'])
@@ -198,6 +194,7 @@ class OtoMotoData(HtmlContent):
         data_inner = [[key, *val_out] for key, val_out in self.new_data.items()]
 
         pd_inner = pd.DataFrame(data_inner, columns=[*self.allowed_key_field, *self.allowed_fields])
+        pd_inner['extract_date'] = datetime.now().strftime('%d-%m-%Y')
         pd_inner = pd.concat([pd_inner.reset_index(drop=True), self.stored_data.reset_index(drop=True)], axis=0)
         pd_inner.to_csv(os.path.join(inner_path, self.def_file_name), index=False)
 
@@ -225,15 +222,14 @@ class OtoMotoData(HtmlContent):
     async def extract_fields(self, alt_html_content:HTML.html = None):
         html_etree = etree.HTML(str(self.html_data)) if not alt_html_content \
             else etree.HTML(str(alt_html_content))
-
         for num, el in enumerate(html_etree.xpath("//div[@data-testid='search-results']/div/article")):
             el_id = el.get('data-id')
             ###dimensions###
             notice_name = self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/*/a[@target='_self']")[0] \
+                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']")[0] \
                     .text)
             url_href = self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/*/a[@target='_self']/@href")[0])
+                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']/@href")[0])
             describe_str_1 = self.encode_decode(
                 el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/p")[0].text
             )
@@ -314,9 +310,9 @@ class OtoMotoData(HtmlContent):
         browser = await launch(headless=True, args=['--no-sandbox'])
         tasks = []
         for url in url_list:
-            tasks.append(self.process_and_extract(
+            tasks.append(asyncio.ensure_future(self.process_and_extract(
                 browser
-                , url
+                , url)
             ))
         await asyncio.gather(*tasks, return_exceptions=True)
         await browser.close()
@@ -325,12 +321,13 @@ class OtoMotoData(HtmlContent):
     async def process_and_extract(self, browser_inner, url: str):
         html_data = await self.fetch(browser_inner, url)
         await self.extract_fields(html_data)
+        return
 
     def find_last_page(self):
         event = Event()
         visited_hash = dict()
-        next_page_check = 100
-        last_visited_true = 100
+        next_page_check = 50
+        last_visited_true = next_page_check
         last_visited_false = 300
 
         def extract_time_only(html_data: str, lvf_inner: bool, lvt_inner: bool):
@@ -377,27 +374,24 @@ if __name__ == "__main__":
 
     execution_start = datetime.now()
 
-    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f"COMB_DATA.csv"
+    f_name = f"cars_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f_name
                             , data_path='./data', key_field='el_id')
     N_PAGES = om_object.find_last_page()
-    print(f"pages to process {N_PAGES}")
+    #N_PAGES = 20
 
+    om_object.main_url = URL
     l_pages.append(om_object.main_url)
     for i in range(2, N_PAGES + 1):
         om_object.main_url = om_object.edit_url_param('page', i)
         l_pages.append(om_object.main_url)
+    print(f"sites to process {' '.join(l_pages)}")
 
-    om_object.main_url = URL
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-
-    tmp_none = asyncio.get_event_loop().run_until_complete(om_object.process_multi_combined(l_pages))
+    try:
+        tmp_none = loop.run_until_complete(om_object.process_multi_combined(l_pages))
+    finally:
+        loop.run_until_complete(loop.shutdown_asyncgens())
+        loop.close()
     om_object.save_data()
-
-
-
-
-
-
-### match case
-## minut ([0-9]+)\s+(minut[ęy]?)
