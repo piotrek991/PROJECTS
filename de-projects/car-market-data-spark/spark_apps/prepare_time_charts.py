@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, LongType, TimestampType, DateType
 from pyspark.sql.functions import *
 from collections import OrderedDict
+from pyspark.sql.functions import posexplode as pose
 
 
 def generate_case_statements(buckets_dict: dict, mod_dict: dict, val_diff: dict = None):
@@ -59,7 +60,7 @@ raw_transformed = data_df.withColumn("price_str", expr("trim(price_str)")) \
     .withColumn("engine_capacity", expr("replace(trim(engine_capacity), ' ', '')")) \
     .withColumn("engine_capacity", substr(col("engine_capacity"), lit(1), length(col("engine_capacity")) - 3)) \
     .withColumn("notice_name", expr("trim(notice_name)")) \
-    .withColumn("brand", regexp_extract(col("notice_name"), r'(^[\p{L}\-]+\s)', 1))
+    .withColumn("brand", trim(regexp_extract(col("notice_name"), r'(^[\p{L}\-]+\s)', 1)))
 ### notices count per hour ###
 day_time_analyse = raw_transformed.selectExpr("extract_date", "hour(when_added) as hour")\
     .groupBy(["extract_date", "hour"])\
@@ -156,11 +157,23 @@ select_expr_dyn = generate_case_statements(buckets, mods, mod_diff)
 select_expr_dyn_f = select_expr_dyn + list(cols_sel_onl)
 group_by_dyn_f = cols + list(cols_sel_onl)
 
-print(f"select expr dyn {select_expr_dyn_f}, group by dyn f {group_by_dyn_f}")
+group_no_date = group_by_dyn_f.copy()
+group_no_date.remove("extract_date")
 
 categorized_data = raw_transformed.selectExpr(*select_expr_dyn_f).cube(*group_by_dyn_f).count()\
-    .withColumn("non_null", coalesce(*group_by_dyn_f))
-categorized_data.show(truncate=False, n=100)
+    .filter(col("extract_date").isNotNull())\
+    .withColumn("raw_array", array(*group_no_date))\
+    .withColumn("non_null", array_compact(col("raw_array")))\
+    .filter(size(col("non_null")) == 1)\
+    .select("*", posexplode("raw_array").alias("pos", "exploded_raw"))\
+    .filter(col("exploded_raw").isNotNull())\
+    .withColumn("col_list", lit(group_no_date))\
+    .withColumn("dict_like", array(struct(lit("col_name").alias("attr_name"), element_at("col_list", col("pos") + lit(1)).alias("attr_val"))
+                                   , struct(lit("group").alias("attr_name"), col("exploded_raw").alias("attr_val"))
+                                   , struct(lit("group_count").alias("attr_name"), col("count").cast("string").alias("attr_val"))
+                                   ))\
+    .select("extract_date", "dict_like")
+categorized_data.show(truncate=False, n=200)
 
 
 
