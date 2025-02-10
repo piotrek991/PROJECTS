@@ -133,7 +133,7 @@ class OtoMotoData(HtmlContent):
     ]
     allowed_key_field = ['el_id']
 
-    def __init__(self, main_url: str, def_ua: str, data_path: str, def_file_name: str, key_field: str, fields: list = None):
+    def __init__(self, main_url: str, def_ua: str, data_path: str, key_field: str, fields: list = None):
         super().__init__(def_ua, main_url)
         try:
             fields = fields or set()
@@ -147,7 +147,8 @@ class OtoMotoData(HtmlContent):
         self.new_data = dict()
         self.stored_data = pd.DataFrame()
         self.data_path = os.path.abspath(data_path)
-        self.def_file_name = def_file_name
+        self._filename_pattern = f"cars_data_{{date_and_time}}.csv"
+        self.def_file_name = self._filename_pattern.format(date_and_time=datetime.now().strftime('%Y%m%d'))
 
     @staticmethod
     def encode_decode(str_data: str) -> str:
@@ -169,12 +170,14 @@ class OtoMotoData(HtmlContent):
         return f_time
 
     def get_stored_data(self, alt_path: str = None):
+        d_last = datetime.now() - timedelta(days=1)
+        path_inner = self._filename_pattern.format(date_and_time=d_last.strftime('%Y%m%d'))
         try:
-            inner_path = os.path.join(self.data_path, self.def_file_name) if not alt_path \
-                else os.path.join(os.path.abspath(alt_path), self.def_file_name)
+            inner_path = os.path.join(self.data_path, path_inner) if not alt_path \
+                else os.path.join(os.path.abspath(alt_path), path_inner)
             assert os.path.isfile(inner_path)
         except AssertionError as e:
-            print(f"Provided path is not file.")
+            print(f"Provided path does not exist/is not file")
             return
         self.stored_data = pd.read_csv(inner_path, header=0)
 
@@ -198,14 +201,15 @@ class OtoMotoData(HtmlContent):
         pd_inner = pd.concat([pd_inner.reset_index(drop=True), self.stored_data.reset_index(drop=True)], axis=0)
         pd_inner.to_csv(os.path.join(inner_path, self.def_file_name), index=False)
 
-    def diff_data(self, key_field: str):
+    def diff_data(self, key_field: str = None):
+        key_field = self.key_field if not key_field else key_field
         try:
             assert not self.stored_data.empty
             inner_ids = pd.Series(self.stored_data[key_field]).to_list()
             diff_ids = list(set(self.new_data.keys()).difference(set(inner_ids)))
         except AssertionError as e:
-            print(f"Empty stored data - returning object new data.")
-            return self.new_data
+            print(f"Empty stored data")
+            return
         except Exception as e:
             print(f"Error occurred during checking diff")
             raise e
@@ -328,7 +332,7 @@ class OtoMotoData(HtmlContent):
         visited_hash = dict()
         next_page_check = 50
         last_visited_true = next_page_check
-        last_visited_false = 300
+        last_visited_false = 400
 
         def extract_time_only(html_data: str, lvf_inner: bool, lvt_inner: bool):
             if not event.is_set():
@@ -372,12 +376,12 @@ if __name__ == "__main__":
     t_list = list()
     l_pages = list()
 
-    execution_start = datetime.now()
+    ref_date = datetime.now()
+    execution_start = datetime(ref_date.year, ref_date.month, ref_date.day + 1, 0)
 
-    f_name = f"cars_data_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
-    om_object = OtoMotoData(main_url=URL, def_ua=UA, def_file_name=f_name
-                            , data_path='./data', key_field='el_id')
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path='./data', key_field='el_id')
     N_PAGES = om_object.find_last_page()
+    print(N_PAGES)
     #N_PAGES = 20
 
     om_object.main_url = URL
@@ -394,4 +398,7 @@ if __name__ == "__main__":
     finally:
         loop.run_until_complete(loop.shutdown_asyncgens())
         loop.close()
+    om_object.get_stored_data()
+    if not om_object.stored_data.empty:
+        om_object.diff_data()
     om_object.save_data()
