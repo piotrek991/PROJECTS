@@ -1,4 +1,4 @@
-FROM python:3.10-bullseye as spark-base
+FROM python:3.11.1-bullseye as spark-base
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \

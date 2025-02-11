@@ -1,0 +1,30 @@
+FROM python:3.11.1-bullseye as linux-base
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      sudo \
+      curl \
+      vim \
+      unzip \
+      rsync \
+      openjdk-11-jdk \
+      build-essential \
+      software-properties-common \
+      ssh && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /app &&  mkdir -p /app/app_data
+WORKDIR /app
+
+COPY requirements/requirements.txt .
+COPY build_binary_file.sh .
+RUN pip3 install -r requirements.txt
+RUN pip3 install PyInstaller
+
+VOLUME ["/app/app_data"]
+ENTRYPOINT ["./build_binary_file.sh"]
+
+
+
+

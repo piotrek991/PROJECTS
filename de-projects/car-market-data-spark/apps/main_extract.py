@@ -14,6 +14,7 @@ from urllib.parse import urlencode, urlparse, parse_qs
 from typing import Any, List
 from threading import Event
 from multiprocessing.pool import ThreadPool
+import sys
 
 
 class HtmlContent:
@@ -359,7 +360,7 @@ class OtoMotoData(HtmlContent):
                 return lvf_inner, lvt_inner, npg_inner
 
         self.main_url = self.edit_url_param(param_name='page', param_new_val=next_page_check)
-        with ThreadPool(5) as pool:
+        with ThreadPool(processes=5) as pool:
             while not event.is_set():
                 asyncio.run(self.main())
                 result = pool.apply_async(extract_time_only, args=(self.html_data, last_visited_false, last_visited_true))
@@ -379,9 +380,8 @@ if __name__ == "__main__":
     ref_date = datetime.now()
     execution_start = datetime(ref_date.year, ref_date.month, ref_date.day + 1, 0)
 
-    om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path='./data', key_field='el_id')
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path='../data', key_field='el_id')
     N_PAGES = om_object.find_last_page()
-    print(N_PAGES)
     #N_PAGES = 20
 
     om_object.main_url = URL
@@ -389,7 +389,6 @@ if __name__ == "__main__":
     for i in range(2, N_PAGES + 1):
         om_object.main_url = om_object.edit_url_param('page', i)
         l_pages.append(om_object.main_url)
-    print(f"sites to process {' '.join(l_pages)}")
 
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
