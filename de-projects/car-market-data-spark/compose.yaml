@@ -12,8 +12,9 @@ services:
       timeout: 3s
       retries: 3
     volumes:
-      - ./book_data:/opt/spark/data
+      - ./data:/opt/spark/data
       - ./spark_apps:/opt/spark/apps
+      - ./apps:/opt/spark/apps_ext
       - spark-logs:/opt/spark/spark-events
     env_file:
       - .env.spark
@@ -46,7 +47,6 @@ services:
     volumes:
       - ./data:/opt/spark/data
       - ./spark_apps:/opt/spark/apps
-      - ./apps:/opt/spark/apps_ext
       - spark-logs:/opt/spark/spark-events
 
 volumes:

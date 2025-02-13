@@ -192,8 +192,8 @@ class OtoMotoData(HtmlContent):
         Path(inner_path).parent.mkdir(parents=True, exist_ok=True)
         try:
             stored_columns = set(self.stored_data.columns)
-            stored_columns.remove('extract_date')
             if stored_columns:
+                stored_columns.remove('extract_date')
                 assert self.key_field in stored_columns
                 stored_columns.remove(self.key_field)
             assert not stored_columns.difference(set(self.fields))
@@ -443,8 +443,8 @@ if __name__ == "__main__":
     execution_start = datetime(ref_date.year, ref_date.month, ref_date.day + 1, 0)
 
     om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path=path_to_save, key_field='el_id')
-    #N_PAGES = om_object.find_last_page()
-    N_PAGES = 5
+    N_PAGES = om_object.find_last_page()
+    #N_PAGES = 5
 
     om_object.main_url = URL
     l_pages.append(om_object.main_url)
@@ -464,5 +464,4 @@ if __name__ == "__main__":
     om_object.get_stored_data()
     if not om_object.stored_data.empty:
         om_object.diff_data()
-    print(om_object.new_data)
     om_object.save_data()
