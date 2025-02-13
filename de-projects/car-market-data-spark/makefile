@@ -24,3 +24,6 @@ stop:
 
 submit:
    docker exec da-spark-master spark-submit --master spark://spark-master:7077 --deploy-mode client ./apps/$(app)
+
+run-binary:
+   docker run -i -t --name build_binary_host  -v C:\Users\48511\Documents\CV_resources\GIT\de-projects\car-market-data-spark\apps:/app/app_data binary_l_base:latest /bin/bash

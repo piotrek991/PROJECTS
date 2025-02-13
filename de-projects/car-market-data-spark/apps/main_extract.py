@@ -1,3 +1,4 @@
+import functools
 import re
 import requests
 from lxml import etree
@@ -11,9 +12,13 @@ from requests_html import HTML
 import asyncio
 import traceback
 from urllib.parse import urlencode, urlparse, parse_qs
-from typing import Any, List
+from typing import Any, List, Dict
 from threading import Event
 from multiprocessing.pool import ThreadPool
+from concurrent.futures import ProcessPoolExecutor
+from functools import partial
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+import json
 import sys
 
 
@@ -79,7 +84,7 @@ class HtmlContent:
             return
         return param_val[0]
 
-    async def fetch(self, browser,  url, ua: str = None, async_sem=asyncio.Semaphore(20)):
+    async def fetch(self, browser,  url, ua: str = None, async_sem=asyncio.Semaphore(10)):
         async with async_sem:
             print(f"processing url {url}")
             page = await browser.newPage()
@@ -187,6 +192,7 @@ class OtoMotoData(HtmlContent):
         Path(inner_path).parent.mkdir(parents=True, exist_ok=True)
         try:
             stored_columns = set(self.stored_data.columns)
+            stored_columns.remove('extract_date')
             if stored_columns:
                 assert self.key_field in stored_columns
                 stored_columns.remove(self.key_field)
@@ -201,6 +207,16 @@ class OtoMotoData(HtmlContent):
         pd_inner['extract_date'] = datetime.now().strftime('%d-%m-%Y')
         pd_inner = pd.concat([pd_inner.reset_index(drop=True), self.stored_data.reset_index(drop=True)], axis=0)
         pd_inner.to_csv(os.path.join(inner_path, self.def_file_name), index=False)
+
+    def combine_dicts_el(self, dicts_data: List[Dict]):
+        for dict_nested in dicts_data:
+            try:
+                assert not set(self.fields).difference(set(dict_nested.keys()))
+            except AssertionError as e:
+                print(f"DICT {dict_nested} does not have all required field {self.fields}")
+                raise e
+            self.new_data[int(dict_nested.pop(self.key_field))] = list(itemgetter(*list(self.fields))(dict_nested))
+        return
 
     def diff_data(self, key_field: str = None):
         key_field = self.key_field if not key_field else key_field
@@ -224,57 +240,82 @@ class OtoMotoData(HtmlContent):
             print(f"theres no difference between stored and new data")
             self.new_data = dict()
 
-    async def extract_fields(self, alt_html_content:HTML.html = None):
+    def extract_fields(self, alt_html_content:HTML.html = None, time_ref: datetime = datetime.now()):
         html_etree = etree.HTML(str(self.html_data)) if not alt_html_content \
             else etree.HTML(str(alt_html_content))
+        inner_d_list = list()
         for num, el in enumerate(html_etree.xpath("//div[@data-testid='search-results']/div/article")):
             el_id = el.get('data-id')
             ###dimensions###
-            notice_name = self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']")[0] \
-                    .text)
-            url_href = self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']/@href")[0])
-            describe_str_1 = self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/p")[0].text
-            )
-            price_str =  int(self.encode_decode(
-                el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/h3")[0].text.replace(" ", "")
-            ))
-            mile_age =  int(re.sub(r'\s|km', '', self.encode_decode(
-                el.xpath(
-                    ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='mileage']/text()")[
-                    0]
-            )))
-            fuel_type = self.encode_decode(
-                el.xpath(
-                    ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='fuel_type']/text()")[
-                    0]
-            )
-            gearbox = self.encode_decode(
-                el.xpath(
-                    ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='gearbox']/text()")[
-                    0]
-            )
-            production_year = int(self.encode_decode(
-                el.xpath(
-                    ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='year']/text()")[
-                    0]
-            ))
             try:
-                when_added = self.resolve_time(execution_start, self.encode_decode(
+                notice_name = self.encode_decode(
+                    el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']")[0] \
+                        .text)
+            except Exception as e:
+                notice_name = "EXCEPTION"
+            try:
+                url_href = self.encode_decode(
+                    el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]//a[@target='_self']/@href")[0])
+            except Exception as e:
+                url_href = f"EXCEPTION"
+            try:
+                describe_str_1 = self.encode_decode(
+                    el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')][2]/p")[0].text
+                )
+            except Exception as e:
+                describe_str_1 = f"EXCEPTION for link {url_href}"
+            try:
+                price_str =  int(self.encode_decode(
+                    el.xpath(".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/h3")[0].text.replace(" ", "")
+                ))
+            except Exception as e:
+                price_str = f"EXCEPTION for link {url_href}"
+            try:
+                mile_age = int(re.sub(r'\s|km', '', self.encode_decode(
+                    el.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='mileage']/text()")[
+                        0]
+                )))
+            except Exception as e:
+                mile_age = f"EXCEPTION for link {url_href}"
+            try:
+                fuel_type = self.encode_decode(
+                    el.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='fuel_type']/text()")[
+                        0]
+                )
+            except Exception as e:
+                fuel_type = f"EXCEPTION for link {url_href}"
+            try:
+                gearbox = self.encode_decode(
+                    el.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='gearbox']/text()")[
+                        0]
+                )
+            except Exception as e:
+                gearbox = f"EXCEPTION for link {url_href}" if not fuel_type == "Elektryczny" else "NO GEARBOX"
+            try:
+                production_year = int(self.encode_decode(
+                    el.xpath(
+                        ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[@data-parameter='year']/text()")[
+                        0]
+                ))
+            except Exception as e:
+                production_year = f"EXCEPTION for link {url_href}"
+            try:
+                when_added = self.resolve_time(time_ref, self.encode_decode(
                     el.xpath(
                         ".//div[not(@id='financing-widget-listing-card-entrypoint')]/*/dd[2]/p")[0].text
                 )).strftime("%d-%m-%Y %H:%M:%S")
             except AttributeError as e:
                 when_added = None
 
-            engine_capacity = re.match(r"(^[0-9\s]+cm3\s+)", describe_str_1).group(1) \
-                if re.match(r"(^[0-9\s]+cm3\s+)", describe_str_1) else "NOT SPECIFIED"
-            engine_power = re.search(r"(?:•|^)([0-9\s]*KM\s+)", describe_str_1).group(1) \
-                if re.search(r"•([0-9\s]*KM\s+)•", describe_str_1) else "NOT SPECIFIED"
+            engine_capacity = re.match(r"(^[0-9\s]+cm3)", describe_str_1).group(1) \
+                if re.match(r"(^[0-9\s]+cm3\s+)", describe_str_1) else f"NOT SPECIFIED for str {describe_str_1}"
+            engine_power = re.search(r"(?:•|^)([0-9\s]*KM)", describe_str_1).group(1) \
+                if re.search(r"(?:•|^)([0-9\s]*KM)", describe_str_1) else f"NOT SPECIFIED for str {describe_str_1}"
             ds1_rest = re.search(r"(•\s+)([^•]+$)", describe_str_1).group(2) if re.search(r"(•\s+)([^•]+$)"
-                            , describe_str_1) else "NOT DEFINED"
+                            , describe_str_1) else f"NOT DEFINED for str {describe_str_1}"
 
             inner_dict = {
                 'el_id': el_id
@@ -289,8 +330,9 @@ class OtoMotoData(HtmlContent):
                 , 'when_added': when_added
                 , 'ds1_rest': ds1_rest
             }
-            self.new_data[int(inner_dict.pop(self.key_field))] = list(itemgetter(*list(self.fields))(inner_dict))
-        return
+            inner_d_list.append(inner_dict)
+            #self.new_data[int(inner_dict.pop(self.key_field))] = list(itemgetter(*list(self.fields))(inner_dict))
+        return inner_d_list
 
     def next_page(self) -> None:
         url_components = urlparse(self.main_url)
@@ -312,21 +354,29 @@ class OtoMotoData(HtmlContent):
         await asyncio.gather(*t_list_inner)
 
     async def process_multi_combined(self, url_list: List):
+        inner_loop = asyncio.get_running_loop()
+        ref_date_inner = datetime.now()
+        execution_start_inner = datetime(ref_date_inner.year, ref_date_inner.month, ref_date_inner.day + 1, 0)
         browser = await launch(headless=True, args=['--no-sandbox'])
         tasks = []
         for url in url_list:
-            tasks.append(asyncio.ensure_future(self.process_and_extract(
+            tasks.append(asyncio.ensure_future(self.fetch(
                 browser
                 , url)
             ))
-        await asyncio.gather(*tasks, return_exceptions=True)
+        html_datas = await asyncio.gather(*tasks, return_exceptions=True)
         await browser.close()
-        return
+        tasks_after = list()
+        with ProcessPoolExecutor(max_workers=4) as pool:
+            for html_data in html_datas:
+                tasks_after.append(inner_loop.run_in_executor(pool, partial(self.extract_fields, html_data, execution_start_inner)))
+            data = await asyncio.gather(*tasks_after, return_exceptions=True)
+        return data
 
-    async def process_and_extract(self, browser_inner, url: str):
-        html_data = await self.fetch(browser_inner, url)
-        await self.extract_fields(html_data)
-        return
+    # async def process_and_extract(self, browser_inner, url: str):
+    #     html_data = await self.fetch(browser_inner, url)
+    #     await self.extract_fields(html_data)
+    #     return
 
     def find_last_page(self):
         event = Event()
@@ -372,6 +422,18 @@ class OtoMotoData(HtmlContent):
 
 
 if __name__ == "__main__":
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
+    parser.add_argument('-d','--data-dir',required=True, help='Data dir path for file saving.')
+    args = vars(parser.parse_args())
+    path_to_save = os.path.abspath(os.path.normpath(args.pop('data_dir')))
+
+    try:
+        assert not os.path.isfile(path_to_save)
+    except AssertionError as e:
+        print(f"path {path_to_save} is not directory.")
+        raise e
+    os.makedirs(path_to_save, exist_ok=True)
+
     URL = 'https://www.otomoto.pl/osobowe?search%5Border%5D=created_at_first%3Adesc'
     UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.50 Safari/537.36'
     t_list = list()
@@ -380,9 +442,9 @@ if __name__ == "__main__":
     ref_date = datetime.now()
     execution_start = datetime(ref_date.year, ref_date.month, ref_date.day + 1, 0)
 
-    om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path='../data', key_field='el_id')
-    N_PAGES = om_object.find_last_page()
-    #N_PAGES = 20
+    om_object = OtoMotoData(main_url=URL, def_ua=UA, data_path=path_to_save, key_field='el_id')
+    #N_PAGES = om_object.find_last_page()
+    N_PAGES = 5
 
     om_object.main_url = URL
     l_pages.append(om_object.main_url)
@@ -397,7 +459,10 @@ if __name__ == "__main__":
     finally:
         loop.run_until_complete(loop.shutdown_asyncgens())
         loop.close()
+    l_inner_reduced = functools.reduce(lambda a,b: a+b, tmp_none)
+    om_object.combine_dicts_el(l_inner_reduced)
     om_object.get_stored_data()
     if not om_object.stored_data.empty:
         om_object.diff_data()
+    print(om_object.new_data)
     om_object.save_data()

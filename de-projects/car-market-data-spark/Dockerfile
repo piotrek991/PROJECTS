@@ -13,8 +13,7 @@ RUN apt-get update && \
       ssh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-
+RUN apt-get update && apt install chromium -y --fix-missing
 
 ## Download spark and hadoop dependencies and install
 
@@ -34,8 +33,8 @@ RUN curl https://dlcdn.apache.org/spark/spark-3.5.4/spark-3.5.4-bin-hadoop3-scal
 FROM spark-base as pyspark
 
 # Install python deps
-COPY requirements/requirements.txt .
-RUN pip3 install -r requirements.txt
+COPY requirements/requirements_spark.txt .
+RUN pip3 install -r requirements_spark.txt
 
 ENV PATH="/opt/spark/sbin:/opt/spark/bin:${PATH}"
 ENV SPARK_HOME="/opt/spark"
