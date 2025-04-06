@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  python_base:
+    container_name: l_base_python
+    build: .
+    image: l_base_python
+    entrypoint: ["tail", "-f", "/dev/null"]
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
