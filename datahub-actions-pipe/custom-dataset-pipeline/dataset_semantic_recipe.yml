@@ -1,0 +1,62 @@
+# -------------------------------------------------------------------------
+# DataHub Ingestion Recipe: Dataset Semantic Search Embeddings
+# -------------------------------------------------------------------------
+# This recipe scans existing datasets in DataHub, extracts descriptions,
+# schema column definitions, tags, and terms, generates AI vector embeddings,
+# and indexes them into OpenSearch/Elasticsearch (datasetindex_v2_semantic).
+#
+# Supports both:
+#  1. Server-Side Stateful Checkpointing in DataHub GMS (Tier 1)
+#  2. Local State File Incremental Processing (Tier 2)
+#
+# Usage:
+#   export OPENAI_API_KEY="sk-..."
+#   datahub ingest -c custom-dataset-pipeline/dataset_semantic_recipe.yml
+# -------------------------------------------------------------------------
+
+source:
+  type: "custom_dataset_source.DatasetSemanticSource"
+  config:
+    # --- DataHub Connection ---
+    datahub:
+      server: "${DATAHUB_GMS_URL:-http://localhost:8080}"
+      token: "${DATAHUB_GMS_TOKEN:-}"
+
+    # --- Embedding Configuration ---
+    # If provider/model are omitted, DataHub auto-discovers GMS server settings!
+    embedding:
+      provider: "${EMBEDDING_PROVIDER:-openai}" # 'openai', 'bedrock', 'cohere', or 'local'
+      model: "${OPENAI_EMBEDDING_MODEL:-text-embedding-3-large}"
+      model_embedding_key: "text_embedding_3_large"
+      api_key: "${OPENAI_API_KEY:-}"
+      batch_size: 25
+
+    # --- Chunking Settings ---
+    chunking:
+      max_characters: 1800 # ~400 tokens per chunk
+      include_header_in_every_chunk: true # Preserves dataset name/description context
+
+    # --- Filters ---
+    # platform_filter: ["snowflake", "bigquery", "postgres"] # Optional filter
+    # env_filter: ["PROD"] # Optional filter
+    min_text_length: 15
+
+    # --- Tier 1: Server-Side Stateful Ingestion (DataHub GMS Checkpointing) ---
+    # Automatically persists checkpoints as datahubIngestionCheckpoint in GMS
+    stateful_ingestion:
+      enabled: true
+      ignore_old_state: false # Set true to ignore previous run's checkpoints
+      ignore_new_state: false # Set true for dry-run (won't commit new checkpoint)
+
+    # --- Tier 2: Local Incremental State File (CLI Fallback) ---
+    # Used when server-side stateful ingestion is disabled or running in standalone CLI
+    incremental:
+      enabled: true
+      force_reprocess: false # Set true to force regenerating all embeddings
+      # state_file_path: "~/.datahub/dataset_semantic_state/my_pipeline.json"
+
+sink:
+  type: "datahub-rest"
+  config:
+    server: "${DATAHUB_GMS_URL:-http://localhost:8080}"
+    token: "${DATAHUB_GMS_TOKEN:-}"

@@ -1,0 +1,676 @@
+"""Custom Dataset Semantic Ingestion Source.
+
+This source:
+1. Fetches Dataset entities and their schema metadata from DataHub.
+2. Formats a rich semantic text representation (descriptions, column definitions, tags, terms).
+3. Chunks the synthesized text while preserving column boundaries.
+4. Generates embeddings using the configured or auto-discovered embedding provider.
+5. Emits SemanticContent aspects (first-class metadata) to DataHub GMS.
+6. Tracks incremental state via:
+   - Tier 1: DataHub Server-Side Checkpointing (Stateful Ingestion)
+   - Tier 2: Local JSON State File (CLI fallback)
+"""
+
+import hashlib
+import json
+import logging
+import re
+from dataclasses import dataclass, field
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Dict, Iterable, List, Optional, Tuple, cast
+
+from datahub.emitter.mcp import MetadataChangeProposalWrapper
+from datahub.ingestion.api.common import PipelineContext
+from datahub.ingestion.api.decorators import (
+    SupportStatus,
+    config_class,
+    platform_name,
+    support_status,
+)
+from datahub.ingestion.api.source import SourceReport
+from datahub.ingestion.api.workunit import MetadataWorkUnit
+from datahub.ingestion.graph.client import DataHubGraph
+from datahub.ingestion.graph.config import DatahubClientConfig
+from datahub.ingestion.source.state.stateful_ingestion_base import (
+    StatefulIngestionConfig,
+    StatefulIngestionConfigBase,
+    StatefulIngestionReport,
+    StatefulIngestionSourceBase,
+)
+from datahub.ingestion.source.unstructured.embedding_providers.base import (
+    EmbeddingProvider,
+)
+from datahub.ingestion.source.unstructured.embedding_providers.factory import (
+    create_embedding_provider,
+    derive_model_id,
+)
+from datahub.metadata.schema_classes import (
+    EmbeddingChunkClass,
+    EmbeddingModelDataClass,
+    SemanticContentClass,
+)
+
+from custom_dataset_config import (
+    DatasetSemanticSourceConfig,
+    EmbeddingConfig,
+)
+from dataset_chunking_state_handler import (
+    DatasetChunkingStateHandler,
+)
+
+logger = logging.getLogger(__name__)
+
+
+@dataclass
+class DatasetSemanticReport(StatefulIngestionReport):
+    """Report for dataset semantic ingestion with stateful metrics."""
+
+    num_datasets_fetched: int = 0
+    num_datasets_processed: int = 0
+    num_datasets_skipped_unchanged: int = 0
+    num_datasets_skipped_empty: int = 0
+    num_chunks_created: int = 0
+    num_embeddings_generated: int = 0
+    num_embedding_failures: int = 0
+    embedding_failures: List[str] = field(default_factory=list)
+    processing_errors: List[str] = field(default_factory=list)
+
+    def report_dataset_fetched(self) -> None:
+        self.num_datasets_fetched += 1
+
+    def report_dataset_processed(self, num_chunks: int) -> None:
+        self.num_datasets_processed += 1
+        self.num_chunks_created += num_chunks
+
+    def report_dataset_skipped_unchanged(self) -> None:
+        self.num_datasets_skipped_unchanged += 1
+
+    def report_dataset_skipped_empty(self) -> None:
+        self.num_datasets_skipped_empty += 1
+
+    def report_embeddings_generated(self, count: int) -> None:
+        self.num_embeddings_generated += count
+
+    def report_embedding_failure(self, urn: str, error: str) -> None:
+        self.num_embedding_failures += 1
+        self.embedding_failures.append(f"{urn}: {error}")
+
+    def report_error(self, error: str) -> None:
+        self.processing_errors.append(error)
+
+
+@platform_name("DatasetSemantic", id="dataset-semantic")
+@support_status(SupportStatus.INCUBATING)
+@config_class(DatasetSemanticSourceConfig)
+class DatasetSemanticSource(StatefulIngestionSourceBase):
+    """DataHub Source to generate vector embeddings for datasets and schemas."""
+
+    def __init__(self, ctx: PipelineContext, config: DatasetSemanticSourceConfig):
+        base_config = cast(StatefulIngestionConfigBase[StatefulIngestionConfig], config)
+        super().__init__(base_config, ctx)
+        self.config = config
+        self.report: DatasetSemanticReport = DatasetSemanticReport()
+
+        # 1. Initialize Tier 1: Stateful Ingestion Handler (Server-Side Checkpoints in GMS)
+        self.state_handler: Optional[DatasetChunkingStateHandler] = (
+            DatasetChunkingStateHandler(
+                source=self,
+                config=self.config,
+                pipeline_name=self.ctx.pipeline_name,
+                run_id=self.ctx.run_id,
+            )
+            if self.state_provider.is_stateful_ingestion_configured()
+            else None
+        )
+
+        # 2. Initialize DataHubGraph connection
+        if ctx.graph:
+            self.graph = ctx.graph
+        else:
+            graph_config = DatahubClientConfig(
+                server=config.datahub.server,
+                token=config.datahub.token,
+                timeout_sec=config.datahub.timeout_seconds,
+            )
+            self.graph = DataHubGraph(config=graph_config)
+
+        # 3. Auto-discover or resolve embedding provider configuration
+        self.resolved_embedding_config = self._resolve_embedding_config(config.embedding)
+        self.embedding_provider = self._init_embedding_provider(self.resolved_embedding_config)
+
+        # 4. Initialize Tier 2: Local JSON State File (Local CLI Fallback)
+        self.dataset_state: Dict[str, Dict[str, Any]] = {}
+        self.state_file_path: Optional[Path] = None
+        if self.config.incremental.enabled and (
+            not self.state_handler or not self.state_handler.is_checkpointing_enabled()
+        ):
+            self._initialize_local_state_tracking()
+
+        state_mode = (
+            "stateful-checkpointing (GMS)"
+            if (self.state_handler and self.state_handler.is_checkpointing_enabled())
+            else ("local-file" if self.config.incremental.enabled else "disabled")
+        )
+        logger.info(
+            f"Initialized DatasetSemanticSource using model '{self.resolved_embedding_config.model}' "
+            f"(key: '{self.resolved_embedding_config.model_embedding_key}'), state tracking: {state_mode}"
+        )
+
+    def _resolve_embedding_config(self, user_cfg: EmbeddingConfig) -> EmbeddingConfig:
+        """Fetch server embedding configuration from GMS if not explicitly overridden."""
+        cfg = user_cfg.copy()
+
+        # If user explicitly specified provider and model, use them directly
+        if cfg.provider and cfg.model:
+            if not cfg.model_embedding_key:
+                cfg.model_embedding_key = re.sub(r"[^a-zA-Z0-9_]", "_", cfg.model)
+            return cfg
+
+        # Otherwise, discover from GMS AppConfig API
+        try:
+            query = """
+            query getSemanticConfig {
+              appConfig {
+                semanticSearchConfig {
+                  enabled
+                  enabledEntities
+                  embeddingConfig {
+                    provider
+                    modelId
+                    modelEmbeddingKey
+                    awsProviderConfig {
+                      region
+                    }
+                  }
+                }
+              }
+            }
+            """
+            result = self.graph.execute_graphql(query=query)
+            app_config = result.get("appConfig", {}).get("semanticSearchConfig", {})
+            if app_config and app_config.get("enabled"):
+                server_emb = app_config.get("embeddingConfig", {})
+                cfg.provider = cfg.provider or server_emb.get("provider", "openai")
+                cfg.model = cfg.model or server_emb.get("modelId", "text-embedding-3-large")
+                cfg.model_embedding_key = cfg.model_embedding_key or server_emb.get(
+                    "modelEmbeddingKey", "text_embedding_3_large"
+                )
+                aws_cfg = server_emb.get("awsProviderConfig", {})
+                if aws_cfg and aws_cfg.get("region"):
+                    cfg.aws_region = cfg.aws_region or aws_cfg["region"]
+                logger.info(
+                    f"Discovered GMS embedding config: provider={cfg.provider}, model={cfg.model}, key={cfg.model_embedding_key}"
+                )
+            else:
+                cfg.provider = cfg.provider or "openai"
+                cfg.model = cfg.model or "text-embedding-3-large"
+                cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
+        except Exception as e:
+            logger.warning(f"Could not fetch server semantic config ({e}); using defaults.")
+            cfg.provider = cfg.provider or "openai"
+            cfg.model = cfg.model or "text-embedding-3-large"
+            cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
+
+        return cfg
+
+    def _init_embedding_provider(self, cfg: EmbeddingConfig) -> EmbeddingProvider:
+        """Instantiate embedding provider using DataHub's embedding factory."""
+        from datahub.ingestion.source.unstructured.chunking_config import (
+            EmbeddingConfig as UnstructuredEmbeddingConfig,
+        )
+        from pydantic import SecretStr
+
+        unstructured_cfg = UnstructuredEmbeddingConfig(
+            provider=cfg.provider,
+            model=cfg.model,
+            model_embedding_key=cfg.model_embedding_key,
+            api_key=SecretStr(cfg.api_key) if cfg.api_key else None,
+            aws_region=cfg.aws_region,
+            batch_size=cfg.batch_size,
+            request_timeout=cfg.request_timeout,
+        )
+        return create_embedding_provider(unstructured_cfg)
+
+    # -------------------------------------------------------------------------
+    # Local State File Management (Tier 2 Fallback)
+    # -------------------------------------------------------------------------
+    def _initialize_local_state_tracking(self) -> None:
+        """Initialize local incremental state cache file."""
+        if self.config.incremental.state_file_path:
+            self.state_file_path = Path(self.config.incremental.state_file_path)
+        else:
+            state_dir = Path.home() / ".datahub" / "dataset_semantic_state"
+            state_dir.mkdir(parents=True, exist_ok=True)
+            pipeline_name = self.ctx.pipeline_name or "default_dataset_semantic"
+            self.state_file_path = state_dir / f"{pipeline_name}.json"
+
+        if self.state_file_path.exists():
+            try:
+                with open(self.state_file_path, "r", encoding="utf-8") as f:
+                    self.dataset_state = json.load(f)
+                logger.info(f"Loaded local state with {len(self.dataset_state)} datasets from {self.state_file_path}")
+            except Exception as e:
+                logger.warning(f"Failed to load local state file: {e}")
+                self.dataset_state = {}
+
+    def _save_local_state(self) -> None:
+        """Persist local state cache to disk."""
+        if self.state_file_path:
+            try:
+                with open(self.state_file_path, "w", encoding="utf-8") as f:
+                    json.dump(self.dataset_state, f, indent=2)
+                logger.debug(f"Saved local state for {len(self.dataset_state)} datasets to {self.state_file_path}")
+            except Exception as e:
+                logger.warning(f"Failed to save local state file: {e}")
+
+    # -------------------------------------------------------------------------
+    # State Checking & Update Logic (Two-Tier)
+    # -------------------------------------------------------------------------
+    def _get_processing_config_fingerprint(self) -> Dict[str, Any]:
+        """Extract configuration values that affect embedding output artifacts.
+
+        Included in content hash so changes in chunk size or embedding model
+        automatically trigger reprocessing.
+        """
+        return {
+            "model": self.resolved_embedding_config.model,
+            "provider": self.resolved_embedding_config.provider,
+            "max_characters": self.config.chunking.max_characters,
+            "include_header": self.config.chunking.include_header_in_every_chunk,
+        }
+
+    def _calculate_dataset_hash(self, text: str) -> str:
+        """Deterministic content hash combining text and config fingerprint."""
+        hash_input = {
+            "content": text,
+            "config": self._get_processing_config_fingerprint(),
+        }
+        hash_str = json.dumps(hash_input, sort_keys=True)
+        return hashlib.sha256(hash_str.encode("utf-8")).hexdigest()
+
+    def _should_process_dataset(self, dataset_urn: str, text: str) -> bool:
+        """Check whether a dataset has changed since the previous run."""
+        if self.config.incremental.force_reprocess:
+            return True
+
+        current_hash = self._calculate_dataset_hash(text)
+
+        # Tier 1: Check Server-Side Stateful Ingestion Checkpoint
+        if self.state_handler and self.state_handler.is_checkpointing_enabled():
+            previous_hash = self.state_handler.get_dataset_hash(dataset_urn)
+            if previous_hash is not None:
+                return previous_hash != current_hash
+            return True
+
+        # Tier 2: Check Local State File
+        if not self.config.incremental.enabled:
+            return True
+
+        if dataset_urn not in self.dataset_state:
+            return True
+
+        previous_hash = self.dataset_state[dataset_urn].get("content_hash")
+        return previous_hash != current_hash
+
+    def _update_dataset_state(self, dataset_urn: str, text: str) -> None:
+        """Record the updated state for a dataset in both active state tiers."""
+        content_hash = self._calculate_dataset_hash(text)
+        last_processed = datetime.utcnow().isoformat()
+
+        # Tier 1: Update Server-Side Checkpoint
+        if self.state_handler and self.state_handler.is_checkpointing_enabled():
+            self.state_handler.update_dataset_state(
+                dataset_urn=dataset_urn,
+                content_hash=content_hash,
+                last_processed=last_processed,
+            )
+
+        # Tier 2: Update Local State File
+        if self.config.incremental.enabled:
+            self.dataset_state[dataset_urn] = {
+                "content_hash": content_hash,
+                "last_processed": last_processed,
+            }
+
+    # -------------------------------------------------------------------------
+    # Core Pipeline Execution
+    # -------------------------------------------------------------------------
+    def get_workunits_internal(self) -> Iterable[MetadataWorkUnit]:
+        """Main execution flow: fetch datasets, chunk text, generate embeddings, and yield MCPs."""
+        datasets = self._fetch_datasets_graphql()
+        processed_count = 0
+
+        for dataset in datasets:
+            if self.config.max_datasets and processed_count >= self.config.max_datasets:
+                logger.info(f"Reached max_datasets limit of {self.config.max_datasets}")
+                break
+
+            urn = dataset["urn"]
+            self.report.report_dataset_fetched()
+
+            # 1. Synthesize structured text representation
+            header_text, column_texts = self._create_dataset_text_elements(dataset)
+            combined_text = header_text + "\n" + "\n".join(column_texts)
+
+            if len(combined_text.strip()) < self.config.min_text_length:
+                logger.debug(f"Skipping {urn} (text content too short: {len(combined_text)} chars)")
+                self.report.report_dataset_skipped_empty()
+                continue
+
+            # 2. Check incremental state (Tier 1 Checkpoint or Tier 2 Local State)
+            if not self._should_process_dataset(urn, combined_text):
+                logger.debug(f"Skipping {urn} (unchanged content hash)")
+                self.report.report_dataset_skipped_unchanged()
+                continue
+
+            # 3. Split into semantic chunks
+            chunks = self._chunk_dataset_elements(header_text, column_texts)
+            if not chunks:
+                continue
+
+            # 4. Generate embeddings
+            try:
+                embeddings = self._generate_embeddings(chunks)
+            except Exception as e:
+                self.report.report_embedding_failure(urn, str(e))
+                logger.error(f"Failed to generate embeddings for {urn}: {e}", exc_info=True)
+                continue
+
+            # 5. Emit SemanticContent aspect
+            yield from self._emit_semantic_content(urn, chunks, embeddings)
+
+            # 6. Update state
+            self._update_dataset_state(urn, combined_text)
+
+            processed_count += 1
+            self.report.report_dataset_processed(len(chunks))
+
+        # Save local state file if enabled
+        if self.config.incremental.enabled:
+            self._save_local_state()
+
+    def _fetch_datasets_graphql(self) -> List[Dict[str, Any]]:
+        """Paginate through datasets using GraphQL search."""
+        query = """
+        query getDatasetsForSemanticSearch($start: Int!, $count: Int!) {
+          searchAcrossEntities(
+            input: {
+              types: [DATASET]
+              query: "*"
+              start: $start
+              count: $count
+            }
+          ) {
+            total
+            searchResults {
+              entity {
+                urn
+                type
+                ... on Dataset {
+                  name
+                  platform {
+                    name
+                  }
+                  properties {
+                    description
+                    customProperties {
+                      key
+                      value
+                    }
+                  }
+                  editableProperties {
+                    description
+                  }
+                  schemaMetadata {
+                    fields {
+                      fieldPath
+                      type
+                      nativeDataType
+                      description
+                      tags {
+                        tags {
+                          tag {
+                            name
+                          }
+                        }
+                      }
+                      glossaryTerms {
+                        terms {
+                          term {
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                  tags {
+                    tags {
+                      tag {
+                        name
+                      }
+                    }
+                  }
+                  glossaryTerms {
+                    terms {
+                      term {
+                        name
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        """
+
+        datasets: List[Dict[str, Any]] = []
+        start = 0
+        batch_size = 50
+
+        while True:
+            try:
+                response = self.graph.execute_graphql(
+                    query=query,
+                    variables={"start": start, "count": batch_size},
+                )
+                search_data = response.get("searchAcrossEntities", {})
+                total = search_data.get("total", 0)
+                results = search_data.get("searchResults", [])
+
+                for item in results:
+                    entity = item.get("entity")
+                    if entity:
+                        # Platform filter
+                        if self.config.platform_filter:
+                            plat = entity.get("platform", {}).get("name", "").lower()
+                            if plat not in [p.lower() for p in self.config.platform_filter]:
+                                continue
+
+                        datasets.append(entity)
+
+                start += len(results)
+                if start >= total or not results:
+                    break
+
+                logger.info(f"Fetched {len(datasets)}/{total} datasets...")
+            except Exception as e:
+                logger.error(f"GraphQL dataset query error: {e}", exc_info=True)
+                break
+
+        logger.info(f"Retrieved {len(datasets)} candidate datasets for semantic embedding.")
+        return datasets
+
+    def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str]]:
+        """Synthesize rich structured text elements from dataset metadata and schema fields."""
+        urn = dataset.get("urn", "")
+        name = dataset.get("name", "")
+        platform = dataset.get("platform", {}).get("name", "")
+
+        # Description: editable (UI) overrides original
+        desc = ""
+        editable_props = dataset.get("editableProperties")
+        if editable_props and editable_props.get("description"):
+            desc = editable_props["description"]
+        elif dataset.get("properties") and dataset["properties"].get("description"):
+            desc = dataset["properties"]["description"]
+
+        # Tags & Terms
+        tags: List[str] = []
+        if dataset.get("tags") and dataset["tags"].get("tags"):
+            tags = [t["tag"]["name"] for t in dataset["tags"]["tags"] if t.get("tag")]
+
+        terms: List[str] = []
+        if dataset.get("glossaryTerms") and dataset["glossaryTerms"].get("terms"):
+            terms = [t["term"]["name"] for t in dataset["glossaryTerms"]["terms"] if t.get("term")]
+
+        # Header summary block
+        header_lines = [f"Dataset: {name}"]
+        if platform:
+            header_lines.append(f"Platform: {platform}")
+        if desc:
+            header_lines.append(f"Description: {desc}")
+        if tags:
+            header_lines.append(f"Tags: {', '.join(tags)}")
+        if terms:
+            header_lines.append(f"Glossary Terms: {', '.join(terms)}")
+
+        header_text = "\n".join(header_lines)
+
+        # Column schema blocks
+        column_texts: List[str] = []
+        schema_metadata = dataset.get("schemaMetadata")
+        fields_list = schema_metadata.get("fields", []) if schema_metadata else []
+
+        for f_info in fields_list:
+            field_name = f_info.get("fieldPath", "")
+            field_type = f_info.get("type", "UNKNOWN")
+            native_type = f_info.get("nativeDataType", "")
+            field_desc = f_info.get("description", "")
+
+            field_tags: List[str] = []
+            if f_info.get("tags") and f_info["tags"].get("tags"):
+                field_tags = [t["tag"]["name"] for t in f_info["tags"]["tags"] if t.get("tag")]
+
+            field_terms: List[str] = []
+            if f_info.get("glossaryTerms") and f_info["glossaryTerms"].get("terms"):
+                field_terms = [t["term"]["name"] for t in f_info["glossaryTerms"]["terms"] if t.get("term")]
+
+            type_display = native_type or field_type
+            col_str = f"Column: {field_name} ({type_display})"
+            if field_desc:
+                col_str += f" - {field_desc}"
+            if field_tags:
+                col_str += f" [Tags: {', '.join(field_tags)}]"
+            if field_terms:
+                col_str += f" [Terms: {', '.join(field_terms)}]"
+
+            column_texts.append(col_str)
+
+        return header_text, column_texts
+
+    def _chunk_dataset_elements(self, header_text: str, column_texts: List[str]) -> List[Dict[str, Any]]:
+        """Group header and column blocks into chunks that respect maximum character limits."""
+        max_chars = self.config.chunking.max_characters
+        chunks: List[Dict[str, Any]] = []
+
+        if not column_texts:
+            chunks.append({
+                "text": header_text,
+                "character_offset": 0,
+                "character_length": len(header_text),
+            })
+            return chunks
+
+        current_block: List[str] = []
+        current_len = 0
+        chunk_offset = 0
+
+        prefix = header_text + "\nColumns:\n" if self.config.chunking.include_header_in_every_chunk else ""
+        base_len = len(prefix)
+
+        for col in column_texts:
+            col_len = len(col) + 1  # newline
+
+            if current_len + col_len + base_len > max_chars and current_block:
+                full_chunk_text = prefix + "\n".join(current_block)
+                chunks.append({
+                    "text": full_chunk_text,
+                    "character_offset": chunk_offset,
+                    "character_length": len(full_chunk_text),
+                })
+                chunk_offset += len(full_chunk_text)
+                current_block = []
+                current_len = 0
+
+            current_block.append(col)
+            current_len += col_len
+
+        if current_block:
+            full_chunk_text = prefix + "\n".join(current_block)
+            chunks.append({
+                "text": full_chunk_text,
+                "character_offset": chunk_offset,
+                "character_length": len(full_chunk_text),
+            })
+
+        return chunks
+
+    def _generate_embeddings(self, chunks: List[Dict[str, Any]]) -> List[List[float]]:
+        """Call the embedding provider in batches."""
+        texts = [chunk["text"] for chunk in chunks]
+        batch_size = self.resolved_embedding_config.batch_size
+        all_embeddings: List[List[float]] = []
+
+        for i in range(0, len(texts), batch_size):
+            batch = texts[i : i + batch_size]
+            result = self.embedding_provider.embed(batch)
+            all_embeddings.extend(result.embeddings)
+
+        self.report.report_embeddings_generated(len(all_embeddings))
+        return all_embeddings
+
+    def _emit_semantic_content(
+        self, urn: str, chunks: List[Dict[str, Any]], embeddings: List[List[float]]
+    ) -> Iterable[MetadataWorkUnit]:
+        """Construct SemanticContent aspect and yield MetadataWorkUnit."""
+        model_version = derive_model_id(
+            self.resolved_embedding_config.provider, self.resolved_embedding_config.model
+        ) or f"{self.resolved_embedding_config.provider}/{self.resolved_embedding_config.model}"
+
+        embedding_chunks: List[EmbeddingChunkClass] = []
+        for i, (chunk, vector) in enumerate(zip(chunks, embeddings)):
+            embedding_chunks.append(
+                EmbeddingChunkClass(
+                    position=i,
+                    vector=vector,
+                    characterOffset=chunk.get("character_offset", 0),
+                    characterLength=chunk.get("character_length", len(chunk["text"])),
+                    text=chunk.get("text"),
+                )
+            )
+
+        model_key = self.resolved_embedding_config.model_embedding_key
+        model_data = EmbeddingModelDataClass(
+            modelVersion=model_version,
+            generatedAt=int(datetime.utcnow().timestamp() * 1000),
+            chunkingStrategy="dataset_schema_and_metadata_v1",
+            totalChunks=len(embedding_chunks),
+            chunks=embedding_chunks,
+        )
+
+        semantic_content = SemanticContentClass(embeddings={model_key: model_data})
+        mcp = MetadataChangeProposalWrapper(entityUrn=urn, aspect=semantic_content)
+        workunit = MetadataWorkUnit(id=f"{urn}-semanticContent", mcp=mcp)
+
+        logger.debug(f"Emitted SemanticContent for {urn} with {len(embedding_chunks)} chunks")
+        yield workunit
+
+    def get_report(self) -> SourceReport:
+        return self.report
+
+    def close(self) -> None:
+        if self.config.incremental.enabled:
+            self._save_local_state()
+        super().close()
