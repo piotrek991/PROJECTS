@@ -10,7 +10,7 @@
 #  2. Local State File Incremental Processing (Tier 2)
 #
 # Usage:
-#   export OPENAI_API_KEY="sk-..."
+#   export LOCAL_EMBEDDING_ENDPOINT="http://localhost:11434/v1/embeddings"
 #   datahub ingest -c custom-dataset-pipeline/dataset_semantic_recipe.yml
 # -------------------------------------------------------------------------
 
@@ -25,10 +25,11 @@ source:
     # --- Embedding Configuration ---
     # If provider/model are omitted, DataHub auto-discovers GMS server settings!
     embedding:
-      provider: "${EMBEDDING_PROVIDER:-openai}" # 'openai', 'bedrock', 'cohere', or 'local'
-      model: "${OPENAI_EMBEDDING_MODEL:-text-embedding-3-large}"
-      model_embedding_key: "text_embedding_3_large"
-      api_key: "${OPENAI_API_KEY:-}"
+      provider: "${EMBEDDING_PROVIDER:-local}" # 'local', 'openai', 'bedrock', 'cohere'
+      model: "${LOCAL_EMBEDDING_MODEL:-nomic-embed-text}"
+      model_embedding_key: "nomic_embed_text"
+      endpoint: "${LOCAL_EMBEDDING_ENDPOINT:-http://localhost:11434/v1/embeddings}"
+      api_key: "${EMBEDDING_API_KEY:-}"
       batch_size: 25
 
     # --- Chunking Settings ---

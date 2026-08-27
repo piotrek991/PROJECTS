@@ -203,26 +203,30 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     f"Discovered GMS embedding config: provider={cfg.provider}, model={cfg.model}, key={cfg.model_embedding_key}"
                 )
             else:
-                cfg.provider = cfg.provider or "openai"
-                cfg.model = cfg.model or "text-embedding-3-large"
-                cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
+                cfg.provider = cfg.provider or "local"
+                cfg.model = cfg.model or "nomic-embed-text"
+                cfg.model_embedding_key = cfg.model_embedding_key or "nomic_embed_text"
         except Exception as e:
             logger.warning(f"Could not fetch server semantic config ({e}); using defaults.")
-            cfg.provider = cfg.provider or "openai"
-            cfg.model = cfg.model or "text-embedding-3-large"
-            cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
+            cfg.provider = cfg.provider or "local"
+            cfg.model = cfg.model or "nomic-embed-text"
+            cfg.model_embedding_key = cfg.model_embedding_key or "nomic_embed_text"
 
         return cfg
 
     def _init_embedding_provider(self, cfg: EmbeddingConfig) -> EmbeddingProvider:
-        """Instantiate embedding provider using DataHub's embedding factory."""
+        """Instantiate embedding provider using DataHub's standard embedding factory."""
+        import os
         from datahub.ingestion.source.unstructured.chunking_config import (
             EmbeddingConfig as UnstructuredEmbeddingConfig,
         )
         from pydantic import SecretStr
 
+        endpoint = cfg.endpoint or os.environ.get("LOCAL_EMBEDDING_ENDPOINT")
+
         unstructured_cfg = UnstructuredEmbeddingConfig(
-            provider=cfg.provider,
+            provider=cfg.provider,  # type: ignore
+            endpoint=endpoint,
             model=cfg.model,
             model_embedding_key=cfg.model_embedding_key,
             api_key=SecretStr(cfg.api_key) if cfg.api_key else None,

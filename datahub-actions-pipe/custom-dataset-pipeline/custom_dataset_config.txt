@@ -49,7 +49,11 @@ class EmbeddingConfig(ConfigModel):
     )
     api_key: Optional[str] = Field(
         default=None,
-        description="API key for the provider (or set OPENAI_API_KEY / COHERE_API_KEY in environment)",
+        description="API key for the provider if required (or set EMBEDDING_API_KEY in environment)",
+    )
+    endpoint: Optional[str] = Field(
+        default=None,
+        description="Custom endpoint/base URL for embedding API (e.g. 'http://localhost:11434/v1/embeddings' for Ollama, vLLM, or custom OpenAI-compatible server)",
     )
     aws_region: Optional[str] = Field(
         default="us-west-2",

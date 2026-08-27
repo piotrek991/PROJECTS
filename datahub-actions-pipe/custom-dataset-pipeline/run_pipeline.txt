@@ -46,19 +46,29 @@ def main():
         help="DataHub Personal Access Token (if auth is enabled)",
     )
     parser.add_argument(
-        "--openai-key",
-        default=os.environ.get("OPENAI_API_KEY", None),
-        help="OpenAI API Key (default: from OPENAI_API_KEY env var)",
+        "--api-key",
+        dest="api_key",
+        default=os.environ.get("EMBEDDING_API_KEY", None),
+        help="Optional API key for provider (default: from EMBEDDING_API_KEY env var)",
     )
     parser.add_argument(
         "--model",
-        default="text-embedding-3-large",
-        help="Embedding model ID (default: text-embedding-3-large)",
+        default=os.environ.get("LOCAL_EMBEDDING_MODEL", os.environ.get("EMBEDDING_MODEL", "nomic-embed-text")),
+        help="Embedding model ID (default: nomic-embed-text)",
     )
     parser.add_argument(
         "--provider",
-        default="openai",
-        help="Embedding provider: openai, bedrock, cohere, or local (default: openai)",
+        default=os.environ.get("EMBEDDING_PROVIDER", "local"),
+        help="Embedding provider: local, openai, bedrock, or cohere (default: local)",
+    )
+    parser.add_argument(
+        "--endpoint",
+        "--embedding-url",
+        dest="endpoint",
+        default=os.environ.get(
+            "LOCAL_EMBEDDING_ENDPOINT", "http://localhost:11434/v1/embeddings"
+        ),
+        help="Embedding endpoint URL (default: from LOCAL_EMBEDDING_ENDPOINT env var)",
     )
     parser.add_argument(
         "--platforms",
@@ -77,6 +87,12 @@ def main():
         action="store_true",
         help="Force reprocess all datasets (ignore incremental cache)",
     )
+    parser.add_argument(
+        "-n",
+        "--dry-run",
+        action="store_true",
+        help="Run without writing to sink or saving checkpoints",
+    )
 
     args = parser.parse_args()
 
@@ -91,7 +107,8 @@ def main():
                 "embedding": {
                     "provider": args.provider,
                     "model": args.model,
-                    "api_key": args.openai_key,
+                    "api_key": args.api_key,
+                    "endpoint": args.endpoint,
                 },
                 "platform_filter": args.platforms,
                 "max_datasets": args.limit,
@@ -111,7 +128,7 @@ def main():
     }
 
     logger.info("Initializing Dataset Semantic Ingestion Pipeline...")
-    pipeline = Pipeline.create(pipeline_config)
+    pipeline = Pipeline.create(pipeline_config, dry_run=args.dry_run)
 
     logger.info("Running pipeline...")
     pipeline.run()
