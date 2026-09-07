@@ -11,6 +11,7 @@ This source:
    - Tier 2: Local JSON State File (CLI fallback)
 """
 
+import fnmatch
 import hashlib
 import json
 import logging
@@ -42,7 +43,6 @@ from datahub.ingestion.source.unstructured.embedding_providers.base import (
     EmbeddingProvider,
 )
 from datahub.ingestion.source.unstructured.embedding_providers.factory import (
-    create_embedding_provider,
     derive_model_id,
 )
 from datahub.metadata.schema_classes import (
@@ -51,13 +51,22 @@ from datahub.metadata.schema_classes import (
     SemanticContentClass,
 )
 
-from custom_dataset_config import (
-    DatasetSemanticSourceConfig,
-    EmbeddingConfig,
-)
-from dataset_chunking_state_handler import (
-    DatasetChunkingStateHandler,
-)
+try:
+    from .custom_dataset_config import (
+        DatasetSemanticSourceConfig,
+        EmbeddingConfig,
+    )
+    from .dataset_chunking_state_handler import (
+        DatasetChunkingStateHandler,
+    )
+except (ImportError, ValueError):
+    from custom_dataset_config import (
+        DatasetSemanticSourceConfig,
+        EmbeddingConfig,
+    )
+    from dataset_chunking_state_handler import (
+        DatasetChunkingStateHandler,
+    )
 
 logger = logging.getLogger(__name__)
 
@@ -70,24 +79,37 @@ class DatasetSemanticReport(StatefulIngestionReport):
     num_datasets_processed: int = 0
     num_datasets_skipped_unchanged: int = 0
     num_datasets_skipped_empty: int = 0
+    num_datasets_skipped_filter: int = 0
     num_chunks_created: int = 0
     num_embeddings_generated: int = 0
     num_embedding_failures: int = 0
+    processed_datasets: List[str] = field(default_factory=list)
+    skipped_datasets: List[str] = field(default_factory=list)
     embedding_failures: List[str] = field(default_factory=list)
     processing_errors: List[str] = field(default_factory=list)
 
     def report_dataset_fetched(self) -> None:
         self.num_datasets_fetched += 1
 
-    def report_dataset_processed(self, num_chunks: int) -> None:
+    def report_dataset_processed(self, urn: str, num_chunks: int) -> None:
         self.num_datasets_processed += 1
         self.num_chunks_created += num_chunks
+        self.processed_datasets.append(f"{urn} ({num_chunks} chunks)")
 
-    def report_dataset_skipped_unchanged(self) -> None:
+    def report_dataset_skipped_unchanged(self, urn: Optional[str] = None) -> None:
         self.num_datasets_skipped_unchanged += 1
+        if urn:
+            self.skipped_datasets.append(f"{urn} (unchanged content hash)")
 
-    def report_dataset_skipped_empty(self) -> None:
+    def report_dataset_skipped_empty(self, urn: Optional[str] = None) -> None:
         self.num_datasets_skipped_empty += 1
+        if urn:
+            self.skipped_datasets.append(f"{urn} (empty or text too short)")
+
+    def report_dataset_skipped_filter(self, urn: Optional[str] = None) -> None:
+        self.num_datasets_skipped_filter += 1
+        if urn:
+            self.skipped_datasets.append(f"{urn} (filter mismatch)")
 
     def report_embeddings_generated(self, count: int) -> None:
         self.num_embeddings_generated += count
@@ -132,6 +154,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 server=config.datahub.server,
                 token=config.datahub.token,
                 timeout_sec=config.datahub.timeout_seconds,
+                disable_ssl_verification=config.datahub.disable_ssl_verification,
             )
             self.graph = DataHubGraph(config=graph_config)
 
@@ -203,38 +226,83 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     f"Discovered GMS embedding config: provider={cfg.provider}, model={cfg.model}, key={cfg.model_embedding_key}"
                 )
             else:
-                cfg.provider = cfg.provider or "local"
-                cfg.model = cfg.model or "nomic-embed-text"
-                cfg.model_embedding_key = cfg.model_embedding_key or "nomic_embed_text"
+                cfg.provider = cfg.provider or "openai"
+                cfg.model = cfg.model or "sdadas/mmlw-retrieval-roberta-large-v2"
+                cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
         except Exception as e:
             logger.warning(f"Could not fetch server semantic config ({e}); using defaults.")
-            cfg.provider = cfg.provider or "local"
-            cfg.model = cfg.model or "nomic-embed-text"
-            cfg.model_embedding_key = cfg.model_embedding_key or "nomic_embed_text"
+            cfg.provider = cfg.provider or "openai"
+            cfg.model = cfg.model or "sdadas/mmlw-retrieval-roberta-large-v2"
+            cfg.model_embedding_key = cfg.model_embedding_key or "text_embedding_3_large"
 
         return cfg
 
     def _init_embedding_provider(self, cfg: EmbeddingConfig) -> EmbeddingProvider:
-        """Instantiate embedding provider using DataHub's standard embedding factory."""
+        """Instantiate embedding provider directly without relying on unstructured chunking_config."""
         import os
-        from datahub.ingestion.source.unstructured.chunking_config import (
-            EmbeddingConfig as UnstructuredEmbeddingConfig,
+        from datahub.ingestion.source.unstructured.embedding_providers.factory import (
+            resolve_local_base_url,
         )
-        from pydantic import SecretStr
 
-        endpoint = cfg.endpoint or os.environ.get("LOCAL_EMBEDDING_ENDPOINT")
-
-        unstructured_cfg = UnstructuredEmbeddingConfig(
-            provider=cfg.provider,  # type: ignore
-            endpoint=endpoint,
-            model=cfg.model,
-            model_embedding_key=cfg.model_embedding_key,
-            api_key=SecretStr(cfg.api_key) if cfg.api_key else None,
-            aws_region=cfg.aws_region,
-            batch_size=cfg.batch_size,
-            request_timeout=cfg.request_timeout,
+        provider = (cfg.provider or "openai").lower()
+        endpoint = (
+            cfg.endpoint
+            or os.environ.get("OPENAI_EMBEDDING_ENDPOINT")
+            or os.environ.get("LOCAL_EMBEDDING_ENDPOINT")
         )
-        return create_embedding_provider(unstructured_cfg)
+        api_key = (
+            cfg.api_key
+            or os.environ.get("EMBEDDING_API_KEY")
+            or os.environ.get("OPENAI_API_KEY")
+            or "local"
+        )
+        model = cfg.model or "sdadas/mmlw-retrieval-roberta-large-v2"
+        timeout = cfg.request_timeout
+
+        if provider in ("openai", "local"):
+            from datahub.ingestion.source.unstructured.embedding_providers.openai import (
+                OpenAIEmbeddingProvider,
+            )
+
+            base_url = resolve_local_base_url(endpoint) if endpoint else None
+            return OpenAIEmbeddingProvider(
+                model=model,
+                api_key=api_key,
+                base_url=base_url,
+                timeout=timeout,
+            )
+        elif provider in ("bedrock", "aws-bedrock"):
+            from datahub.ingestion.source.unstructured.embedding_providers.bedrock import (
+                BedrockEmbeddingProvider,
+            )
+
+            return BedrockEmbeddingProvider(
+                model=model,
+                region=cfg.aws_region or "us-west-2",
+                timeout=timeout,
+            )
+        elif provider == "cohere":
+            from datahub.ingestion.source.unstructured.embedding_providers.cohere import (
+                CohereEmbeddingProvider,
+            )
+
+            return CohereEmbeddingProvider(
+                model=model,
+                api_key=api_key,
+                timeout=timeout,
+            )
+        else:
+            from datahub.ingestion.source.unstructured.embedding_providers.openai import (
+                OpenAIEmbeddingProvider,
+            )
+
+            base_url = resolve_local_base_url(endpoint) if endpoint else None
+            return OpenAIEmbeddingProvider(
+                model=model,
+                api_key=api_key,
+                base_url=base_url,
+                timeout=timeout,
+            )
 
     # -------------------------------------------------------------------------
     # Local State File Management (Tier 2 Fallback)
@@ -243,6 +311,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         """Initialize local incremental state cache file."""
         if self.config.incremental.state_file_path:
             self.state_file_path = Path(self.config.incremental.state_file_path)
+            self.state_file_path.parent.mkdir(parents=True, exist_ok=True)
         else:
             state_dir = Path.home() / ".datahub" / "dataset_semantic_state"
             state_dir.mkdir(parents=True, exist_ok=True)
@@ -262,6 +331,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         """Persist local state cache to disk."""
         if self.state_file_path:
             try:
+                self.state_file_path.parent.mkdir(parents=True, exist_ok=True)
                 with open(self.state_file_path, "w", encoding="utf-8") as f:
                     json.dump(self.dataset_state, f, indent=2)
                 logger.debug(f"Saved local state for {len(self.dataset_state)} datasets to {self.state_file_path}")
@@ -341,11 +411,10 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
     # Core Pipeline Execution
     # -------------------------------------------------------------------------
     def get_workunits_internal(self) -> Iterable[MetadataWorkUnit]:
-        """Main execution flow: fetch datasets, chunk text, generate embeddings, and yield MCPs."""
-        datasets = self._fetch_datasets_graphql()
+        """Main execution flow: stream datasets, chunk text, generate embeddings, and yield MCPs."""
         processed_count = 0
 
-        for dataset in datasets:
+        for dataset in self._fetch_datasets_graphql():
             if self.config.max_datasets and processed_count >= self.config.max_datasets:
                 logger.info(f"Reached max_datasets limit of {self.config.max_datasets}")
                 break
@@ -359,13 +428,13 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
             if len(combined_text.strip()) < self.config.min_text_length:
                 logger.debug(f"Skipping {urn} (text content too short: {len(combined_text)} chars)")
-                self.report.report_dataset_skipped_empty()
+                self.report.report_dataset_skipped_empty(urn)
                 continue
 
             # 2. Check incremental state (Tier 1 Checkpoint or Tier 2 Local State)
             if not self._should_process_dataset(urn, combined_text):
                 logger.debug(f"Skipping {urn} (unchanged content hash)")
-                self.report.report_dataset_skipped_unchanged()
+                self.report.report_dataset_skipped_unchanged(urn)
                 continue
 
             # 3. Split into semantic chunks
@@ -388,14 +457,16 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             self._update_dataset_state(urn, combined_text)
 
             processed_count += 1
-            self.report.report_dataset_processed(len(chunks))
+            self.report.report_dataset_processed(urn, len(chunks))
+            logger.info(f"✅ Processed dataset [{processed_count}]: {urn} ({len(chunks)} chunks, {len(embeddings)} vectors)")
 
-        # Save local state file if enabled
-        if self.config.incremental.enabled:
+        # Save local state file if enabled and not in dry-run/preview mode
+        is_dry_run = getattr(self.ctx, "dry_run_mode", False) or getattr(self.ctx, "dry_run", False) or getattr(self.ctx, "preview_mode", False)
+        if self.config.incremental.enabled and not is_dry_run:
             self._save_local_state()
 
-    def _fetch_datasets_graphql(self) -> List[Dict[str, Any]]:
-        """Paginate through datasets using GraphQL search."""
+    def _fetch_datasets_graphql(self) -> Iterable[Dict[str, Any]]:
+        """Stream datasets page-by-page using GraphQL search."""
         query = """
         query getDatasetsForSemanticSearch($start: Int!, $count: Int!) {
           searchAcrossEntities(
@@ -469,7 +540,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         }
         """
 
-        datasets: List[Dict[str, Any]] = []
         start = 0
         batch_size = 50
 
@@ -483,6 +553,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 total = search_data.get("total", 0)
                 results = search_data.get("searchResults", [])
 
+                if not results:
+                    break
+
                 for item in results:
                     entity = item.get("entity")
                     if entity:
@@ -492,21 +565,48 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                             if plat not in [p.lower() for p in self.config.platform_filter]:
                                 continue
 
-                        datasets.append(entity)
+                        # Dataset name / URN filter
+                        if not self._matches_dataset_filter(entity):
+                            self.report.report_dataset_skipped_filter(entity.get("urn"))
+                            continue
+
+                        yield entity
 
                 start += len(results)
-                if start >= total or not results:
+                if start >= total:
                     break
 
-                logger.info(f"Fetched {len(datasets)}/{total} datasets...")
             except Exception as e:
                 logger.error(f"GraphQL dataset query error: {e}", exc_info=True)
                 break
 
-        logger.info(f"Retrieved {len(datasets)} candidate datasets for semantic embedding.")
-        return datasets
+    def _matches_dataset_filter(self, entity: Dict[str, Any]) -> bool:
+        """Check if dataset matches configured dataset_patterns or dataset_filter."""
+        patterns = self.config.dataset_patterns or self.config.dataset_filter
+        if not patterns:
+            return True
+
+        urn = entity.get("urn", "")
+        name = entity.get("name", "")
+
+        for pattern in patterns:
+            if not pattern:
+                continue
+            p = str(pattern).strip()
+            # Exact matches
+            if p == urn or p == name:
+                return True
+            # Wildcard fnmatch (e.g. *cust_contact*, t502*)
+            if fnmatch.fnmatch(urn, p) or fnmatch.fnmatch(name, p):
+                return True
+            # Substring matches (case-insensitive)
+            if p.lower() in urn.lower() or p.lower() in name.lower():
+                return True
+
+        return False
 
     def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str]]:
+
         """Synthesize rich structured text elements from dataset metadata and schema fields."""
         urn = dataset.get("urn", "")
         name = dataset.get("name", "")
@@ -575,29 +675,51 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         return header_text, column_texts
 
     def _chunk_dataset_elements(self, header_text: str, column_texts: List[str]) -> List[Dict[str, Any]]:
-        """Group header and column blocks into chunks that respect maximum character limits."""
+        """Group header and column blocks into chunks that strictly respect maximum character limits."""
         max_chars = self.config.chunking.max_characters
         chunks: List[Dict[str, Any]] = []
 
         if not column_texts:
-            chunks.append({
-                "text": header_text,
-                "character_offset": 0,
-                "character_length": len(header_text),
-            })
+            if len(header_text) > max_chars:
+                for offset in range(0, len(header_text), max_chars):
+                    sub = header_text[offset : offset + max_chars]
+                    chunks.append({
+                        "text": sub,
+                        "character_offset": offset,
+                        "character_length": len(sub),
+                    })
+            else:
+                chunks.append({
+                    "text": header_text,
+                    "character_offset": 0,
+                    "character_length": len(header_text),
+                })
             return chunks
+
+        prefix = header_text + "\nColumns:\n" if self.config.chunking.include_header_in_every_chunk else ""
+        if len(prefix) > max_chars // 2:
+            prefix = prefix[: max_chars // 2] + "...\nColumns:\n"
+
+        base_len = len(prefix)
+        max_content_len = max(100, max_chars - base_len)
 
         current_block: List[str] = []
         current_len = 0
         chunk_offset = 0
 
-        prefix = header_text + "\nColumns:\n" if self.config.chunking.include_header_in_every_chunk else ""
-        base_len = len(prefix)
-
+        # Split oversized columns if an individual column exceeds max_content_len
+        sanitized_columns: List[str] = []
         for col in column_texts:
+            if len(col) > max_content_len:
+                for sub_offset in range(0, len(col), max_content_len):
+                    sanitized_columns.append(col[sub_offset : sub_offset + max_content_len])
+            else:
+                sanitized_columns.append(col)
+
+        for col in sanitized_columns:
             col_len = len(col) + 1  # newline
 
-            if current_len + col_len + base_len > max_chars and current_block:
+            if current_len + col_len > max_content_len and current_block:
                 full_chunk_text = prefix + "\n".join(current_block)
                 chunks.append({
                     "text": full_chunk_text,
@@ -675,6 +797,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         return self.report
 
     def close(self) -> None:
-        if self.config.incremental.enabled:
+        is_dry_run = getattr(self.ctx, "dry_run_mode", False) or getattr(self.ctx, "dry_run", False) or getattr(self.ctx, "preview_mode", False)
+        if self.config.incremental.enabled and not is_dry_run:
             self._save_local_state()
         super().close()
