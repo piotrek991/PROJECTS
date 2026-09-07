@@ -6,9 +6,14 @@ from datahub.configuration.common import ConfigModel
 from datahub.ingestion.source.state.stateful_ingestion_base import (
     StatefulIngestionConfigBase,
 )
-from dataset_chunking_state_handler import (
-    DatasetChunkingStatefulIngestionConfig,
-)
+try:
+    from .dataset_chunking_state_handler import (
+        DatasetChunkingStatefulIngestionConfig,
+    )
+except (ImportError, ValueError):
+    from dataset_chunking_state_handler import (
+        DatasetChunkingStatefulIngestionConfig,
+    )
 
 
 class DataHubConnectionConfig(ConfigModel):
@@ -25,6 +30,10 @@ class DataHubConnectionConfig(ConfigModel):
     timeout_seconds: int = Field(
         default=30,
         description="Request timeout in seconds for GraphQL/REST calls",
+    )
+    disable_ssl_verification: bool = Field(
+        default=False,
+        description="Disable SSL certificate verification for DataHub GMS HTTPS connections",
     )
 
 
@@ -73,8 +82,8 @@ class ChunkingConfig(ConfigModel):
     """Text chunking parameters for datasets."""
 
     max_characters: int = Field(
-        default=1800,
-        description="Target maximum characters per chunk (~400 tokens)",
+        default=500,
+        description="Target maximum characters per chunk (e.g. 500 chars)",
     )
     include_header_in_every_chunk: bool = Field(
         default=True,
@@ -124,6 +133,14 @@ class DatasetSemanticSourceConfig(
         default=None,
         description="Optional list of platforms to include (e.g. ['snowflake', 'bigquery', 'postgres'])",
     )
+    dataset_patterns: Optional[List[str]] = Field(
+        default=None,
+        description="Optional list of specific dataset names, URNs, or wildcard patterns to include (e.g. ['*cust_contact*', 't502002*'])",
+    )
+    dataset_filter: Optional[List[str]] = Field(
+        default=None,
+        description="Alias for dataset_patterns",
+    )
     env_filter: Optional[List[str]] = Field(
         default=None,
         description="Optional list of environments to include (e.g. ['PROD', 'DEV'])",
@@ -136,3 +153,4 @@ class DatasetSemanticSourceConfig(
         default=None,
         description="Maximum number of datasets to process (useful for testing and debugging)",
     )
+
