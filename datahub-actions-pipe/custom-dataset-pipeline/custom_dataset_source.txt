@@ -466,13 +466,31 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             self._save_local_state()
 
     def _fetch_datasets_graphql(self) -> Iterable[Dict[str, Any]]:
-        """Stream datasets page-by-page using GraphQL search."""
+        """Stream datasets from DataHub GraphQL API with server-side pagination."""
+        patterns = getattr(self.config, "dataset_patterns", None) or getattr(
+            self.config, "dataset_filter", None
+        )
+        
+        # Server-side search pushdown: if single specific pattern given, query GMS directly for it
+        gql_search_query = "*"
+        if patterns and len(patterns) == 1 and patterns[0]:
+            raw_p = str(patterns[0]).strip()
+            # If not a broad wildcard, use clean keyword in GraphQL search query
+            clean_search = raw_p.replace("*", "").replace("?", "").strip()
+            if clean_search and len(clean_search) >= 2:
+                gql_search_query = clean_search
+
+        logger.info(
+            f"Fetching datasets from DataHub GraphQL (query: '{gql_search_query}', "
+            f"patterns: {patterns}, platform_filter: {getattr(self.config, 'platform_filter', None)})"
+        )
+
         query = """
-        query getDatasetsForSemanticSearch($start: Int!, $count: Int!) {
+        query getDatasetsForSemanticSearch($start: Int!, $count: Int!, $query: String!) {
           searchAcrossEntities(
             input: {
               types: [DATASET]
-              query: "*"
+              query: $query
               start: $start
               count: $count
             }
@@ -488,6 +506,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     name
                   }
                   properties {
+                    name
                     description
                     customProperties {
                       key
@@ -547,7 +566,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             try:
                 response = self.graph.execute_graphql(
                     query=query,
-                    variables={"start": start, "count": batch_size},
+                    variables={"start": start, "count": batch_size, "query": gql_search_query},
                 )
                 search_data = response.get("searchAcrossEntities", {})
                 total = search_data.get("total", 0)
@@ -571,6 +590,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                             self.report.report_dataset_skipped_filter(entity.get("urn"))
                             continue
 
+                        logger.info(f"Dataset matched filter for processing: {entity.get('urn')}")
                         yield entity
 
                 start += len(results)
@@ -589,21 +609,31 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         if not patterns:
             return True
 
-        urn = entity.get("urn", "")
-        name = entity.get("name", "")
+        urn = str(entity.get("urn", "")).strip().lower()
+        name = str(entity.get("name", "")).strip().lower()
+        props = entity.get("properties") or {}
+        prop_name = str(props.get("name", "")).strip().lower()
 
         for pattern in patterns:
             if not pattern:
                 continue
-            p = str(pattern).strip()
-            # Exact matches
-            if p == urn or p == name:
+            p = str(pattern).strip().lower()
+
+            # Wildcard '*' matches everything
+            if p == "*":
                 return True
-            # Wildcard fnmatch (e.g. *cust_contact*, t502*)
-            if fnmatch.fnmatch(urn, p) or fnmatch.fnmatch(name, p):
+
+            # Exact matches (case-insensitive)
+            if p == urn or p == name or (prop_name and p == prop_name):
                 return True
-            # Substring matches (case-insensitive)
-            if p.lower() in urn.lower() or p.lower() in name.lower():
+
+            # Wildcard fnmatch (case-insensitive)
+            if fnmatch.fnmatch(urn, p) or fnmatch.fnmatch(name, p) or (prop_name and fnmatch.fnmatch(prop_name, p)):
+                return True
+
+            # Substring match (stripping wildcards for natural substring search)
+            clean_p = p.replace("*", "").replace("?", "").strip()
+            if clean_p and (clean_p in urn or clean_p in name or (prop_name and clean_p in prop_name)):
                 return True
 
         return False
@@ -640,7 +670,10 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             header_parts.append(f"[{name}]")
 
         if desc:
-            header_parts.append(desc.strip())
+            clean_desc = desc.strip()
+            if len(clean_desc) > 350:
+                clean_desc = clean_desc[:350] + "..."
+            header_parts.append(clean_desc)
 
         metadata_tags: List[str] = []
         if tags:
@@ -708,7 +741,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     "character_offset": 0,
                     "character_length": len(header_text),
                 })
-            return chunks
+            return chunks[:15]
 
         prefix = header_text + "\n" if self.config.chunking.include_header_in_every_chunk else ""
         if len(prefix) > max_chars // 2:
@@ -754,6 +787,11 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 "character_offset": chunk_offset,
                 "character_length": len(full_chunk_text),
             })
+
+        # Cap maximum chunks per dataset to 15 (safeguard against Kafka message size limits)
+        if len(chunks) > 15:
+            logger.info(f"Capping dataset chunks from {len(chunks)} to 15")
+            chunks = chunks[:15]
 
         return chunks
 
