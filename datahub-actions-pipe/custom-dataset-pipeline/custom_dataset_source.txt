@@ -560,9 +560,10 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     entity = item.get("entity")
                     if entity:
                         # Platform filter
-                        if self.config.platform_filter:
+                        plat_filter = getattr(self.config, "platform_filter", None)
+                        if plat_filter:
                             plat = entity.get("platform", {}).get("name", "").lower()
-                            if plat not in [p.lower() for p in self.config.platform_filter]:
+                            if plat not in [p.lower() for p in plat_filter]:
                                 continue
 
                         # Dataset name / URN filter
@@ -582,7 +583,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
     def _matches_dataset_filter(self, entity: Dict[str, Any]) -> bool:
         """Check if dataset matches configured dataset_patterns or dataset_filter."""
-        patterns = self.config.dataset_patterns or self.config.dataset_filter
+        patterns = getattr(self.config, "dataset_patterns", None) or getattr(
+            self.config, "dataset_filter", None
+        )
         if not patterns:
             return True
 
@@ -629,28 +632,34 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         if dataset.get("glossaryTerms") and dataset["glossaryTerms"].get("terms"):
             terms = [t["term"]["name"] for t in dataset["glossaryTerms"]["terms"] if t.get("term")]
 
-        # Header summary block
-        header_lines = [f"Dataset: {name}"]
+        # Header summary block (compact: [table | platform] description (tags))
+        header_parts: List[str] = []
         if platform:
-            header_lines.append(f"Platform: {platform}")
+            header_parts.append(f"[{name} | {platform}]")
+        else:
+            header_parts.append(f"[{name}]")
+
         if desc:
-            header_lines.append(f"Description: {desc}")
+            header_parts.append(desc.strip())
+
+        metadata_tags: List[str] = []
         if tags:
-            header_lines.append(f"Tags: {', '.join(tags)}")
+            metadata_tags.extend(tags)
         if terms:
-            header_lines.append(f"Glossary Terms: {', '.join(terms)}")
+            metadata_tags.extend(terms)
 
-        header_text = "\n".join(header_lines)
+        if metadata_tags:
+            header_parts.append(f"({', '.join(metadata_tags)})")
 
-        # Column schema blocks
+        header_text = " ".join(header_parts)
+
+        # Column schema blocks (clean: name: description (tags))
         column_texts: List[str] = []
         schema_metadata = dataset.get("schemaMetadata")
         fields_list = schema_metadata.get("fields", []) if schema_metadata else []
 
         for f_info in fields_list:
             field_name = f_info.get("fieldPath", "")
-            field_type = f_info.get("type", "UNKNOWN")
-            native_type = f_info.get("nativeDataType", "")
             field_desc = f_info.get("description", "")
 
             field_tags: List[str] = []
@@ -661,14 +670,19 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             if f_info.get("glossaryTerms") and f_info["glossaryTerms"].get("terms"):
                 field_terms = [t["term"]["name"] for t in f_info["glossaryTerms"]["terms"] if t.get("term")]
 
-            type_display = native_type or field_type
-            col_str = f"Column: {field_name} ({type_display})"
-            if field_desc:
-                col_str += f" - {field_desc}"
+            col_meta: List[str] = []
             if field_tags:
-                col_str += f" [Tags: {', '.join(field_tags)}]"
+                col_meta.extend(field_tags)
             if field_terms:
-                col_str += f" [Terms: {', '.join(field_terms)}]"
+                col_meta.extend(field_terms)
+
+            if field_desc:
+                col_str = f"{field_name}: {field_desc.strip()}"
+            else:
+                col_str = field_name
+
+            if col_meta:
+                col_str += f" ({', '.join(col_meta)})"
 
             column_texts.append(col_str)
 
@@ -696,9 +710,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 })
             return chunks
 
-        prefix = header_text + "\nColumns:\n" if self.config.chunking.include_header_in_every_chunk else ""
+        prefix = header_text + "\n" if self.config.chunking.include_header_in_every_chunk else ""
         if len(prefix) > max_chars // 2:
-            prefix = prefix[: max_chars // 2] + "...\nColumns:\n"
+            prefix = prefix[: max_chars // 2] + "...\n"
 
         base_len = len(prefix)
         max_content_len = max(100, max_chars - base_len)
@@ -767,10 +781,11 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
         embedding_chunks: List[EmbeddingChunkClass] = []
         for i, (chunk, vector) in enumerate(zip(chunks, embeddings)):
+            rounded_vector = [round(float(v), 5) for v in vector]
             embedding_chunks.append(
                 EmbeddingChunkClass(
                     position=i,
-                    vector=vector,
+                    vector=rounded_vector,
                     characterOffset=chunk.get("character_offset", 0),
                     characterLength=chunk.get("character_length", len(chunk["text"])),
                     text=chunk.get("text"),
