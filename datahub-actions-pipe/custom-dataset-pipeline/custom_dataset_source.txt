@@ -536,6 +536,36 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                           }
                         }
                       }
+                      schemaFieldEntity {
+                        structuredProperties {
+                          properties {
+                            structuredProperty {
+                              definition {
+                                displayName
+                                qualifiedName
+                              }
+                            }
+                            values {
+                              ... on StringValue {
+                                stringValue
+                              }
+                              ... on NumberValue {
+                                numberValue
+                              }
+                            }
+                            valueEntities {
+                              urn
+                              type
+                              ... on CorpUser {
+                                username
+                              }
+                              ... on GlossaryTerm {
+                                name
+                              }
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                   tags {
@@ -549,6 +579,34 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                     terms {
                       term {
                         name
+                      }
+                    }
+                  }
+                  structuredProperties {
+                    properties {
+                      structuredProperty {
+                        definition {
+                          displayName
+                          qualifiedName
+                        }
+                      }
+                      values {
+                        ... on StringValue {
+                          stringValue
+                        }
+                        ... on NumberValue {
+                          numberValue
+                        }
+                      }
+                      valueEntities {
+                        urn
+                        type
+                        ... on CorpUser {
+                          username
+                        }
+                        ... on GlossaryTerm {
+                          name
+                        }
                       }
                     }
                   }
@@ -638,9 +696,35 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
         return False
 
-    def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str]]:
+    def _extract_structured_properties(self, props_container: Optional[Dict[str, Any]]) -> List[str]:
+        """Extract structured property values only (omitting property names for compactness)."""
+        if not props_container or not props_container.get("properties"):
+            return []
 
-        """Synthesize rich structured text elements from dataset metadata and schema fields."""
+        result: List[str] = []
+        for prop in props_container.get("properties", []):
+            vals: List[str] = []
+            for v in prop.get("values", []) or []:
+                if "stringValue" in v and v["stringValue"]:
+                    vals.append(str(v["stringValue"]))
+                elif "numberValue" in v and v["numberValue"] is not None:
+                    vals.append(str(v["numberValue"]))
+
+            for entity in prop.get("valueEntities", []) or []:
+                if entity.get("username"):
+                    vals.append(str(entity["username"]))
+                elif entity.get("name"):
+                    vals.append(str(entity["name"]))
+
+            for val in vals:
+                clean_val = str(val).strip()
+                if clean_val and clean_val not in result:
+                    result.append(clean_val)
+
+        return result
+
+    def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str]]:
+        """Synthesize rich structured text elements from dataset metadata, schema fields, and structured properties."""
         urn = dataset.get("urn", "")
         name = dataset.get("name", "")
         platform = dataset.get("platform", {}).get("name", "")
@@ -662,7 +746,10 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         if dataset.get("glossaryTerms") and dataset["glossaryTerms"].get("terms"):
             terms = [t["term"]["name"] for t in dataset["glossaryTerms"]["terms"] if t.get("term")]
 
-        # Header summary block (compact: [table | platform] description (tags))
+        # Structured Properties (Dataset level)
+        struct_props = self._extract_structured_properties(dataset.get("structuredProperties"))
+
+        # Header summary block (compact: [table | platform] description (tags, terms, structured_property_values))
         header_parts: List[str] = []
         if platform:
             header_parts.append(f"[{name} | {platform}]")
@@ -680,13 +767,15 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             metadata_tags.extend(tags)
         if terms:
             metadata_tags.extend(terms)
+        if struct_props:
+            metadata_tags.extend(struct_props)
 
         if metadata_tags:
             header_parts.append(f"({', '.join(metadata_tags)})")
 
         header_text = " ".join(header_parts)
 
-        # Column schema blocks (clean: name: description (tags))
+        # Column schema blocks (clean: name: description (tags) {properties})
         column_texts: List[str] = []
         schema_metadata = dataset.get("schemaMetadata")
         fields_list = schema_metadata.get("fields", []) if schema_metadata else []
@@ -703,11 +792,17 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             if f_info.get("glossaryTerms") and f_info["glossaryTerms"].get("terms"):
                 field_terms = [t["term"]["name"] for t in f_info["glossaryTerms"]["terms"] if t.get("term")]
 
+            col_struct_props: List[str] = []
+            if f_info.get("schemaFieldEntity") and f_info["schemaFieldEntity"].get("structuredProperties"):
+                col_struct_props = self._extract_structured_properties(f_info["schemaFieldEntity"]["structuredProperties"])
+
             col_meta: List[str] = []
             if field_tags:
                 col_meta.extend(field_tags)
             if field_terms:
                 col_meta.extend(field_terms)
+            if col_struct_props:
+                col_meta.extend(col_struct_props)
 
             if field_desc:
                 col_str = f"{field_name}: {field_desc.strip()}"
