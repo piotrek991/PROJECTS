@@ -82,12 +82,16 @@ class ChunkingConfig(ConfigModel):
     """Text chunking parameters for datasets."""
 
     max_characters: int = Field(
-        default=500,
-        description="Target maximum characters per chunk (e.g. 500 chars)",
+        default=800,
+        description="Target maximum characters per chunk (default 800 chars, safe upper bound)",
+    )
+    max_tokens: int = Field(
+        default=450,
+        description="Target maximum tokens per chunk (default 450 tokens, safely below 512 model limit)",
     )
     include_header_in_every_chunk: bool = Field(
         default=True,
-        description="If true, prepends the dataset summary header to each column chunk so context is preserved.",
+        description="If true, prepends the dataset summary anchor to each column chunk so entity context is preserved.",
     )
 
 
