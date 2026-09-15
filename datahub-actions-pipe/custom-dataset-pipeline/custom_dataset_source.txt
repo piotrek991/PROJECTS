@@ -1,3 +1,16 @@
+"""Custom Dataset Semantic Ingestion Source.
+
+This source:
+1. Fetches Dataset entities and their schema metadata from DataHub.
+2. Formats a rich semantic text representation (descriptions, column definitions, tags, terms).
+3. Chunks the synthesized text while preserving column boundaries.
+4. Generates embeddings using the configured or auto-discovered embedding provider.
+5. Emits SemanticContent aspects (first-class metadata) to DataHub GMS.
+6. Tracks incremental state via:
+   - Tier 1: DataHub Server-Side Checkpointing (Stateful Ingestion)
+   - Tier 2: Local JSON State File (CLI fallback)
+"""
+
 import fnmatch
 import hashlib
 import json
@@ -121,7 +134,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         self.config = config
         self.report: DatasetSemanticReport = DatasetSemanticReport()
 
-        # 1. Initialize Tier 1: Stateful Ingestion Handler (Server-Side Checkpoints in GMS)
         self.state_handler: Optional[DatasetChunkingStateHandler] = (
             DatasetChunkingStateHandler(
                 source=self,
@@ -133,7 +145,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             else None
         )
 
-        # 2. Initialize DataHubGraph connection
         if ctx.graph:
             self.graph = ctx.graph
         else:
@@ -145,11 +156,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             )
             self.graph = DataHubGraph(config=graph_config)
 
-        # 3. Auto-discover or resolve embedding provider configuration
         self.resolved_embedding_config = self._resolve_embedding_config(config.embedding)
         self.embedding_provider = self._init_embedding_provider(self.resolved_embedding_config)
 
-        # 4. Initialize Tier 2: Local JSON State File (Local CLI Fallback)
         self.dataset_state: Dict[str, Dict[str, Any]] = {}
         self.state_file_path: Optional[Path] = None
         if self.config.incremental.enabled and (
@@ -171,13 +180,11 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         """Fetch server embedding configuration from GMS if not explicitly overridden."""
         cfg = user_cfg.copy()
 
-        # If user explicitly specified provider and model, use them directly
         if cfg.provider and cfg.model:
             if not cfg.model_embedding_key:
                 cfg.model_embedding_key = re.sub(r"[^a-zA-Z0-9_]", "_", cfg.model)
             return cfg
 
-        # Otherwise, discover from GMS AppConfig API
         try:
             query = """
             query getSemanticConfig {
@@ -291,9 +298,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 timeout=timeout,
             )
 
-    # -------------------------------------------------------------------------
-    # Local State File Management (Tier 2 Fallback)
-    # -------------------------------------------------------------------------
     def _initialize_local_state_tracking(self) -> None:
         """Initialize local incremental state cache file."""
         if self.config.incremental.state_file_path:
@@ -325,9 +329,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             except Exception as e:
                 logger.warning(f"Failed to save local state file: {e}")
 
-    # -------------------------------------------------------------------------
-    # State Checking & Update Logic (Two-Tier)
-    # -------------------------------------------------------------------------
     def _get_processing_config_fingerprint(self) -> Dict[str, Any]:
         """Extract configuration values that affect embedding output artifacts.
 
@@ -358,14 +359,12 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
         current_hash = self._calculate_dataset_hash(text)
 
-        # Tier 1: Check Server-Side Stateful Ingestion Checkpoint
         if self.state_handler and self.state_handler.is_checkpointing_enabled():
             previous_hash = self.state_handler.get_dataset_hash(dataset_urn)
             if previous_hash is not None:
                 return previous_hash != current_hash
             return True
 
-        # Tier 2: Check Local State File
         if not self.config.incremental.enabled:
             return True
 
@@ -380,7 +379,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         content_hash = self._calculate_dataset_hash(text)
         last_processed = datetime.utcnow().isoformat()
 
-        # Tier 1: Update Server-Side Checkpoint
         if self.state_handler and self.state_handler.is_checkpointing_enabled():
             self.state_handler.update_dataset_state(
                 dataset_urn=dataset_urn,
@@ -388,16 +386,12 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 last_processed=last_processed,
             )
 
-        # Tier 2: Update Local State File
         if self.config.incremental.enabled:
             self.dataset_state[dataset_urn] = {
                 "content_hash": content_hash,
                 "last_processed": last_processed,
             }
 
-    # -------------------------------------------------------------------------
-    # Core Pipeline Execution
-    # -------------------------------------------------------------------------
     def get_workunits_internal(self) -> Iterable[MetadataWorkUnit]:
         """Main execution flow: stream datasets, chunk text, generate embeddings, and yield MCPs."""
         processed_count = 0
@@ -410,7 +404,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             urn = dataset["urn"]
             self.report.report_dataset_fetched()
 
-            # 1. Synthesize structured text representation
             header_text, column_texts, table_anchor = self._create_dataset_text_elements(dataset)
             combined_text = (header_text + " " + " ".join(column_texts)).strip()
 
@@ -419,18 +412,15 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 self.report.report_dataset_skipped_empty(urn)
                 continue
 
-            # 2. Check incremental state (Tier 1 Checkpoint or Tier 2 Local State)
             if not self._should_process_dataset(urn, combined_text):
                 logger.debug(f"Skipping {urn} (unchanged content hash)")
                 self.report.report_dataset_skipped_unchanged(urn)
                 continue
 
-            # 3. Split into semantic chunks
             chunks = self._chunk_dataset_elements(header_text, column_texts, table_anchor)
             if not chunks:
                 continue
 
-            # 4. Generate embeddings
             try:
                 embeddings = self._generate_embeddings(chunks)
             except Exception as e:
@@ -438,17 +428,14 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 logger.error(f"Failed to generate embeddings for {urn}: {e}", exc_info=True)
                 continue
 
-            # 5. Emit SemanticContent aspect
             yield from self._emit_semantic_content(urn, chunks, embeddings)
 
-            # 6. Update state
             self._update_dataset_state(urn, combined_text)
 
             processed_count += 1
             self.report.report_dataset_processed(urn, len(chunks))
             logger.info(f"✅ Processed dataset [{processed_count}]: {urn} ({len(chunks)} chunks, {len(embeddings)} vectors)")
 
-        # Save local state file if enabled and not in dry-run/preview mode
         is_dry_run = getattr(self.ctx, "dry_run_mode", False) or getattr(self.ctx, "dry_run", False) or getattr(self.ctx, "preview_mode", False)
         if self.config.incremental.enabled and not is_dry_run:
             self._save_local_state()
@@ -459,11 +446,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             self.config, "dataset_filter", None
         )
         
-        # Server-side search pushdown: if single specific pattern given, query GMS directly for it
         gql_search_query = "*"
         if patterns and len(patterns) == 1 and patterns[0]:
             raw_p = str(patterns[0]).strip()
-            # If not a broad wildcard, use clean keyword in GraphQL search query
             clean_search = raw_p.replace("*", "").replace("?", "").strip()
             if clean_search and len(clean_search) >= 2:
                 gql_search_query = clean_search
@@ -624,14 +609,12 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 for item in results:
                     entity = item.get("entity")
                     if entity:
-                        # Platform filter
                         plat_filter = getattr(self.config, "platform_filter", None)
                         if plat_filter:
                             plat = entity.get("platform", {}).get("name", "").lower()
                             if plat not in [p.lower() for p in plat_filter]:
                                 continue
 
-                        # Dataset name / URN filter
                         if not self._matches_dataset_filter(entity):
                             self.report.report_dataset_skipped_filter(entity.get("urn"))
                             continue
@@ -665,19 +648,15 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 continue
             p = str(pattern).strip().lower()
 
-            # Wildcard '*' matches everything
             if p == "*":
                 return True
 
-            # Exact matches (case-insensitive)
             if p == urn or p == name or (prop_name and p == prop_name):
                 return True
 
-            # Wildcard fnmatch (case-insensitive)
             if fnmatch.fnmatch(urn, p) or fnmatch.fnmatch(name, p) or (prop_name and fnmatch.fnmatch(prop_name, p)):
                 return True
 
-            # Substring match (stripping wildcards for natural substring search)
             clean_p = p.replace("*", "").replace("?", "").strip()
             if clean_p and (clean_p in urn or clean_p in name or (prop_name and clean_p in prop_name)):
                 return True
@@ -707,7 +686,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 elif entity.get("username"):
                     vals.append(str(entity["username"]).strip())
 
-            # Filter unique non-empty values
             unique_vals = [v for i, v in enumerate(vals) if v and v not in vals[:i]]
             if unique_vals:
                 joined_vals = ", ".join(unique_vals)
@@ -726,7 +704,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         """
         if not text:
             return 0
-        # Match words, numbers, and individual punctuation marks
         tokens = re.findall(r"[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9_]+|[^\w\s]", text)
         count = 0
         for tok in tokens:
@@ -737,7 +714,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 count += max(1, (len(tok) + 3) // 4)
             else:
                 count += 1
-        # 10% safety margin + 2 special tokens (<s>, </s>)
         return int(count * 1.1) + 2
 
     def _is_within_limits(self, text: str) -> bool:
@@ -760,10 +736,8 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         name = dataset.get("name", "")
         platform = dataset.get("platform", {}).get("name", "")
 
-        # Base entity anchor
         base_name_anchor = f"Tabela {name} w {platform}." if platform else f"Tabela {name}."
 
-        # Description: editable (UI) overrides original
         desc = ""
         editable_props = dataset.get("editableProperties")
         if editable_props and editable_props.get("description"):
@@ -771,7 +745,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         elif dataset.get("properties") and dataset["properties"].get("description"):
             desc = dataset["properties"]["description"]
 
-        # Concise contextual anchor for subsequent column chunks (Chunks 1..N)
         clean_desc = desc.strip()
         if clean_desc:
             if len(clean_desc) <= 250:
@@ -788,7 +761,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         else:
             table_anchor = base_name_anchor
 
-        # Tags & Terms
         tags: List[str] = []
         if dataset.get("tags") and dataset["tags"].get("tags"):
             tags = [t["tag"]["name"] for t in dataset["tags"]["tags"] if t.get("tag")]
@@ -797,10 +769,8 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         if dataset.get("glossaryTerms") and dataset["glossaryTerms"].get("terms"):
             terms = [t["term"]["name"] for t in dataset["glossaryTerms"]["terms"] if t.get("term")]
 
-        # Structured Properties (Dataset level)
         struct_props = self._extract_structured_properties(dataset.get("structuredProperties"))
 
-        # Build clean natural overview (Chunk 0)
         overview_parts: List[str] = [base_name_anchor]
         if desc:
             overview_parts.append(desc.strip())
@@ -813,7 +783,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
 
         header_text = " ".join(overview_parts).strip()
 
-        # Extract only valuable columns (omitting columns with no description, tags, or terms)
         column_texts: List[str] = []
         schema_metadata = dataset.get("schemaMetadata")
         fields_list = schema_metadata.get("fields", []) if schema_metadata else []
@@ -834,7 +803,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             if f_info.get("schemaFieldEntity") and f_info["schemaFieldEntity"].get("structuredProperties"):
                 col_struct_props = self._extract_structured_properties(f_info["schemaFieldEntity"]["structuredProperties"])
 
-            # Omit columns that have NO descriptions, tags, terms, or structured properties
             if not (field_desc or field_tags or field_terms or col_struct_props):
                 continue
 
@@ -864,7 +832,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         max_tokens = getattr(self.config.chunking, "max_tokens", 450)
         chunks: List[Dict[str, Any]] = []
 
-        # Optimization: If header + all valuable columns fit in 1 single chunk, emit as 1 complete chunk
         if column_texts:
             full_combined = f"{header_text} {' '.join(column_texts)}".strip()
             if self._is_within_limits(full_combined):
@@ -875,7 +842,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 })
                 return chunks
 
-        # Chunk 0: Dedicated Table Overview
         if self._is_within_limits(header_text):
             chunks.append({
                 "text": header_text,
@@ -883,7 +849,6 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 "character_length": len(header_text),
             })
         else:
-            # If overview itself exceeds limits, split into clean character/token slices
             for offset in range(0, len(header_text), max_chars):
                 sub = header_text[offset : offset + max_chars].strip()
                 if sub:
@@ -893,10 +858,10 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                         "character_length": len(sub),
                     })
 
+        max_chunks = getattr(self.config.chunking, "max_chunks_per_dataset", None)
         if not column_texts:
-            return chunks[:15]
+            return chunks[:max_chunks] if max_chunks else chunks
 
-        # Chunks 1..N: Group valuable columns into natural sentence blocks
         anchor_prefix = table_anchor if self.config.chunking.include_header_in_every_chunk else ""
         current_block: List[str] = [anchor_prefix] if anchor_prefix else []
         chunk_offset = sum(len(c["text"]) for c in chunks)
@@ -924,10 +889,9 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 "character_length": len(full_chunk_text),
             })
 
-        # Cap maximum chunks per dataset to 15 (safeguard against Kafka message size limits)
-        if len(chunks) > 15:
-            logger.info(f"Capping dataset chunks from {len(chunks)} to 15")
-            chunks = chunks[:15]
+        if max_chunks and len(chunks) > max_chunks:
+            logger.info(f"Capping dataset chunks from {len(chunks)} to {max_chunks}")
+            chunks = chunks[:max_chunks]
 
         return chunks
 
