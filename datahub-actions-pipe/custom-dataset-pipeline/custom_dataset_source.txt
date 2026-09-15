@@ -351,6 +351,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             "model": self.resolved_embedding_config.model,
             "provider": self.resolved_embedding_config.provider,
             "max_characters": self.config.chunking.max_characters,
+            "max_tokens": getattr(self.config.chunking, "max_tokens", 450),
             "include_header": self.config.chunking.include_header_in_every_chunk,
         }
 
@@ -423,8 +424,8 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             self.report.report_dataset_fetched()
 
             # 1. Synthesize structured text representation
-            header_text, column_texts = self._create_dataset_text_elements(dataset)
-            combined_text = header_text + "\n" + "\n".join(column_texts)
+            header_text, column_texts, table_anchor = self._create_dataset_text_elements(dataset)
+            combined_text = (header_text + " " + " ".join(column_texts)).strip()
 
             if len(combined_text.strip()) < self.config.min_text_length:
                 logger.debug(f"Skipping {urn} (text content too short: {len(combined_text)} chars)")
@@ -438,7 +439,7 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
                 continue
 
             # 3. Split into semantic chunks
-            chunks = self._chunk_dataset_elements(header_text, column_texts)
+            chunks = self._chunk_dataset_elements(header_text, column_texts, table_anchor)
             if not chunks:
                 continue
 
@@ -697,37 +698,83 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         return False
 
     def _extract_structured_properties(self, props_container: Optional[Dict[str, Any]]) -> List[str]:
-        """Extract structured property values only (omitting property names for compactness)."""
+        """Extract structured property key-value pairs (displayName/qualifiedName: value)."""
         if not props_container or not props_container.get("properties"):
             return []
 
         result: List[str] = []
         for prop in props_container.get("properties", []):
+            prop_def = (prop.get("structuredProperty") or {}).get("definition") or {}
+            prop_name = (prop_def.get("displayName") or prop_def.get("qualifiedName") or "").strip()
+
             vals: List[str] = []
             for v in prop.get("values", []) or []:
                 if "stringValue" in v and v["stringValue"]:
-                    vals.append(str(v["stringValue"]))
+                    vals.append(str(v["stringValue"]).strip())
                 elif "numberValue" in v and v["numberValue"] is not None:
-                    vals.append(str(v["numberValue"]))
+                    vals.append(str(v["numberValue"]).strip())
 
             for entity in prop.get("valueEntities", []) or []:
-                if entity.get("username"):
-                    vals.append(str(entity["username"]))
-                elif entity.get("name"):
-                    vals.append(str(entity["name"]))
+                if entity.get("name"):
+                    vals.append(str(entity["name"]).strip())
+                elif entity.get("username"):
+                    vals.append(str(entity["username"]).strip())
 
-            for val in vals:
-                clean_val = str(val).strip()
-                if clean_val and clean_val not in result:
-                    result.append(clean_val)
+            # Filter unique non-empty values
+            unique_vals = [v for i, v in enumerate(vals) if v and v not in vals[:i]]
+            if unique_vals:
+                joined_vals = ", ".join(unique_vals)
+                if prop_name:
+                    result.append(f"{prop_name}: {joined_vals}")
+                else:
+                    result.append(joined_vals)
 
         return result
 
-    def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str]]:
-        """Synthesize rich structured text elements from dataset metadata, schema fields, and structured properties."""
-        urn = dataset.get("urn", "")
+    def _estimate_token_count(self, text: str) -> int:
+        """Accurately estimate token count for BPE/RoBERTa tokenizers (MMLW/E5).
+        
+        Guarantees safe budget allocation under the 512-token model limit without
+        requiring heavy external dependencies.
+        """
+        if not text:
+            return 0
+        # Match words, numbers, and individual punctuation marks
+        tokens = re.findall(r"[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ0-9_]+|[^\w\s]", text)
+        count = 0
+        for tok in tokens:
+            if "_" in tok:
+                parts = [p for p in tok.split("_") if p]
+                count += len(parts) + (len(tok) - len("".join(parts)))
+            elif tok.isalnum():
+                count += max(1, (len(tok) + 3) // 4)
+            else:
+                count += 1
+        # 10% safety margin + 2 special tokens (<s>, </s>)
+        return int(count * 1.1) + 2
+
+    def _is_within_limits(self, text: str) -> bool:
+        """Check if text satisfies both character limit and token limit."""
+        max_chars = self.config.chunking.max_characters
+        max_tokens = getattr(self.config.chunking, "max_tokens", 450)
+        if len(text) > max_chars:
+            return False
+        return self._estimate_token_count(text) <= max_tokens
+
+    def _create_dataset_text_elements(self, dataset: Dict[str, Any]) -> Tuple[str, List[str], str]:
+        """Synthesize clean natural language text elements from dataset metadata.
+        
+        Chunk 0 focuses on pure business context (table name, platform, full business
+        description, tags, glossary terms, domain, owners).
+        
+        Column elements only include valuable columns (those with descriptions, tags,
+        terms, or structured properties), eliminating bare undocumented column noise.
+        """
         name = dataset.get("name", "")
         platform = dataset.get("platform", {}).get("name", "")
+
+        # Base entity anchor
+        base_name_anchor = f"Tabela {name} w {platform}." if platform else f"Tabela {name}."
 
         # Description: editable (UI) overrides original
         desc = ""
@@ -736,6 +783,23 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             desc = editable_props["description"]
         elif dataset.get("properties") and dataset["properties"].get("description"):
             desc = dataset["properties"]["description"]
+
+        # Concise contextual anchor for subsequent column chunks (Chunks 1..N)
+        clean_desc = desc.strip()
+        if clean_desc:
+            if len(clean_desc) <= 250:
+                short_desc = clean_desc
+            else:
+                first_sent = clean_desc.split(".")[0].strip()
+                if 20 <= len(first_sent) <= 250:
+                    short_desc = f"{first_sent}."
+                else:
+                    short_desc = clean_desc[:250].rsplit(" ", 1)[0].strip()
+            if not short_desc.endswith("."):
+                short_desc += "."
+            table_anchor = f"{base_name_anchor} {short_desc}"
+        else:
+            table_anchor = base_name_anchor
 
         # Tags & Terms
         tags: List[str] = []
@@ -749,40 +813,27 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
         # Structured Properties (Dataset level)
         struct_props = self._extract_structured_properties(dataset.get("structuredProperties"))
 
-        # Header summary block (compact: [table | platform] description (tags, terms, structured_property_values))
-        header_parts: List[str] = []
-        if platform:
-            header_parts.append(f"[{name} | {platform}]")
-        else:
-            header_parts.append(f"[{name}]")
-
+        # Build clean natural overview (Chunk 0)
+        overview_parts: List[str] = [base_name_anchor]
         if desc:
-            clean_desc = desc.strip()
-            if len(clean_desc) > 350:
-                clean_desc = clean_desc[:350] + "..."
-            header_parts.append(clean_desc)
-
-        metadata_tags: List[str] = []
+            overview_parts.append(desc.strip())
         if tags:
-            metadata_tags.extend(tags)
+            overview_parts.append(f"Tagi: {', '.join(tags)}.")
         if terms:
-            metadata_tags.extend(terms)
+            overview_parts.append(f"Pojęcia: {', '.join(terms)}.")
         if struct_props:
-            metadata_tags.extend(struct_props)
+            overview_parts.append(". ".join(struct_props) + ".")
 
-        if metadata_tags:
-            header_parts.append(f"({', '.join(metadata_tags)})")
+        header_text = " ".join(overview_parts).strip()
 
-        header_text = " ".join(header_parts)
-
-        # Column schema blocks (clean: name: description (tags) {properties})
+        # Extract only valuable columns (omitting columns with no description, tags, or terms)
         column_texts: List[str] = []
         schema_metadata = dataset.get("schemaMetadata")
         fields_list = schema_metadata.get("fields", []) if schema_metadata else []
 
         for f_info in fields_list:
             field_name = f_info.get("fieldPath", "")
-            field_desc = f_info.get("description", "")
+            field_desc = (f_info.get("description") or "").strip()
 
             field_tags: List[str] = []
             if f_info.get("tags") and f_info["tags"].get("tags"):
@@ -796,87 +847,90 @@ class DatasetSemanticSource(StatefulIngestionSourceBase):
             if f_info.get("schemaFieldEntity") and f_info["schemaFieldEntity"].get("structuredProperties"):
                 col_struct_props = self._extract_structured_properties(f_info["schemaFieldEntity"]["structuredProperties"])
 
-            col_meta: List[str] = []
-            if field_tags:
-                col_meta.extend(field_tags)
-            if field_terms:
-                col_meta.extend(field_terms)
-            if col_struct_props:
-                col_meta.extend(col_struct_props)
+            # Omit columns that have NO descriptions, tags, terms, or structured properties
+            if not (field_desc or field_tags or field_terms or col_struct_props):
+                continue
 
+            col_parts: List[str] = []
+            clean_field_name = field_name.replace("_", " ") if "_" in field_name else field_name
             if field_desc:
-                col_str = f"{field_name}: {field_desc.strip()}"
+                col_parts.append(f"{clean_field_name}: {field_desc}.")
             else:
-                col_str = field_name
+                col_parts.append(f"{clean_field_name}.")
 
-            if col_meta:
-                col_str += f" ({', '.join(col_meta)})"
+            if field_tags:
+                col_parts.append(f"Tagi: {', '.join(field_tags)}.")
+            if field_terms:
+                col_parts.append(f"Pojęcia: {', '.join(field_terms)}.")
+            if col_struct_props:
+                col_parts.append(". ".join(col_struct_props) + ".")
 
-            column_texts.append(col_str)
+            column_texts.append(" ".join(col_parts))
 
-        return header_text, column_texts
+        return header_text, column_texts, table_anchor
 
-    def _chunk_dataset_elements(self, header_text: str, column_texts: List[str]) -> List[Dict[str, Any]]:
-        """Group header and column blocks into chunks that strictly respect maximum character limits."""
+    def _chunk_dataset_elements(
+        self, header_text: str, column_texts: List[str], table_anchor: str
+    ) -> List[Dict[str, Any]]:
+        """Group header and column blocks into token-validated, natural language chunks."""
         max_chars = self.config.chunking.max_characters
+        max_tokens = getattr(self.config.chunking, "max_tokens", 450)
         chunks: List[Dict[str, Any]] = []
 
-        if not column_texts:
-            if len(header_text) > max_chars:
-                for offset in range(0, len(header_text), max_chars):
-                    sub = header_text[offset : offset + max_chars]
+        # Optimization: If header + all valuable columns fit in 1 single chunk, emit as 1 complete chunk
+        if column_texts:
+            full_combined = f"{header_text} {' '.join(column_texts)}".strip()
+            if self._is_within_limits(full_combined):
+                chunks.append({
+                    "text": full_combined,
+                    "character_offset": 0,
+                    "character_length": len(full_combined),
+                })
+                return chunks
+
+        # Chunk 0: Dedicated Table Overview
+        if self._is_within_limits(header_text):
+            chunks.append({
+                "text": header_text,
+                "character_offset": 0,
+                "character_length": len(header_text),
+            })
+        else:
+            # If overview itself exceeds limits, split into clean character/token slices
+            for offset in range(0, len(header_text), max_chars):
+                sub = header_text[offset : offset + max_chars].strip()
+                if sub:
                     chunks.append({
                         "text": sub,
                         "character_offset": offset,
                         "character_length": len(sub),
                     })
-            else:
-                chunks.append({
-                    "text": header_text,
-                    "character_offset": 0,
-                    "character_length": len(header_text),
-                })
+
+        if not column_texts:
             return chunks[:15]
 
-        prefix = header_text + "\n" if self.config.chunking.include_header_in_every_chunk else ""
-        if len(prefix) > max_chars // 2:
-            prefix = prefix[: max_chars // 2] + "...\n"
+        # Chunks 1..N: Group valuable columns into natural sentence blocks
+        anchor_prefix = table_anchor if self.config.chunking.include_header_in_every_chunk else ""
+        current_block: List[str] = [anchor_prefix] if anchor_prefix else []
+        chunk_offset = sum(len(c["text"]) for c in chunks)
 
-        base_len = len(prefix)
-        max_content_len = max(100, max_chars - base_len)
-
-        current_block: List[str] = []
-        current_len = 0
-        chunk_offset = 0
-
-        # Split oversized columns if an individual column exceeds max_content_len
-        sanitized_columns: List[str] = []
         for col in column_texts:
-            if len(col) > max_content_len:
-                for sub_offset in range(0, len(col), max_content_len):
-                    sanitized_columns.append(col[sub_offset : sub_offset + max_content_len])
-            else:
-                sanitized_columns.append(col)
-
-        for col in sanitized_columns:
-            col_len = len(col) + 1  # newline
-
-            if current_len + col_len > max_content_len and current_block:
-                full_chunk_text = prefix + "\n".join(current_block)
+            candidate_text = " ".join(current_block + [col]).strip()
+            
+            if not self._is_within_limits(candidate_text) and len(current_block) > (1 if anchor_prefix else 0):
+                full_chunk_text = " ".join(current_block).strip()
                 chunks.append({
                     "text": full_chunk_text,
                     "character_offset": chunk_offset,
                     "character_length": len(full_chunk_text),
                 })
                 chunk_offset += len(full_chunk_text)
-                current_block = []
-                current_len = 0
+                current_block = [anchor_prefix] if anchor_prefix else []
 
             current_block.append(col)
-            current_len += col_len
 
-        if current_block:
-            full_chunk_text = prefix + "\n".join(current_block)
+        if len(current_block) > (1 if anchor_prefix else 0):
+            full_chunk_text = " ".join(current_block).strip()
             chunks.append({
                 "text": full_chunk_text,
                 "character_offset": chunk_offset,
